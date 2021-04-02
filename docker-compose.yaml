@@ -1,0 +1,30 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12.1
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: devpassword
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./api/config:/app/config
+      - ./api/src:/app/src
+      - ./api/test:/app/test
+    ports:
+      - '3000:3000'
+  react:
+    build:
+      context: ./react
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./react:/app
+    ports:
+      - '8080:8080'
