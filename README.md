@@ -38,7 +38,7 @@ When you want to stop the docker containers, either to rebuild with new dependen
 npm run docker:down
 ```
 
-### Other Commands
+### Logs
 
 If you wish to see the terminal outputs from all of the containers, you can run
 
@@ -56,27 +56,40 @@ npm run docker:logs:CONTAINER_NAME
 
 This will attach your terminal output to the terminal output from that specific container (see below for all of the containers that are being created).
 
+### Interactive database shells
+
+Because the database containers do not expose their ports to the host machine, you cannot simply use `mongo` or `psql` to connect to the interactive shells.
+
+Instead, you can connect to the interactive shells with `npm run docker:mongo` and `npm run docker:postgres`.
+
 ## About the Docker Containers
 
-- api
-  A node.js image running the backend API. Defaults to running on port 3000. By default, will run `npm run dev` from the api `package.json`
-  which will in turn execute `nodemon src/index.js`
+### api
 
-  This will automatically restart the server on file changes.
+A node.js image running the backend API. Defaults to running on port 3000. By default, will run `npm run dev` from the api `package.json`
+which will in turn execute `nodemon src/index.js`
 
-- react
-  A node.js image, with webpack, live and 'hot' reloading enabled. Defaults to running on port 8080. By default, will run `npm run dev` from the react `package.json`
-  which will in turn execute `webpack serve`. Look into the `react/webpack.config.js` file for more information on what exact functionality is included here, but in general:
+This will automatically restart the server on file changes.
 
-  - a live dev server, with 'hot' reloading enabled
-  - babel transpiling
-  - the ability to pull environment variables (via `process.env.VARIABLE_NAME`) from a `.env` file located in the `react` folder.
-  - TailwindCSS processing
-  - Auto generation of an index.html file with necessary script/link tags in the header for loading scripts and css files
-  - Auto minification and splitting of css and js files (in production builds)
+### react
 
-- postgres
-  A postgres image, with the database being copied into the `postgres/data` folder, for persistence between builds.
+A node.js image, with webpack, live and 'hot' reloading enabled. Defaults to running on port 8080. By default, will run `npm run dev` from the react `package.json`
+which will in turn execute `webpack serve`. Look into the `react/webpack.config.js` file for more information on what exact functionality is included here, but in general:
+
+- a live dev server, with 'hot' reloading enabled
+- babel transpiling
+- the ability to pull environment variables (via `process.env.VARIABLE_NAME`) from a `.env` file located in the `react` folder.
+- TailwindCSS processing
+- Auto generation of an index.html file with necessary script/link tags in the header for loading scripts and css files
+- Auto minification and splitting of css and js files (in production builds)
+
+### postgres
+
+A postgres image, with the database being copied into the `postgres/data` folder, for data persistence between builds.
+
+### mongo
+
+A mongo image, with the database being copied into the `mongo/data` folder, for data persistence between builds
 
 ## Development Do's and Dont's
 
