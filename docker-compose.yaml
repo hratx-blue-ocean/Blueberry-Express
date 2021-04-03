@@ -1,13 +1,19 @@
-version: '3'
+version: "3"
 services:
   postgres:
     image: postgres:13.2
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: devpassword
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
+  mongo:
+    image: mongo:3
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo/data:/data/db
   api:
     build:
       context: ./api
@@ -18,7 +24,7 @@ services:
       - ./api/src:/app/src
       - ./api/test:/app/test
     ports:
-      - '3000:3000'
+      - "3000:3000"
   react:
     build:
       context: ./react
@@ -27,4 +33,4 @@ services:
       - /app/node_modules
       - ./react:/app
     ports:
-      - '8080:8080'
+      - "8080:8080"
