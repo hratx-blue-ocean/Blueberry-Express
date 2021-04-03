@@ -6,8 +6,9 @@ _NOTE: This document is a work in progress, and the API specifications may chang
 
 - [Overview](#1-overview)
 - [Authentication](#2-authentication-routes-auth)
-  - [GET /auth/](#21-get)
-  - [GET /auth/google](#22-get)
+  - [GET /auth/](#21-get-auth)
+  - [DELETE /auth/](#22-delete-auth)
+  - [GET /auth/google](#22-get-auth-google)
 
 ## 1. Overview
 
