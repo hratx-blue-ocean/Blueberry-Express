@@ -10,7 +10,10 @@
     "docker:logs": "docker-compose logs -f",
     "docker:logs:api": "docker-compose logs -f api",
     "docker:logs:postgres": "docker-compose logs -f postgres",
-    "docker:logs:react": "docker-compose logs -f react"
+    "docker:logs:react": "docker-compose logs -f react",
+    "docker:logs:mongo": "docker-compose logs -f mongo",
+    "docker:mongo": "docker-compose exec mongo mongo",
+    "docker:postgres": "docker-compose exec postgres psql -U postgres" 
   },
   "repository": {
     "type": "git",
