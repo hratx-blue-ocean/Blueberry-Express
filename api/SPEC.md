@@ -9,9 +9,41 @@ _NOTE: this document is a work in progress, and the API specifications may chang
   - [Authentication Process](#21-authentication-process)
   - [JWT Structure](#22-jwt-structure)
 - [Users](#3-users-users)
-  - [Availability](#31-availability)
-    - [GET `/users/{userId}/availability](#get-usersuseridavailability)
+  - [Initializing Users](#31-initializing-users)
+    - [`PUT /users/{userId/type}`](#put-usersuseridtype)
+    - [`PUT /users/{userId}/languages`](#put-usersuseridlanguages)
+  - [Fetching Users](#32-fetching-users)
+    - [`GET /users/{userId}`](#get-usersuserid)
+  - [Availability](#33-availability)
+    - [`GET /users/{userId}/availability](#get-usersuseridavailability)
+    - [`POST /users/availability`](#post-usersavailability)
 - [Appointments](#4-appointments-appointments)
+  - [Fetching Appointments](#41-fetching-appointments)
+    - [`GET /appointments`](#get-appointments)
+    - [`GET /appointments/pending`](#get-appointmentspending)
+    - [`GET /appointments/requested`](#get-appointmentsrequested)
+    - [`GET /appointments/rejected`](#get-appointmentsrejected)
+    - [`GET /appointments/available`](#get-appointmentsavailable)
+  - [Setting Appointments](#42-settings-appointments)
+    - [`POST /appointments`](#post-appointments)
+  - [Approving/Rejecting Appointments](#43-approvingrejecting-appointments)
+    - [`PUT /appointments/{appointmentId}`](#put-appointmentsappointmentid)
+  - [Deleting Appointments](#44-deleting-appointments)
+    - [`DELETE /appointments/{appointmentId}](#delete-appointmentsappointmentid)
+- [Messages](#5-messages)
+  - [Fetching Messages](#51-fetching-messages)
+    - [`GET /messages/`](#get-messages)
+    - [`GET /messages/unread`](#get-messagesunread)
+    - [`GET /messages/sent`](#get-messagessent)
+    - [`GET /messages/{messageId}](#get-messagesmessageid)
+  - [Sending Messages](#52-sending-messages)
+    - [`POST /messages`](#post-messages)
+- [Languages](#6-languages)
+  - [Fetching Languages](#61-fetching-languages)
+    - [`GET /languages/`](#get-languages)
+  - [Fetching Users Associated with a Language](#62-fetching-users-associated-with-a-language)
+    - [`GET /languages/{languageId}/teachers`](#get-languageslanguageidteachers)
+    - [`GET /languages/{languageid}/students`](#get-languageslanguageidstudents)
 
 ## 1. Overview
 
@@ -51,15 +83,31 @@ The working plan for the JWTs is simply as follows:
 | token         | The current authorization token from google                        |
 | refresh_token | The refresh token from google                                      |
 
-## 3. Users: '/users'
+## 3. Users: `/users`
 
 _Something of note here: You won't find an endpoint to create a user. That process is handled by the authentication system set up above. However, there are endpoints to *update* users, once authenticated._
 
 TODO: Determine the complete structure of the 'user' endpoint
 
-### 3.1 Availability
+### 3.1 Initializing Users
 
-#### GET '/users/{userId}/availability
+After a user logs in with google, we still need some information from them before they can use our service. If the following requests aren't made, the user will not be authorized to access any of the API methods below.
+
+#### `PUT /users/{userId}/type`
+
+This request can only be made once per user, and cannot be modified afterwards.
+
+#### `PUT /users/{userId}/languages`
+
+This request has to be made once during user initialization, but can be sent again if the user chooses to modify the languages they are interested in.
+
+### 3.2 Fetching Users
+
+#### `GET /users/{userId}`
+
+### 3.3 Availability
+
+#### `GET /users/{userId}/availability`
 
 Returns an array of datetimes for which the specified user should be considered 'busy', either because of their availability settings or previous appointments. Times are relative to the current users' timezone, not the user being queried.
 
@@ -98,6 +146,8 @@ axios
 
 Response:
 
+_NOTE: This response data may not be accurate, and the values in the `start` and `end` fields could be (and likely will be) a string representation of the date, including timezone._
+
 ```json
 {
   "busy": [
@@ -113,4 +163,286 @@ Response:
 }
 ```
 
+#### `POST /users/availability`
+
+Sets the availability for the current user. Note that currently, this api only supports a weekly, recurring availability schedule.
+
+##### Parameters
+
+Paremeters should be sent as json in the request body. Note that the array of objects should match the format laid out [above](#get-usersuseridavailability) in the response section.
+| Field | Description |
+|---|---|
+| sunday | An array of 'busy' objects that indicate when the user is _not_ available on Sundays |
+| monday | An array of 'busy' objects that indicate when the user is _not_ available on Mondays |
+| tuesday | An array of 'busy' objects that indicate when the user is _not_ available on Tuesdays |
+| wednesday | An array of 'busy' objects that indicate when the user is _not_ available on Wednesdays |
+| thursday | An array of 'busy' objects that indicate when the user is _not_ available on Thursdays |
+| friday | An array of 'busy' objects that indicate when the user is _not_ available on Fridays |
+| saturday | An array of 'busy' objects that indicate when the user is _not_ available on Saturdays |
+
+##### Response codes
+
+| Code | Meaning                                                                                |
+| ---- | -------------------------------------------------------------------------------------- |
+| 204  | The request was processed successfully                                                 |
+| 400  | The request could not be processed. This information should be relayed to the end user |
+
 ## 4. Appointments: `/appointments/`
+
+### 4.1 Fetching Appointments
+
+#### `GET /appointments/`
+
+Fetches appointments scheduled for the current user, sorted by appointment time, with the closest first.
+This includes both pending and rejected appointments.
+
+##### Parameters
+
+| Field | Description                                                                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| start | The start of a given appointment block. Optional. Defaults to Date.now()                                                            |
+| end   | The end of a given appointment block. Optional. Defaults to one week from now                                                       |
+| count | The maximum number of appointments to return. Optional. Defaults to 10                                                              |
+| page  | If there is more than 'count' appointments in the time block, specifies the page of appointments to return. Optional. Defaults to 1 |
+
+##### Response Data
+
+| Field                 | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| count                 | The number of appointments returned                                                            |
+| totalCount            | The number of appointments that exist in the selected time block                               |
+| page                  |                                                                                                |
+| appointments          | An array of appointments in the given timeblock, sorted in ascending order based on start time |
+| appointments.with     | The user the appointment is scheduled with                                                     |
+| appointments.pending  | A boolean value representing whether or not the appointment is still pending                   |
+| appointments.approved | A boolean value representing whether or not the appointment was approved by the other user.    |
+| appointments.start    | The start time of the appointment                                                              |
+| appointments.end      | The end time of the appointment                                                                |
+| appointments.lang     | The language to be covered by the appointment                                                  |
+
+#### `GET /appointments/pending`
+
+Fetches appointments that are waiting _this_ users approval.
+
+##### Parameters
+
+| Field | Description                                                                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| start | The start of a given appointment block. Optional. Defaults to Date.now()                                                            |
+| end   | The end of a given appointment block. Optional. Defaults to one week from now                                                       |
+| count | The maximum number of appointments to return. Optional. Defaults to 10                                                              |
+| page  | If there is more than 'count' appointments in the time block, specifies the page of appointments to return. Optional. Defaults to 1 |
+
+##### Response Data
+
+| Field                 | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| count                 | The number of appointments returned                                                            |
+| totalCount            | The number of appointments that exist in the selected time block                               |
+| page                  |                                                                                                |
+| appointments          | An array of appointments in the given timeblock, sorted in ascending order based on start time |
+| appointments.with     | The user the appointment is scheduled with                                                     |
+| appointments.pending  | A boolean value representing whether or not the appointment is still pending                   |
+| appointments.approved | A boolean value representing whether or not the appointment was approved by the other user.    |
+| appointments.start    | The start time of the appointment                                                              |
+| appointments.end      | The end time of the appointment                                                                |
+| appointments.lang     | The language to be covered by the appointment                                                  |
+
+#### `GET /appointments/requested`
+
+Fetches appointments that were requested by this user and are pending approval by the other user.
+
+##### Parameters
+
+| Field | Description                                                                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| start | The start of a given appointment block. Optional. Defaults to Date.now()                                                            |
+| end   | The end of a given appointment block. Optional. Defaults to one week from now                                                       |
+| count | The maximum number of appointments to return. Optional. Defaults to 10                                                              |
+| page  | If there is more than 'count' appointments in the time block, specifies the page of appointments to return. Optional. Defaults to 1 |
+
+##### Response Data
+
+| Field                 | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| count                 | The number of appointments returned                                                            |
+| totalCount            | The number of appointments that exist in the selected time block                               |
+| page                  |                                                                                                |
+| appointments          | An array of appointments in the given timeblock, sorted in ascending order based on start time |
+| appointments.id       | The id of the appointment                                                                      |
+| appointments.with     | The user the appointment is scheduled with                                                     |
+| appointments.pending  | A boolean value representing whether or not the appointment is still pending                   |
+| appointments.approved | A boolean value representing whether or not the appointment was approved by the other user.    |
+| appointments.start    | The start time of the appointment                                                              |
+| appointments.end      | The end time of the appointment                                                                |
+| appointments.lang     | The language to be covered by the appointment                                                  |
+
+#### `GET /appointments/rejected`
+
+Fetches appointments that were requested by this user and rejected by the other user.
+
+##### Parameters
+
+| Field | Description                                                                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| start | The start of a given appointment block. Optional. Defaults to Date.now()                                                            |
+| end   | The end of a given appointment block. Optional. Defaults to one week from now                                                       |
+| count | The maximum number of appointments to return. Optional. Defaults to 10                                                              |
+| page  | If there is more than 'count' appointments in the time block, specifies the page of appointments to return. Optional. Defaults to 1 |
+
+##### Response Data
+
+| Field                 | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| count                 | The number of appointments returned                                                            |
+| totalCount            | The number of appointments that exist in the selected time block                               |
+| page                  |                                                                                                |
+| appointments          | An array of appointments in the given timeblock, sorted in ascending order based on start time |
+| appointments.id       | The id of the appointment                                                                      |
+| appointments.with     | The user the appointment is scheduled with                                                     |
+| appointments.pending  | A boolean value representing whether or not the appointment is still pending                   |
+| appointments.approved | A boolean value representing whether or not the appointment was approved by the other user.    |
+| appointments.start    | The start time of the appointment                                                              |
+| appointments.end      | The end time of the appointment                                                                |
+| appointments.lang     | The language to be covered by the appointment                                                  |
+
+#### `GET /appointments/available`
+
+Fetches the number of appointment requests the current user has available to them, and an array of dates indicating when an additional request will become available.
+_NOTE: This endpoint should only be used with student accounts_
+
+##### Parameters
+
+None
+
+##### Response Data
+
+| Field         | Description                                                                         |
+| ------------- | ----------------------------------------------------------------------------------- |
+| count         | The number of available appointment requests the user has remaining.                |
+| nextAvailable | An array of dates, each indicating when an additional request will become available |
+
+### 4.2 Setting Appointments
+
+#### `POST /appointments/`
+
+Creates an appointment request
+
+##### Parameters
+
+| Field | Description                                                                          |
+| ----- | ------------------------------------------------------------------------------------ |
+| with  | ID of the user the appoint is to be scheduled with                                   |
+| start | The start time of the appointment                                                    |
+| end   | The end time of the appointment. _Cannot be longer than 90 minutes after start time_ |
+
+#### Response Data
+
+| Field | Description |
+| status | Either 'success' or 'error', depending on the success of the request |
+| error | an object containing the details surrounding the error, in the case of an error |
+| appointment | an object containing the pending appointment, in the case of a successful request |
+
+### 4.3 Approving/Rejecting Appointments
+
+#### `PUT /appointments/{appointmentId}`
+
+Approves or rejects the specified appointment.
+
+##### Parameters
+
+| Field   | Description                                                                    |
+| ------- | ------------------------------------------------------------------------------ |
+| approve | A boolean value that indicates whether or not to approve or reject the request |
+
+##### Response Data
+
+None
+
+##### Response Codes
+
+| Code | Description                                                                                                                                                              |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 204  | Request successfully processed                                                                                                                                           |
+| 400  | Request could not be processed. Either the appointment was already approved/rejected or the logged in user does not have permission to approve the specified appointment |
+
+### 4.4 Deleting Appointments
+
+If a user needs to modify an appointment, it must be deleted, and resubmitted as a new appointment to be approved or rejected.
+
+#### `DELETE /appointments/{appointmentId}`
+
+Deletes the indicated appointment. Can be executed by either the sender or the reciever, before or after approval. The other user will recieve a message informing them that it was deleted.
+
+##### Parameters
+
+None
+
+##### Response Data
+
+None
+
+##### Response Codes
+
+| Code | Description                                                                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 204  | Appointment successfully deleted                                                                                                                                                   |
+| 400  | The appointment could not be deleted. Either the appointment doesn't exist, has already passed, or the logged in user does not have permission to delete the specified appointment |
+
+## 5. Messages
+
+### 5.1 Fetching messages
+
+#### `GET /messages/`
+
+Fetches all messages sent to the currently logged in user. Note that this does not return the message body, the only request that returns the message body is the `GET /messages/{messageId}` request.
+
+##### Parameters
+
+| Field | Description                                                         |
+| ----- | ------------------------------------------------------------------- |
+| count | The maximum number of messages to retrieve. Optional. Default is 10 |
+| page  | The page of messages to retrieve. Optional. Default is 1            |
+
+##### Response Data
+
+| Field               | Description                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| count               | the number of messages retrieved                              |
+| totalCount          | the total number of messages in the inbox                     |
+| page                | The page of messages that was retrieved                       |
+| messages            | An array containing the retrieved messages                    |
+| messages.from       | The user who sent the message                                 |
+| messages.subject    | The subject of the message                                    |
+| messages.unread     | A boolean indicating whether or not the message has been read |
+| messages.created_at | A date indicating when the message was sent                   |
+
+#### `GET /messages/unread`
+
+Fetches only unread messages.
+
+#### `GET /messages/{messageId}`
+
+Fetches the full content of a specified message
+
+#### `GET /messages/sent`
+
+Fetches messages this user has sent
+
+### 5.2 Sending Messages
+
+#### `POST /messages`
+
+Sends a message
+
+## 6. Languages
+
+### 6.1 Fetching Languages
+
+#### `GET /languages/`
+
+### 6.2 Fetching Users Associated with a Language
+
+#### `GET /languages/{languageId}/teachers/`
+
+#### `GET /languages/{languageId}/students/`
