@@ -10,8 +10,9 @@ _NOTE: this document is a work in progress, and the API specifications may chang
   - [JWT Structure](#22-jwt-structure)
 - [Users](#3-users-users)
   - [Initializing Users](#31-initializing-users)
-    - [`PUT /users/{userId}/type`](#put-usersuseridtype)
-    - [`PUT /users/{userId}/languages`](#put-usersuseridlanguages)
+    - [`PUT /users/type`](#put-userstype)
+    - [`POST /users/languages/{languageId}`](#post-userslanguageslanguageid)
+    - [`DELETE /users/languages/{languageId}`](#delete-userslanguageslanguageid)
   - [Fetching Users](#32-fetching-users)
     - [`GET /users/{userId}`](#get-usersuserid)
   - [Availability](#33-availability)
@@ -35,7 +36,7 @@ _NOTE: this document is a work in progress, and the API specifications may chang
     - [`GET /messages/`](#get-messages)
     - [`GET /messages/unread`](#get-messagesunread)
     - [`GET /messages/sent`](#get-messagessent)
-    - [`GET /messages/{messageId}](#get-messagesmessageid)
+    - [`GET /messages/{messageId}`](#get-messagesmessageid)
   - [Sending Messages](#52-sending-messages)
     - [`POST /messages`](#post-messages)
 - [Languages](#6-languages)
@@ -93,13 +94,67 @@ TODO: Determine the complete structure of the 'user' endpoint
 
 After a user logs in with google, we still need some information from them before they can use our service. If the following requests aren't made, the user will not be authorized to access any of the API methods below.
 
-#### `PUT /users/{userId}/type`
+#### `PUT /users/type`
 
-This request can only be made once per user, and cannot be modified afterwards.
+Assigns a new user to a type (either student or teacher).
+_NOTE: This request can only be made once per user, and cannot be modified afterwards._
 
-#### `PUT /users/{userId}/languages`
+##### Parameters
 
-This request has to be made once during user initialization, but can be sent again if the user chooses to modify the languages they are interested in.
+| Field | Description                   |
+| ----- | ----------------------------- |
+| type  | Either 'student' or 'teacher' |
+
+##### Response Data
+
+None
+
+##### Response Codes
+
+| Code | Description                                                                                         |
+| ---- | --------------------------------------------------------------------------------------------------- |
+| 204  | Type successfully assigned to the logged in user                                                    |
+| 400  | Type could not be assigned. Either the user is already assigned a type, or an invalid type was sent |
+
+#### `POST /users/languages/{languageId}`
+
+Adds a language to a User's preferred languages list.
+_NOTE: This request has to be made once during user initialization, but can be sent again if the user chooses to modify the languages they are interested in._
+
+##### Parameters
+
+NONE
+
+##### Response Data
+
+NONE
+
+##### Response Codes
+
+| Code | Description                                                                                                                  |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 204  | Language successfully added.                                                                                                 |
+| 400  | Language could not be added. Either the language ID doesn't exist or the user already has that language associated with them |
+
+#### `DELETE /users/languages/{languageId}`
+
+Removes a language from a user's preferred languages list.
+_NOTE: A user must have at least 1 preferrred language in order to have access to the full api._
+
+##### Parameters
+
+None
+
+##### Response Data
+
+None
+
+##### Response Codes
+
+| Code | Description                                                                                                                               |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 204  | Language successfully removed.                                                                                                            |
+| 400  | Language could not be removed. Either the language ID doesn't exists or the user was not associated with that language in the first place |
 
 ### 3.2 Fetching Users
 
@@ -422,13 +477,72 @@ Fetches all messages sent to the currently logged in user. Note that this does n
 
 Fetches only unread messages.
 
+##### Parameters
+
+| Field | Description                                                         |
+| ----- | ------------------------------------------------------------------- |
+| count | The maximum number of messages to retrieve. Optional. Default is 10 |
+| page  | The page of messages to retrieve. Optional. Default is 1            |
+
+##### Response Data
+
+| Field               | Description                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| count               | the number of messages retrieved                              |
+| totalCount          | the total number of messages in the inbox                     |
+| page                | The page of messages that was retrieved                       |
+| messages            | An array containing the retrieved messages                    |
+| messages.id         | ID of the message                                             |
+| messages.from       | The user who sent the message                                 |
+| messages.subject    | The subject of the message                                    |
+| messages.unread     | A boolean indicating whether or not the message has been read |
+| messages.created_at | A date indicating when the message was sent                   |
+
 #### `GET /messages/{messageId}`
 
-Fetches the full content of a specified message
+Fetches the full content of a specified message.
+_Note: Any request to this endpoint will automatically mark the message as read_
+
+##### Parameters
+
+None
+
+##### Response Data
+
+| Field              | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| message            | The message object requested                                  |
+| message.id         | The id of the message                                         |
+| message.from       | The user who sent the message                                 |
+| message.subject    | The subject of the message                                    |
+| message.body       | The content of the message                                    |
+| message.unread     | A boolean indicating whether or not the message has been read |
+| message.created_at | The date the message was sent                                 |
 
 #### `GET /messages/sent`
 
 Fetches messages this user has sent
+
+##### Parameters
+
+| Field | Description                                                         |
+| ----- | ------------------------------------------------------------------- |
+| count | The maximum number of messages to retrieve. Optional. Default is 10 |
+| page  | The page of messages to retrieve. Optional. Default is 1            |
+
+##### Response Data
+
+| Field               | Description                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| count               | the number of messages retrieved                              |
+| totalCount          | the total number of messages in the inbox                     |
+| page                | The page of messages that was retrieved                       |
+| messages            | An array containing the retrieved messages                    |
+| messages.id         | ID of the message                                             |
+| messages.to         | The user who the message was sent to                          |
+| messages.subject    | The subject of the message                                    |
+| messages.unread     | A boolean indicating whether or not the message has been read |
+| messages.created_at | A date indicating when the message was sent                   |
 
 ### 5.2 Sending Messages
 
@@ -436,14 +550,91 @@ Fetches messages this user has sent
 
 Sends a message
 
+##### Parameters
+
+| Field   | Description                               |
+| ------- | ----------------------------------------- |
+| to      | The ID of the user to send the message to |
+| subject | The subject of the message                |
+| body    | The body of the message                   |
+
+##### Response Data
+
+None
+
+##### Response Codes
+
+| Code | Description                                                                        |
+| ---- | ---------------------------------------------------------------------------------- |
+| 204  | The message was sent successfully                                                  |
+| 400  | The message could not be sent, the specified user in the 'to' field does not exist |
+
 ## 6. Languages
 
 ### 6.1 Fetching Languages
 
 #### `GET /languages/`
 
+Returns all languages, paginated
+
+##### Parameters
+
+| Field | Description                                            |
+| ----- | ------------------------------------------------------ |
+| count | The number of results to return. Optional. Default 100 |
+| page  | The page of results to return. Optional. Default 1     |
+
+##### Response Data
+
+| Field          | Description                      |
+| -------------- | -------------------------------- |
+| count          | The number of results fetched    |
+| totalCount     | The total number of results      |
+| page           | The page of the results returned |
+| languages      | An array of languages            |
+| languages.id   | The ID of a language             |
+| langauges.name | The name of the language         |
+
 ### 6.2 Fetching Users Associated with a Language
+
+Returns a list of users associated with a given language. This should potentially be located in the `/users/` resource, but for now we'll leave it here.
 
 #### `GET /languages/{languageId}/teachers/`
 
+Returns all teachers willing to teach a given language
+
+##### Parameters
+
+| Field | Description                                         |
+| ----- | --------------------------------------------------- |
+| count | The number of users to return. Optional. Default 10 |
+| page  | The page of results to return. Optional. Default 1  |
+
+##### Response Data
+
+| Field      | Description                      |
+| ---------- | -------------------------------- |
+| count      | The number of results returned   |
+| totalCount | The total number of results      |
+| page       | The page of the results returned |
+| users      | an array of teachers             |
+
 #### `GET /languages/{languageId}/students/`
+
+Returns all students interested in learning a given language
+
+##### Parameters
+
+| Field | Description                                            |
+| ----- | ------------------------------------------------------ |
+| count | The number of students to return. Optional. Default 10 |
+| page  | The page of results to return. Optional. Default 1     |
+
+##### Response Data
+
+| Field      | Description                      |
+| ---------- | -------------------------------- |
+| count      | The number of results returned   |
+| totalCount | The total number of results      |
+| page       | The page of the results returned |
+| users      | an array of students             |
