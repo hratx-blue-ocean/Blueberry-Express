@@ -4,7 +4,6 @@ import { Teacher } from './Teacher.jsx';
 export const TeacherContainer = () => {
 
   // TODO: Remove dummyData with API request Data.
-
   const dummyData = [
     {
       id: 1,
