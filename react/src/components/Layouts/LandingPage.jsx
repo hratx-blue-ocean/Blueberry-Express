@@ -5,9 +5,9 @@ import { Footer } from '../Shared/Footer'
 export const LandingPage = () => {
     return (
         <div>
-            <div className="flex flex-row items-center justify-between border-b p-4">
+            <div className="flex flex-row items-center justify-between border-b p-5">
                 <div className="flex flex-row items-center">
-                    <img src="assets/logo.svg" alt="logo" className="w-20 h-20"/>
+                    <img src="assets/logo_icon.png" alt="logo" className="w-20 h-20"/>
                     <h1 className="text-2xl text-gray-800 font-bold italic ml-4">Blueberry Express</h1>
                 </div>
                 
@@ -31,9 +31,11 @@ export const LandingPage = () => {
             </div>
             
 
-      
+            <div className="fixed w-full bottom-0">
+                <Footer />
+            </div>
             
-            {/* <Footer /> */}
+            
         </div>
     )
 }
