@@ -13,7 +13,9 @@
     "docker:logs:react": "docker-compose logs -f react",
     "docker:logs:mongo": "docker-compose logs -f mongo",
     "docker:mongo": "docker-compose exec mongo mongo",
-    "docker:postgres": "docker-compose exec postgres psql -U postgres" 
+    "docker:postgres": "docker-compose exec postgres psql -U postgres",
+    "docker:api": "docker-compose exec api sh",
+    "docker:react": "docker-compose exec react sh"
   },
   "repository": {
     "type": "git",
