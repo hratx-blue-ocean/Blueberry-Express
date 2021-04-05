@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const PreviousBtn = ({handleClick}) => {
+export const PreviousBtn = ({handleClick}) => {
   return (
     <button
     type="button"
@@ -14,6 +14,5 @@ const PreviousBtn = ({handleClick}) => {
   )
 }
 
-export default PreviousBtn;
 
 

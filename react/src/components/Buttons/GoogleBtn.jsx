@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const GoogleBtn = ({label, handleClick}) => {
+export const GoogleBtn = ({label, handleClick}) => {
   return (
     <button
     type="button"
@@ -14,5 +14,3 @@ const GoogleBtn = ({label, handleClick}) => {
     </button>
   )
 }
-
-export default GoogleBtn;
