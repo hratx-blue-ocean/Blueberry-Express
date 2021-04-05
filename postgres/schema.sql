@@ -6,7 +6,7 @@ USE blueberry_db;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name varchar,
+    "name" varchar,
     email varchar,
     bio varchar,
     profile_img bytea,
@@ -48,15 +48,15 @@ CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     from_id integer REFERENCES users(id) ON UPDATE CASCADE,
     to_id integer REFERENCES users(id) ON UPDATE CASCADE,
-    text varchar,
-    subject varchar,
+    body varchar,
+    "subject" varchar,
     opened boolean,
     created_at date
 );
 
 CREATE TABLE languages (
   id SERIAL PRIMARY KEY,
-  name varchar
+  "name" varchar
 );
 
 
