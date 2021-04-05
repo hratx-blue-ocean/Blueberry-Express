@@ -10,12 +10,12 @@ _NOTE: this document is a work in progress, and the API specifications may chang
   - [JWT Structure](#22-jwt-structure)
 - [Users](#3-users-users)
   - [Initializing Users](#31-initializing-users)
-    - [`PUT /users/{userId/type}`](#put-usersuseridtype)
+    - [`PUT /users/{userId}/type`](#put-usersuseridtype)
     - [`PUT /users/{userId}/languages`](#put-usersuseridlanguages)
   - [Fetching Users](#32-fetching-users)
     - [`GET /users/{userId}`](#get-usersuserid)
   - [Availability](#33-availability)
-    - [`GET /users/{userId}/availability](#get-usersuseridavailability)
+    - [`GET /users/{userId}/availability`](#get-usersuseridavailability)
     - [`POST /users/availability`](#post-usersavailability)
 - [Appointments](#4-appointments-appointments)
   - [Fetching Appointments](#41-fetching-appointments)
@@ -412,6 +412,7 @@ Fetches all messages sent to the currently logged in user. Note that this does n
 | totalCount          | the total number of messages in the inbox                     |
 | page                | The page of messages that was retrieved                       |
 | messages            | An array containing the retrieved messages                    |
+| messages.id         | ID of the message                                             |
 | messages.from       | The user who sent the message                                 |
 | messages.subject    | The subject of the message                                    |
 | messages.unread     | A boolean indicating whether or not the message has been read |
