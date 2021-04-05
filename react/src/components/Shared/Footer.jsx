@@ -3,9 +3,9 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 
-const Footer = () => {
+export const Footer = () => {
   return (
-    <div className="flex justify-between items-center bg-blue-500 text-white">
+    <div className="flex justify-between items-center bg-blue-600 text-white">
       <div className="ml-5">
       <TwitterIcon className="pr-1" fontSize="large"/>
       <FacebookIcon className="pr-1" fontSize="large"/>
@@ -21,6 +21,3 @@ const Footer = () => {
     </div>
   )
 }
-
-
-export default Footer;
