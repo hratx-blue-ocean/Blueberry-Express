@@ -1,5 +1,6 @@
 import React from 'react';
 import { Logo } from '../Shared/Logo'
+import { GoogleBtn } from '../Buttons/GoogleBtn'
 import { Footer } from '../Shared/Footer'
 
 export const Login = () => {
@@ -12,9 +13,10 @@ export const Login = () => {
                 </div>
             </div>
 
-            <div className="flex flex-column max-w-md mx-auto p-6 bg-white rounded-lg shadow-xl">
-                <div className="m-6 pt-3">
-                    <h4 className="text-4xl text-gray-900">Login</h4>
+            <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
+                <div className="m-6 pt-3 flex flex-col justify-center items-center">
+                    <h4 className="text-4xl text-gray-900 mb-6">Login</h4>
+                    <GoogleBtn label="Login with Google"/>
                     <p className="text-sm text-gray-400 italic mt-6">By signing in to Blueberry Express, you agree to our Terms and Privacy Policy.</p>
                 </div>
             </div>
