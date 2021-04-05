@@ -19,7 +19,7 @@ export const LandingPage = () => {
                 <div >
                     <img src="assets/homepageLearn.png" alt="homepageLearn" className="h-96"/>
                 </div>
-                <div className="flex flex-col items-end border p-5 rounded-xl shadow-md -ml-56">
+                <div className="flex flex-col items-end border p-5 rounded-xl shadow-md -ml-96">
                     <h1 className="text-3xl font-bold">Discover a long love for language.</h1>
                     <div className="mt-7 mr-7">
                         <LargeBtn label='Sign-up'/>
