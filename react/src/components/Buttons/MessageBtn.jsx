@@ -2,7 +2,7 @@ import React from 'react';
 import InboxIcon from '@material-ui/icons/Inbox';
 
 
-const MessageBtn = ({handleClick}) => {
+export const MessageBtn = ({handleClick}) => {
   return (
     <button
     type="button"
@@ -12,5 +12,3 @@ const MessageBtn = ({handleClick}) => {
     </button>
   )
 }
-
-export default MessageBtn;
