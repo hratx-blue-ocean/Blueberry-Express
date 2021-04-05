@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 });
 
 // import {HoverRating} from './Shared/Star';
-const HoverRating = () => {
+export const HoverRating = () => {
   const [value, setValue] = React.useState(null);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
@@ -43,7 +43,7 @@ const HoverRating = () => {
 }
 
 // import {StaticRating} from './Shared/Star';
-const StaticRating = (props) => {
+export const StaticRating = (props) => {
   let value = props.rating;
 
   return (
@@ -57,9 +57,3 @@ const StaticRating = (props) => {
     </div>
   );
 }
-
-export {
-  HoverRating,
-  StaticRating
-}
-
