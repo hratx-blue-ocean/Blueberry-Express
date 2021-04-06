@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "migrate:all": "db-migrate reset && db-migrate up"
   },
   "keywords": [],
   "author": "",
