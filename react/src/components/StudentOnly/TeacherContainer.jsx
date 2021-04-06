@@ -25,13 +25,27 @@ export const TeacherContainer = () => {
       bio: 'I am your teacher',
       languages: ['English', 'Korean', 'French'],
       profile_picture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+    },
+    {
+      id: 3,
+      name: 'Brandon',
+      bio: 'I am your teacher',
+      languages: ['English', 'Korean', 'French'],
+      profile_picture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+    },
+    {
+      id: 3,
+      name: 'Brandon',
+      bio: 'I am your teacher',
+      languages: ['English', 'Korean', 'French'],
+      profile_picture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
     }
   ]
 
   return (
-    <div className="w-1/2">
-      <h1>Welcome back, Student!</h1>
-      <div className="bg-gray-200 rounded-xl pb-1">
+    <div className="teacher-list-container">
+      <h1 className="welcome-back">Welcome back, Student!</h1>
+      <div className="teacher-container">
         {dummyData.map((user, index) => {
           return <Teacher user={user} key={index} />
         })}

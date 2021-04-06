@@ -5,8 +5,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 
 export const Footer = () => {
   return (
-
-    <div className="fixed w-screen bottom-0 flex justify-between items-center bg-blue-600 text-white">
+    <div className="fixed w-screen bottom-0 mt-10 flex justify-between items-center bg-blue-600 text-white">
       <div className="ml-5">
       <TwitterIcon className="pr-3" fontSize="large"/>
       <FacebookIcon className="pr-3" fontSize="large"/>
