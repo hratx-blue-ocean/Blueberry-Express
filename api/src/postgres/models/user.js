@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       googleKey: {
-        type: DataTypes.INTEGER,
+        field: 'google_key',
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
@@ -25,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       profileImg: {
+        field: 'profile_img',
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -34,9 +36,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 0,
       },
       lastLogin: {
+        field: 'last_login',
         type: DataTypes.DATE,
       },
       zoomLink: {
+        field: 'zoom_link',
         type: DataTypes.STRING,
       },
       student: {
@@ -46,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       tableName: 'users',
+      timestamps: false,
     }
   );
   return User;
