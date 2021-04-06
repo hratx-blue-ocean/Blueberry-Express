@@ -30,9 +30,9 @@ export const TeacherAppointmentContainer = () => {
   ]
 
   return (
-    <div className="bg-blue-600 max-w-full max-h-xl border border-gray-600 rounded-lg text-gray-100 text-center text-sm overflow-hidden overflow-y-scroll ">
-      <h1 className="text-3xl underline mb-4 p-3">Appointments</h1>
-      <div className="pb-2 px-10 ">
+    <div className="teacher-appointment-container bg-blue-600">
+      <h1 className="underline text-xl mb-2 mt-3 tracking-wide">Appointments</h1>
+      <div className="teacher-appointments">
         {appointments.map((appointment, index) => {
           return <TeacherAppointment appointment={appointment} key={index}/>
         })}

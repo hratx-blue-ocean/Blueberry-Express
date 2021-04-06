@@ -1,21 +1,26 @@
 import React from 'react';
-import { Logo } from '../Shared/Logo.jsx';
+import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { Nav } from '../Shared/Nav.jsx';
 import { TeacherAppointmentContainer } from '../TeacherOnly/TeacherAppointmentContainer.jsx';
-import { MessagesContainer } from '../Shared/MessagesContainer.jsx';
+import { TeacherMessageContainer } from '../Shared/TeacherMessageContainer.jsx';
 import { Footer } from '../Shared/Footer.jsx';
+import './StudentHome.css';
 
 export const TeacherHome = () => {
     return (
-        <div className="overflow-hidden">
-            <div className="flex justify-between items-center px-7 py-5 border-b">
-                <Logo />
-                <h1 className="text-4xl italic -ml-96">Welcome back, Teacher!</h1>
-                <Nav />
+        <div>
+            <div className="nav-bar-container">
+                <div className="nav-logo">
+                    <TransparentLogo />
+                </div>
+                <div className="nav-links">
+                    <Nav />
+                </div>
             </div>
-            <div className="flex justify-around items-center h-full mt-5 border border-black p-10 m-6 overflow-hidden relative">
+            <h1 className="welcome-teacher">Welcome back, Teacher!</h1>
+            <div className="flex justify-around mt-5">
                 <TeacherAppointmentContainer />
-                <MessagesContainer />
+                <TeacherMessageContainer />
             </div>
             <Footer />
         </div>

@@ -5,14 +5,14 @@ import { LargeBtn } from '../Buttons/LargeBtn'
 export const TeacherAppointment = ({ appointment }) => {
 
   return (
-    <div className="flex justify-between max-w-full items-center py-5 px-10 border border-white rounded-lg m-4">
-      <div className="flex flex-col pr-36 text-left py-3">
-        <span className="text-lg text-bold">Student: {appointment.with}</span> 
-        <span className="text-md text-bold">Language: {appointment.lang}</span> 
-        <span className="text-md text-bold">Start: {appointment.start}</span> 
-        <span className="text-md text-bold">End: {appointment.end}</span> 
+    <div className="individual-appointment">
+      <div className="appointment-info">
+        <p className="pb-1 text-lg"><span>Student:</span> {appointment.with}</p>
+        <p className="pb-1"><span>Lang:</span> {appointment.lang}</p>
+        <p className="pb-1">4/5/21 {appointment.start}</p>
       </div>
-      <div className="flex justify-between">
+
+      <div className="flex appointment-button">
         <MessageBtn/>
         <LargeBtn label="Reschedule" />
       </div>
