@@ -3,9 +3,9 @@ import SearchIcon from '@material-ui/icons/Search';
 
 export const SearchBar = () => {
   return (
-    <div>
-      <input className="w-72 border border-black rounded-xl text-center"  type="text"></input>
-      <button><SearchIcon /></button>
+    <div className="search-bar-container">
+      <input className="search-bar" placeholder="Search Language..." type="text"></input>
+      <button className="search-button"><SearchIcon/></button>
     </div>
   )
 }
