@@ -2,10 +2,19 @@ import React from 'react';
 
 export const Message = ({ message }) => {
   return (
-    <div className="flex justify-around items-center bg-white text-black border-black w-4/5 mb-6 rounded-md h-16">
-      <p>{message.from}</p>
-      <p className="w-2/5">{message.subject}</p>
-      <p>{message.created_at}</p>
+    <div className="individual-message">
+      <div>
+        <p className="message-subject">From:</p>
+        <p>{message.from}</p>
+      </div>
+      <div>
+        <p className="message-subject">Subject:</p>
+        <p className="">{message.subject.slice(0, 13)}{message.subject.length > 13 ? '...' : null}</p>
+      </div>
+      <div>
+        <p className="message-subject">Date:</p>
+        <p>{message.created_at}</p>
+      </div>
     </div>
   )
 }

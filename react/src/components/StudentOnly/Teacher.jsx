@@ -1,15 +1,15 @@
 import React from 'react';
 import {ProfilePic} from '../Shared/ProfilePic';
-import {LargeBtn} from '../Buttons/LargeBtn';
+import {MediumBtn} from '../Buttons/MediumBtn';
 
 export const Teacher = ({ user }) => {
   return (
-    <div className="flex justify-between items-center border-b border-black mb-2 p-4">
+    <div className="individual-teacher">
       <div>
         <ProfilePic url={user.profile_picture} name={user.name}/>
       </div>
-      <div className="flex flex-col justify-between h-20">
-        <p>Bio: {user.bio}</p>
+      <div>
+        <p className="mb-5">Bio: {user.bio}</p>
         <p>Languages:&nbsp;
           {user.languages.map((language, index) => {
             return <span key={index}>{language}{index < user.languages.length - 1 ? ',' : null} </span>
@@ -17,7 +17,7 @@ export const Teacher = ({ user }) => {
         </p>
       </div>
       <div>
-        <LargeBtn label={'Check Availability'}/>
+        <MediumBtn label={'Check Availability'}/>
       </div>
     </div>
   )
