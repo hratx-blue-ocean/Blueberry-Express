@@ -1,17 +1,16 @@
 import React from 'react';
 import { LandingPage } from './Layouts/LandingPage.jsx';
+import { StudentHome } from './Layouts/StudentHome.jsx'
 import { Switch, Route } from "react-router-dom";
-
-import {StudentHome} from './Layouts/StudentHome.jsx'
 
 const App = () => (
   <div>
-    {/* <Switch>
+    <Switch>
       <Route path="/">
         <LandingPage />
       </Route>
-    </Switch> */}
-    <StudentHome/>
+    </Switch>
+
   </div>
 );
 
