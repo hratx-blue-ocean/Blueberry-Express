@@ -35,11 +35,9 @@ export const LandingPage = () => {
                 <h3 className="text-lg italic text-gray-600">Connecting those who love to learn and those who love to teach.</h3>
             </div>
 
-
             <div className="fixed w-full bottom-0">
                 <Footer />
             </div>
-
 
         </div>
     )
