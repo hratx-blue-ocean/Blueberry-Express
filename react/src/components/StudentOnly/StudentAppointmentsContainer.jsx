@@ -24,9 +24,9 @@ export const StudentAppointmentsContainer = () => {
   ]
 
   return (
-    <div className="bg-blue-600 w-1/5 h-4/5 rounded-lg text-white text-center text-sm">
-      <h1 className="text-3xl underline mb-4 p-3">Appointments</h1>
-      <div className="pb-2">
+    <div className="student-appointment-container bg-blue-600">
+      <h1 className="underline text-xl mb-2 mt-3 tracking-wide">Appointments</h1>
+      <div className="student-appointments">
         {appointments.map((appointment, index) => {
           return <StudentAppointment appointment={appointment} key={index}/>
         })}

@@ -27,9 +27,9 @@ export const MessagesContainer = () => {
   ]
 
   return (
-    <div className="bg-blue-600 rounded w-1/4 text-white text-center">
-      <h2 className="text-3xl underline mb-4 p-3">Messages</h2>
-      <div className="flex items-center flex-col">
+    <div className="messages-container">
+      <h2 className="message-header tracking-wide">Messages</h2>
+      <div className="">
       {messagesArray.map((message, index) => {
         return <Message message={message} key={index}/>
       })}
