@@ -4,7 +4,6 @@ import { Teacher } from './Teacher.jsx';
 export const TeacherContainer = () => {
 
   // TODO: Remove dummyData with API request Data.
-
   const dummyData = [
     {
       id: 1,
@@ -30,7 +29,7 @@ export const TeacherContainer = () => {
   ]
 
   return (
-    <div className="w-2/5">
+    <div className="w-1/2">
       <h1>Welcome back, Student!</h1>
       <div className="bg-gray-200 rounded-xl pb-1">
         {dummyData.map((user, index) => {
