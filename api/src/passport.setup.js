@@ -33,7 +33,7 @@ function(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ googleId: profile.id }, function (err, user) {
   //   return done(err, user);
   // });
-  console.dir(profile);
+  console.log('big access token: ', accessToken);
   return done(null, profile);
 }
 ));
