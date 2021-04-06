@@ -6,6 +6,7 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import './appstyles.css'
 
 const App = () => (
   <Router>
