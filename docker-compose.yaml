@@ -20,9 +20,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - /app/node_modules
-      - ./api/config:/app/config
-      - ./api/src:/app/src
-      - ./api/test:/app/test
+      - ./api/:/app
     ports:
       - "3000:3000"
   react:
