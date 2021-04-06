@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 export const Nav = () => (
   <div className="inline-block">
     <NavLink
-      className="text-blue-600 inline"
+      className="text-blue-600 text-xl inline hover:underline"
       to="/teacherhome"
       activeStyle={{
         fontWeight: "bold",
@@ -13,7 +13,7 @@ export const Nav = () => (
       Dashboard
     </NavLink>
     <NavLink
-      className="text-blue-600 inline ml-5"
+      className="text-blue-600 text-xl inline ml-5 hover:underline"
       to="/calendar"
       activeStyle={{
         fontWeight: "bold",
@@ -22,7 +22,7 @@ export const Nav = () => (
       Calendar
     </NavLink>
     <NavLink
-      className="text-blue-600 inline ml-5"
+      className="text-blue-600 text-xl inline ml-5 hover:underline"
       to="/userprofile"
       activeStyle={{
         fontWeight: "bold",
