@@ -1,3 +1,12 @@
+const path = require('path');
+const Router = require('./routes');
+const postgres = require('./postgres');
+
+const envPath = path.resolve(__dirname, '.env.' + process.env.NODE_ENV);
+require('dotenv').config({
+  path: envPath,
+});
+
 const express = require('express');
 const cookieSession = require('cookie-session');
 const app = express();
@@ -17,10 +26,6 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
-
-app.use('/', (req, res) => {
-  res.send('Hello, Back-End!');
-});
 
 app.listen(process.env.PORT, () => {
   console.log(`Express app listening on port ${process.env.PORT}`);
@@ -64,3 +69,14 @@ app.get('/logout', (req, res) => {
 
 // open a popup window
 // jwt JSON web token
+app.use('/', Router);
+postgres.sequelize
+  .authenticate()
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Express app listening on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
