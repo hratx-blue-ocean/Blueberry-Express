@@ -23,6 +23,7 @@ exports.up = (db) => {
       timezone: { type: 'int', notNull: true, defaultValue: 0 },
       last_login: { type: 'date', notNull: true, defaultValue: new String('Now()') },
       google_key: { type: 'string', notNull: true },
+      zoom_link: { type: 'string', notNull: false },
       student: { type: 'boolean', notNull: true },
     })
     .then(() => {
