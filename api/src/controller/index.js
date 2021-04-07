@@ -68,6 +68,7 @@ Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
     })
     .catch((err) => {
       // if the error has the issue that it is outdated, use the refresh token to get a new token
+      return err;
     });
 };
 
@@ -165,6 +166,7 @@ Calendar.listEvents = (accessToken, refreshToken, calendarId) => {
     })
     .catch((err) => {
       // if the error has the issue that it is outdated, use the refresh token to get a new token
+      return err;
     });
 };
 
@@ -199,6 +201,7 @@ Calendar.createCalendar = (accessToken, refreshToken) => {
     })
     .catch((err) => {
       // if the error has the issue that it is outdated, use the refresh token to get a new token
+      return err;
     });
 };
 
@@ -220,6 +223,7 @@ Calendar.deleteEvent = (accessToken, refreshToken, calendarId, eventId) => {
     })
     .catch((err) => {
       // An error here indicates the eventID was already deleted (410) or it was not found (404)
+      return err;
     });
 };
 
@@ -276,5 +280,8 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
     })
     .catch((err) => {
       // Will return busy: [] if there are no conflicts
+      return err;
     });
 };
+
+module.exports = Calendar;
