@@ -6,6 +6,7 @@ services:
       - "5432"
     environment:
       POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: api
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
   mongo:
