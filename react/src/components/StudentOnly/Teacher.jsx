@@ -1,6 +1,7 @@
 import React from 'react';
 import {ProfilePic} from '../Shared/ProfilePic';
 import {MediumBtn} from '../Buttons/MediumBtn';
+import { AvailabilityModal } from '../Modals/AvailabilityModal';
 
 export const Teacher = ({ user }) => {
   return (
@@ -17,7 +18,7 @@ export const Teacher = ({ user }) => {
         </p>
       </div>
       <div>
-        <MediumBtn label={'Check Availability'}/>
+        <AvailabilityModal />
       </div>
     </div>
   )
