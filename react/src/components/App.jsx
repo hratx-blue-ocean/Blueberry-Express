@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext } from '../auth';
+import { UserProfileLang } from './Layouts/UserProfileLang'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/studenthome" exact component={StudentHome} />
             <Route path="/teacherhome" exact component={TeacherHome} />
             <Route path="/userprofile" exact component={UserProfile} />
+            <Route path="/userprofilelang" exact component={UserProfileLang} />
           </Switch>
         </div>
       </Router>
