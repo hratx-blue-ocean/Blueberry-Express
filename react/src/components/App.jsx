@@ -32,20 +32,22 @@ const App = () => {
   }, []);
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      <Router>
-        <div>
-          <Switch>
-            <Route path="/" exact component={LandingPage} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/studenthome" exact component={StudentHome} />
-            <Route path="/teacherhome" exact component={TeacherHome} />
-            <Route path="/userprofile" exact component={UserProfile} />
-          </Switch>
-        </div>
-      </Router>
-    </AuthContext.Provider>
+    // <AuthContext.Provider value={contextValue}>
+    //   <Router>
+    //     <div>
+    //       <Switch>
+    //         <Route path="/" exact component={LandingPage} />
+    //         <Route path="/login" exact component={Login} />
+    //         <Route path="/signup" exact component={Signup} />
+    //         <Route path="/studenthome" exact component={StudentHome} />
+    //         <Route path="/teacherhome" exact component={TeacherHome} />
+    //         <Route path="/userprofile" exact component={UserProfile} />
+    //       </Switch>
+    //     </div>
+    //   </Router>
+    // </AuthContext.Provider>
+    <StudentHome/>
+    // <MessageSend/>
   );
 };
 
