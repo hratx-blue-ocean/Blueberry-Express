@@ -1,8 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 const UsersRouter = require('express').Router();
+const db = require('../../postgres');
+
 
 UsersRouter.get('/', (req, res) => {
+<<<<<<< Updated upstream
   if (req.headers.authorization) {
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
@@ -13,18 +16,81 @@ UsersRouter.get('/', (req, res) => {
   } else {
     res.json({});
   }
+=======
+  db.user.findAll()
+  .then((data) => {
+		res.status(200).json(data);
+  })
+  .catch((err) =>
+		console.log(err)
+	);
+>>>>>>> Stashed changes
 });
 
 UsersRouter.get('/:userId', (req, res) => {
-  res.sendStatus(400);
+  var userId = req.params.userId;
+
+  db.user.findAll({
+    where: {
+      id: userId,
+    },
+  })
+  .then((data) => {
+		res.status(200).json(data);
+  })
+  .catch((err) =>
+		console.log(err)
+	);
 });
 
 UsersRouter.put('/type', (req, res) => {
-  res.sendStatus(400);
+  //what data am I getting from the front-end?
+  let isStudent = req.params.isStudent; //?????
+  let userId = req.params.userId;
+
+		db.user.update(
+			{ student: true },
+			{ where: { id: userId } }
+		)
+		.then(() => {
+			res.sendStatus(204);
+		})
+		.catch((err) => {
+			res.sendStatus(500);
+			console.log(err.message);
+		});
 });
 
-UsersRouter.post('/languages/:languageId', (req, res) => {
-  res.sendStatus(400);
+// UsersRouter.post('/languages/:languageId', (req, res) => {
+//   res.sendStatus(400);
+// });
+//following the api docs
+
+//multiple languages at a time?
+UsersRouter.post('/:userId/languages/:languageId', (req, res) => {
+  let userId = req.params.userId;
+  let languageId = req.params.languageId;
+  //console.log('query', req.query)
+  console.log('params', req.params)
+  //lang id
+  //console.log(db)
+  //user_langauges
+
+  db.language.findOne({
+    where: {id: languageId}
+  })
+  .then((data) => {
+    console.log('data', data);
+    const lang = data;
+    lang.addUser(userId)
+  })
+  .then(() => {
+    res.status(201).send('saved!');
+  })
+  .catch((err) => {
+    res.sendStatus(500);
+    console.log(err.message);
+  });
 });
 
 UsersRouter.get('/users/:userId/availability', (req, res) => {

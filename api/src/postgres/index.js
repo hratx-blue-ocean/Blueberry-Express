@@ -34,7 +34,7 @@ db.rating.belongsTo(db.user, { foreignKey: 'student_id' });
 db.appointment.belongsTo(db.user, { foreignKey: 'from_id' });
 db.appointment.belongsTo(db.user, { foreignKey: 'to_id' });
 db.rating.belongsTo(db.appointment, { foreignKey: 'appointment_id' });
-db.language.belongsToMany(db.user, { through: 'user_langauges' });
+db.language.belongsToMany(db.user, { through: 'user_languages' });
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
