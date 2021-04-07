@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 const db = {};
 const basename = path.basename(__dirname);
 const env = process.env.NODE_ENV;
-
+console.log(process.env.POSTGRES_DATABASE);
 const sequelize = new Sequelize(
   process.env.POSTGRES_DATABASE,
   process.env.POSTGRES_USER,
