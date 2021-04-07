@@ -173,3 +173,51 @@
   color: rgb(209, 209, 209);
   font-size: 12px;
 }
+
+/* ------- Shared Reviews -------- */
+
+.reviews-container {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  top: 60px;
+  width: 21%;
+  height: 590px;
+  padding: 10px;
+  margin-right: 20px;
+  text-align: center;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 8px #a1a1a1;
+  background-color: #2a2a72;
+  background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
+}
+
+.reviews-header {
+  text-decoration: underline;
+  font-size: 22px;
+  margin: 3px 0px;
+}
+
+.individual-review {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 15px;
+  margin: 5px;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+.reviews-subject {
+  color: rgb(209, 209, 209);
+  font-size: 12px;
+}
+.reviews-date {
+  position: relative;
+  display: inline-block;
+  color: rgb(209, 209, 209);
+  font-size: 10px;
+  font-style: italic;
+}
+.reviews-body {
+  background-color:rgb(209, 209, 209);
+}
