@@ -23,11 +23,10 @@ AuthRouter.get(
 
 AuthRouter.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/failed' }),
+  passport.authenticate('google', { failureRedirect: '/auth/failed', session: false }),
   function (req, res) {
     const postBackUri = 'http://localhost:8080';
-    console.log('req.user: ', req.user);
-    const token = jwt.sign({ user: req.user }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = req.user;
 
     res.send(`
   <!DOCTYPE html>
