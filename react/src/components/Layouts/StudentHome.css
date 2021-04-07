@@ -221,3 +221,17 @@
 .reviews-body {
   background-color:rgb(209, 209, 209);
 }
+
+/* ------- Calendar Layout -------- */
+
+.calendar-container {
+  margin: 0 auto;
+  width: 80%;
+  background-color: #4bbcfdec;
+  border-radius: 5px;
+  padding: 20px;
+
+}
+.calendar-bg {
+  margin: 0 auto;
+}
