@@ -24,6 +24,12 @@ export const TeacherMessageContainer = () => {
       subject: 'Appointment Approved',
       created_at: '4/5/21'
     },
+    {
+      id: '3',
+      from: 'Cody',
+      subject: 'Hi',
+      created_at: '4/5/21'
+    }
   ]
 
   return (
