@@ -9,7 +9,7 @@ Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
     summary: eventParams.summary,
     start: {
       dateTime: eventParams.start.dateTime, // '2015-05-28T17:00:00-07:00'
-      timeZone: eventParams.start.timeZone // 'America/Los_Angeles'
+      timeZone: eventParams.start.timeZone // 'America/Minneapolis'
     },
     end: {
       dateTime: eventParams.end.dateTime,
