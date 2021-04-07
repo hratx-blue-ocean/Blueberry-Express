@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        defaultValue: 10,
       },
       name: {
         type: DataTypes.STRING,
@@ -51,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
       tableName: 'users',
       timestamps: false,
+      initialAutoIncrement: 1000,
     }
   );
   return User;
