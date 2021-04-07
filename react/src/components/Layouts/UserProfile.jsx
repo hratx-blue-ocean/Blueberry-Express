@@ -7,7 +7,6 @@ import { PersonalInfo } from '../UserProfile/PersonalInfo';
 import './UserProfile.css';
 
 export const UserProfile = ( { userType } ) => {
-
     return (
         <div className="student-home-container">
             <div className="nav-bar-container">
