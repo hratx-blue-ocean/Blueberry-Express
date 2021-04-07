@@ -43,7 +43,7 @@ const App = () => {
             <Route path="/signup" exact component={Signup} />
             <Route path="/studenthome" exact component={StudentHome} />
             <Route path="/teacherhome" exact component={TeacherHome} />
-            <Route path="/userprofile" exact component={UserProfile} />
+            <Route path="/userprofile" render={() => <UserProfile userType={userType}/>} />
             <Route path="/userprofilelang" render={() => <UserProfileLang userType={userType}/>} />
             <Route path="/userprofilereviews" render={() => <UserProfileReviews userType={userType}/>} />
           </Switch>
