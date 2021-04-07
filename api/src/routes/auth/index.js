@@ -1,32 +1,70 @@
 const AuthRouter = require('express').Router();
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
-AuthRouter.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email', 'openid', 'https://www.googleapis.com/auth/calendar.events', 'https://www.googleapis.com/auth/calendar.events.readonly', 'https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/calendar.settings.readonly'] }));
+AuthRouter.get(
+  '/google',
+  passport.authenticate(
+    'google',
+    {
+      scope: [
+        'profile',
+        'email',
+        'openid',
+        'https://www.googleapis.com/auth/calendar.events',
+        'https://www.googleapis.com/auth/calendar.events.readonly',
+        'https://www.googleapis.com/auth/calendar.readonly',
+        'https://www.googleapis.com/auth/calendar.settings.readonly',
+      ],
+    },
+    { session: false }
+  )
+);
 
-AuthRouter.get('/success',
-  function(req, res) {
-    console.log('blueberry session: ', req.session.passport.user);
-    res.status(200).send(req.session);
-  });
-
-AuthRouter.get(('/failed', (req, res) => {
-  // failed to login route, right now the plan is to send them back to login page
-  res.status(401).send('failed to login');
-}));
-
-AuthRouter.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/failed' }), function(req, res) {
+AuthRouter.get(
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/auth/failed' }),
+  function (req, res) {
+    const postBackUri = 'http://localhost:8080';
     console.log('req.user: ', req.user);
-    res.session = req.user;
-    res.redirect('/auth/success');
-  });
+    const token = jwt.sign({ user: req.user }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-AuthRouter.get(('/logout', (req, res) => {
-  req.session = null;
-  req.logout();
-  res.redirect('/login');
-}));
+    res.send(`
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Authenticated</title>
+    </head>
+    <body>
+      Authenticated successfully.
+      <script type="text/javascript">
+        window.addEventListener("message", function(e) {
+          console.dir(e)
+          if (e.origin && e.data && e.data.info && e.data.info.complete) {
+              window.close();
+          }
+        }, false);
+      
+        opener.postMessage({
+          command: "token-ready",
+          info: {
+            token: "${token}",
+          },
+        }, "${postBackUri}");
+      </script>
+    </body>
+  </html>
+`);
+  }
+);
 
+AuthRouter.get(
+  ('/logout',
+  (req, res) => {
+    req.session = null;
+    req.logout();
+    res.redirect('/login');
+  })
+);
 
 module.exports = AuthRouter;
