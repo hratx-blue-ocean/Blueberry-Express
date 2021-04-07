@@ -11,6 +11,7 @@ AuthRouter.get(
         'profile',
         'email',
         'openid',
+        'https://www.googleapis.com/auth/calendar',
         'https://www.googleapis.com/auth/calendar.events',
         'https://www.googleapis.com/auth/calendar.events.readonly',
         'https://www.googleapis.com/auth/calendar.readonly',
@@ -43,7 +44,7 @@ AuthRouter.get(
               window.close();
           }
         }, false);
-      
+
         opener.postMessage({
           command: "token-ready",
           info: {

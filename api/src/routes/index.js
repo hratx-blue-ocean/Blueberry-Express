@@ -9,3 +9,4 @@ Router.use('/languages', isLoggedIn, require('./languages'));
 Router.use('/auth', require('./auth'));
 
 module.exports = Router;
+
