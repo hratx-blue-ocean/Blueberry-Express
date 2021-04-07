@@ -1,5 +1,6 @@
 import React from 'react';
-import {MessageBtn} from '../Buttons/MessageBtn'
+import {MessageBtn} from '../Buttons/MessageBtn';
+import { MessageSend } from '../Modals/MessageSend.jsx';
 
 export const StudentAppointment = ({ appointment }) => {
 
@@ -12,7 +13,7 @@ export const StudentAppointment = ({ appointment }) => {
       </div>
 
       <div className="appointment-button">
-        <MessageBtn/>
+        <MessageSend name={appointment.with}/>
       </div>
     </div>
   )

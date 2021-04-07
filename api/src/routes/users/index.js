@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const db = require('../../postgres');
 
 const UsersRouter = require('express').Router();
 
@@ -6,7 +7,14 @@ UsersRouter.get('/', (req, res) => {
   if (req.headers.authorization) {
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-      res.json(token.user);
+      db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
+        res.json({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          type: user.student ? 'student' : 'teacher',
+        });
+      });
     } catch (e) {
       res.json({});
     }
