@@ -8,9 +8,6 @@ import { UserProfile } from './Layouts/UserProfile.jsx';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './appstyles.css'
 
-import { ReviewsContainer } from './UserProfile/ReviewsContainer.jsx';
-
-
 const App = () => (
   <Router>
     <div>
@@ -21,8 +18,6 @@ const App = () => (
         <Route path="/studenthome" exact component={StudentHome} />
         <Route path="/teacherhome" exact component={TeacherHome} />
         <Route path="/userprofile" exact component={UserProfile} />
-
-        <Route path="/review" exact component={ReviewsContainer} />
       </Switch>
     </div>
   </Router>
