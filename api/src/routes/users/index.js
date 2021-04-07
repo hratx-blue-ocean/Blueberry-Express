@@ -5,18 +5,6 @@ const db = require('../../postgres');
 
 
 UsersRouter.get('/', (req, res) => {
-<<<<<<< Updated upstream
-  if (req.headers.authorization) {
-    try {
-      const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-      res.json(token.user);
-    } catch (e) {
-      res.json({});
-    }
-  } else {
-    res.json({});
-  }
-=======
   db.user.findAll()
   .then((data) => {
 		res.status(200).json(data);
@@ -24,7 +12,6 @@ UsersRouter.get('/', (req, res) => {
   .catch((err) =>
 		console.log(err)
 	);
->>>>>>> Stashed changes
 });
 
 UsersRouter.get('/:userId', (req, res) => {
@@ -64,23 +51,17 @@ UsersRouter.put('/type', (req, res) => {
 // UsersRouter.post('/languages/:languageId', (req, res) => {
 //   res.sendStatus(400);
 // });
-//following the api docs
 
-//multiple languages at a time?
 UsersRouter.post('/:userId/languages/:languageId', (req, res) => {
   let userId = req.params.userId;
   let languageId = req.params.languageId;
-  //console.log('query', req.query)
   console.log('params', req.params)
-  //lang id
-  //console.log(db)
-  //user_langauges
+
 
   db.language.findOne({
     where: {id: languageId}
   })
   .then((data) => {
-    console.log('data', data);
     const lang = data;
     lang.addUser(userId)
   })
