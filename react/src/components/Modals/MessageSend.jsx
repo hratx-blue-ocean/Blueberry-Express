@@ -36,7 +36,6 @@ export const MessageSend = ({ name }) => {
   const [open, setOpen] = React.useState(false);
   const [messageSubject, setSubject] = useState('');
   const [messageBody, setBody] = useState('');
-  console.log('this', messageBody);
 
   const handleOpen = () => {
     setOpen(true);
