@@ -201,6 +201,7 @@
   position: relative;
   width: 40%;
 /* ------- Shared Reviews -------- */
+}
 
 .reviews-container {
   font-family: 'Poppins', sans-serif;
@@ -223,6 +224,7 @@
   font-size: 35px;
   margin-left: 50px;
   margin-bottom: 0px;
+}
 
 .reviews-header {
   text-decoration: underline;
