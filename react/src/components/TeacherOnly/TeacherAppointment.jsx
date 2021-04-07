@@ -1,5 +1,7 @@
 import React from 'react';
 import { MessageSend } from '../Modals/MessageSend.jsx';
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
 import { LargeBtn } from '../Buttons/LargeBtn'
 
 export const TeacherAppointment = ({ appointment }) => {
@@ -14,7 +16,9 @@ export const TeacherAppointment = ({ appointment }) => {
 
       <div className="flex appointment-button">
         <MessageSend name={appointment.with}/>
-        <LargeBtn label="Reschedule" />
+        <CheckIcon className="border-l"/>
+        <ClearIcon className="border-l"/>
+        {/* <LargeBtn label="Reschedule" /> */}
       </div>
     </div>
   )
