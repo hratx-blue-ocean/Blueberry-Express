@@ -1,5 +1,5 @@
 import React from 'react';
-import {MessageBtn} from '../Buttons/MessageBtn'
+import { MessageSend } from '../Modals/MessageSend.jsx';
 import { LargeBtn } from '../Buttons/LargeBtn'
 
 export const TeacherAppointment = ({ appointment }) => {
@@ -13,7 +13,7 @@ export const TeacherAppointment = ({ appointment }) => {
       </div>
 
       <div className="flex appointment-button">
-        <MessageBtn/>
+        <MessageSend name={appointment.with}/>
         <LargeBtn label="Reschedule" />
       </div>
     </div>
