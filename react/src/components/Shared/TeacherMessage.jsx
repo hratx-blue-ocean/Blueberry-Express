@@ -1,12 +1,11 @@
 import React from 'react';
-import { MessageRead } from '../Modals/MessageRead';
 
-export const TeacherMessage = ({ message }) => {
+export const TeacherMessage = ({ message, handleClick }) => {
   return (
-    <div className="teacher-individual-message" onClick={() => {console.log('clicked')}}>
+    <div className="teacher-individual-message" onClick={handleClick}>
       <div>
         <p className="teacher-message-subject">{message.from}: </p>
-        <p>{message.subject.slice(0, 40)}{message.subject.length > 40 ? '...' : null}</p>
+        <p>{message.subject.slice(0, 40)}{message.subject.length > 40 ? '.....' : null}</p>
       </div>
       <div>
         <p className="teacher-message-subject">{message.created_at}</p>

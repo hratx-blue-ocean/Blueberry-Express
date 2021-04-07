@@ -186,7 +186,6 @@
   text-align: center;
   box-shadow: 5px 5px 8px #a1a1a1;
   background-color: #2d739e;
-  /* background-image: linear-gradient(315deg, #009ffd 0%, #2a2a72 74%); */
 }
 
 .teacher-appointments {
@@ -206,7 +205,6 @@
   color: white;
   box-shadow: 5px 5px 8px #a1a1a1;
   background-color: #2a2a72;
-  /* background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); */
 }
 .teacher-individual-message {
   cursor: pointer;

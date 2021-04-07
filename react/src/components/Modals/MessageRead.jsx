@@ -1,38 +1,41 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import CloseIcon from '@material-ui/icons/Close';
+import { TeacherMessage } from '../Shared/TeacherMessage';
 
 function getModalStyle() {
-  const top = 25;
-  const left = 25;
-
-  return {
-    top: `${top}%`,
-    margin: 'auto'
-  };
+    const top = 25;
+    const left = 35;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      margin: 'auto'
+    };
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: 500,
-    height: 400,
-    backgroundColor: 'white',
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+    paper: {
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 20,
+        alignItems: 'left',
+        width: 500,
+        backgroundColor: "#2a2a72",
+        color: "white",
+        padding: theme.spacing(2, 4, 3),
+    },
 }));
 
-export const MessageRead = () => {
+export const MessageRead = ({ message }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
+      console.log('clicked')
     setOpen(true);
   };
 
@@ -42,22 +45,23 @@ export const MessageRead = () => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 className="mb-12" id="simple-modal-title">Message</h2>
-      <input className="w-80 h-28 border border-black mb-12" type="text" placeholder="Enter Subject..."></input>
-      <textarea className="w-80 h-28 border border-black mb-12" placeholder="Enter Message..."></textarea>
+      <h2 className="text-2xl text-bold pb-4 border-b">{message.from}</h2>
+      <p className="pt-4">{message.subject}</p>
     </div>
   );
 
   return (
     <div>
+      <TeacherMessage message={message} handleClick={handleOpen} />
       <Modal
-        style={{display:'flex',alignItems:'center',justifyContent:'center'}}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
       >
-        {body}
+        
+        <div style={{ outline: 'none' }}>
+          {body}
+        </div>
       </Modal>
     </div>
   );
