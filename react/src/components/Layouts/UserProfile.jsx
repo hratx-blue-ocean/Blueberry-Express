@@ -3,10 +3,10 @@ import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { Nav } from '../Shared/Nav.jsx';
 import { Footer } from '../Shared/Footer.jsx';
 import { MenuSettings} from '../UserProfile/MenuSettings';
-import { PersonalInfo } from '../UserProfile/PersonalInfo'
+import { PersonalInfo } from '../UserProfile/PersonalInfo';
 import './UserProfile.css';
 
-export const UserProfile = ({userType}) => {
+export const UserProfile = ( { userType } ) => {
 
     return (
         <div className="student-home-container">
@@ -23,7 +23,7 @@ export const UserProfile = ({userType}) => {
             </div>
             <div></div>
             <div className="flex gap-20">
-            <MenuSettings/>
+            <MenuSettings userType={userType}/>
             <div className="flex justify-around mt-5">
             </div>
             <PersonalInfo/>

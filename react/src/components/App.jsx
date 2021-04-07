@@ -13,7 +13,7 @@ import { UserProfileLang } from './Layouts/UserProfileLang'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState(null);
+  const [userType, setUserType] = useState('teacher');
   const [userName, setUserName] = useState('');
   const contextValue = {
     loggedIn,
@@ -43,7 +43,7 @@ const App = () => {
             <Route path="/studenthome" exact component={StudentHome} />
             <Route path="/teacherhome" exact component={TeacherHome} />
             <Route path="/userprofile" exact component={UserProfile} />
-            <Route path="/userprofilelang" exact component={UserProfileLang} />
+            <Route path="/userprofilelang" render={() => <UserProfileLang userType={userType}/>} />
           </Switch>
         </div>
       </Router>

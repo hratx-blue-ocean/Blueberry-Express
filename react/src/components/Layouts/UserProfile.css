@@ -5,3 +5,9 @@
   position: relative;
   right: 10px;
 }
+
+.smallbtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
