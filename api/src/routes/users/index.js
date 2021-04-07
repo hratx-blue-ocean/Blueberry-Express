@@ -1,7 +1,18 @@
+const jwt = require('jsonwebtoken');
+
 const UsersRouter = require('express').Router();
 
 UsersRouter.get('/', (req, res) => {
-  res.sendStatus(404);
+  if (req.headers.authorization) {
+    try {
+      const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+      res.json(token.user);
+    } catch (e) {
+      res.json({});
+    }
+  } else {
+    res.json({});
+  }
 });
 
 UsersRouter.get('/:userId', (req, res) => {

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { LargeBtn } from '../Buttons/LargeBtn'
 import { Footer } from '../Shared/Footer'
 import { Logo } from '../Shared/Logo'
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../auth';
 
-export const LandingPage = () => {
+export const LandingPage = (props) => {
+    const user = useContext(AuthContext);
     return (
         <div>
             <div className="flex flex-row items-center justify-between border-b p-4">
@@ -12,9 +14,10 @@ export const LandingPage = () => {
                     <Logo />
                     <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
                 </div>
-                <Link to="/login">
+                { user.loggedIn ? user.userName : (<Link to="/login">
                     <LargeBtn label='Login'/>
-                </Link>
+                </Link>)}
+                
             </div>
 
             <div className="flex items-center justify-center mt-16">
