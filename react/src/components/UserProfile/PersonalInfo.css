@@ -1,0 +1,36 @@
+
+
+/* ----- Container ------ */
+.container {
+  background-color: #b3b3b3c0;
+}
+
+.textFields {
+  padding: 10px;
+  gap: 10px;
+  position: absolute;
+  top: 300px;
+}
+
+.preferredName {
+  margin-bottom: 100px;
+}
+
+.preferredNameText {
+  margin-left: 52px;
+  border: 1px solid #2a2a72;
+}
+
+.preferredLanguageText {
+  margin-left: 20px;
+  border: 1px solid #2a2a72;
+}
+
+.pfp {
+  max-width: 200px;
+  position: absolute;
+  left: 400px;
+  bottom: 425px;
+  border: 1px solid #2a2a72;
+  padding: 10px;
+}
