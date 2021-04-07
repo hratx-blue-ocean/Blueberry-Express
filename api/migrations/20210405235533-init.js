@@ -24,7 +24,7 @@ exports.up = (db) => {
       last_login: { type: 'date', notNull: true, defaultValue: new String('Now()') },
       google_key: { type: 'string', notNull: true },
       zoom_link: { type: 'string', notNull: false },
-      student: { type: 'boolean', notNull: true },
+      student: { type: 'boolean' },
     })
     .then(() => {
       return db.createTable('appointments', {
