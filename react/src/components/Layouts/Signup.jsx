@@ -2,15 +2,18 @@ import React from 'react';
 import { Logo } from '../Shared/Logo'
 import { GoogleBtn } from '../Buttons/GoogleBtn'
 import { Footer } from '../Shared/Footer'
+import { Link } from "react-router-dom";
 
 export const Signup = () => {
     return (
         <div>
             <div className="flex flex-row items-center justify-between border-b p-5">
+              <Link to="/">
                 <div className="flex flex-row items-center">
                     <Logo />
                     <h1 className="text-2xl text-gray-800 font-bold italic ml-4">Blueberry Express</h1>
                 </div>
+              </Link>
             </div>
 
             <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Message } from './Message.jsx';
+import { TeacherMessage } from './TeacherMessage.jsx';
 
-export const MessagesContainer = () => {
+export const TeacherMessageContainer = () => {
 
   //To-Do - Remove Dummy data for real data
 
@@ -27,11 +27,11 @@ export const MessagesContainer = () => {
   ]
 
   return (
-    <div className="messages-container">
+    <div className="teacher-messages-container">
       <h2 className="message-header tracking-wide">Messages</h2>
       <div className="">
       {messagesArray.map((message, index) => {
-        return <Message message={message} key={index}/>
+        return <TeacherMessage message={message} key={index}/>
       })}
       </div>
     </div>

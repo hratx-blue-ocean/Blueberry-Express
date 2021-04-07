@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Message = ({ message }) => {
+export const TeacherMessage = ({ message }) => {
   return (
     <div className="individual-message">
       <div>
@@ -9,7 +9,7 @@ export const Message = ({ message }) => {
       </div>
       <div>
         <p className="message-subject">Subject:</p>
-        <p className="">{message.subject.slice(0, 13)}{message.subject.length > 13 ? '...' : null}</p>
+        <p className="">{message.subject.slice(0, 40)}{message.subject.length > 40 ? '...' : null}</p>
       </div>
       <div>
         <p className="message-subject">Date:</p>
