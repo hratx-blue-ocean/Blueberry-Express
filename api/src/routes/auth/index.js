@@ -2,10 +2,6 @@ const AuthRouter = require('express').Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
-AuthRouter.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email', 'openid', 'https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.events', 'https://www.googleapis.com/auth/calendar.events.readonly', 'https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/calendar.settings.readonly'] }));
-=======
 AuthRouter.get(
   '/google',
   passport.authenticate(
@@ -24,7 +20,6 @@ AuthRouter.get(
     { session: false }
   )
 );
->>>>>>> staging
 
 AuthRouter.get(
   '/google/callback',
@@ -49,7 +44,7 @@ AuthRouter.get(
               window.close();
           }
         }, false);
-      
+
         opener.postMessage({
           command: "token-ready",
           info: {
