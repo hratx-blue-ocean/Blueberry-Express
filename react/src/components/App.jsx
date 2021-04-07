@@ -26,7 +26,7 @@ const App = () => {
       if (data.id) {
         setLoggedIn(true);
         setUserType(data.type);
-        setUserName(data.displayName);
+        setUserName(data.name);
       }
     });
   }, []);
