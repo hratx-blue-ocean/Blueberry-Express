@@ -13,12 +13,12 @@ export const PersonalInfo = () => {
         </div>
         <div className="textFields">
           <div className="preferredName">
-            Preferred Name
+            Preferred Name:
           <input type="text" className="preferredNameText" placeholder="username">
           </input>
           </div>
           <div className="preferredLanguage">
-            Preferred Language
+            Preferred Language:
           <input type="text" className="preferredLanguageText" placeholder="language">
           </input>
           </div>

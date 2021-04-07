@@ -3,13 +3,18 @@
 /* ----- Container ------ */
 .container {
   background-color: #b3b3b3c0;
+  border-radius: 10px;
+  position: relative;
+  right: 10px;
 }
+
+
 
 .textFields {
   padding: 10px;
   gap: 10px;
   position: absolute;
-  top: 300px;
+  top: 200px;
 }
 
 .preferredName {
@@ -28,9 +33,25 @@
 
 .pfp {
   max-width: 200px;
-  position: absolute;
-  left: 400px;
-  bottom: 425px;
+  position: relative;
+  right: 400px;
+  bottom: 50px;
   border: 1px solid #2a2a72;
   padding: 10px;
+}
+
+
+/* MenuSettingsContainer */
+.MenuSettingsContainer {
+  position: relative;
+  left: 10px;
+  width: 21%;
+  height: 590px;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 5px 5px 8px #a1a1a1;
+  background-color: #2a2a72;
+  background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
 }

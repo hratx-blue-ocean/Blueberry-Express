@@ -1,16 +1,12 @@
 import React from 'react';
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { Nav } from '../Shared/Nav.jsx';
-import { SearchBar } from '../StudentOnly/SearchBar.jsx';
-import { StudentAppointmentsContainer } from '../StudentOnly/StudentAppointmentsContainer.jsx';
-import { MessagesContainer } from '../Shared/MessagesContainer.jsx';
-import { TeacherContainer } from '../StudentOnly/TeacherContainer.jsx';
 import { Footer } from '../Shared/Footer.jsx';
 import { MenuSettings} from '../UserProfile/MenuSettings';
-import {PersonalInfo} from '../UserProfile/PersonalInfo'
+import { PersonalInfo } from '../UserProfile/PersonalInfo'
 import './UserProfile.css';
 
-export const UserProfile = () => {
+export const UserProfile = ({userType}) => {
     return (
         <div className="student-home-container">
             <div className="nav-bar-container">
