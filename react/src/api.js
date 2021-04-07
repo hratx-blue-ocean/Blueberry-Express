@@ -1,5 +1,17 @@
 const axios = require('axios').default;
 
+const jwt = localStorage.getItem('jwt');
+console.log('jwt', jwt);
+
+axios.defaults.headers.common['Authorization'] = jwt;
+axios.defaults.baseURL = process.env.API_URL;
+
+// Returns the current user object, if the user is logged in
+export function getUser(type) {
+  return axios.get('/users')
+    .then(res => res.data);
+}
+
 
 // Sets user as either a teacher or a student, this process can not be undone
 export function initializeUser(type) {
@@ -148,11 +160,11 @@ export function fetchRemainingAppointments() {
 }
 
 // Sends an appointment request 'with' a given user, end can't be longer than 90mins from start
-export function sendAppointmentRequest(with, start, end) {
+export function sendAppointmentRequest(withUser, start, end) {
   const options = {
     method: 'post',
     url: '/appointments',
-    params: {with, start, end}
+    params: {withUser, start, end}
   };
 
   axios(options).then(res => {
