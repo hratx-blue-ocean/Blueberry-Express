@@ -28,11 +28,15 @@ fs.readdirSync(path.join(__dirname, './models'))
 
 // Define relationships here
 db.message.belongsTo(db.user, { foreignKey: 'from_id' });
+db.user.hasMany(db.message, { as: 'sentMessages', hostKey: 'from_id' });
 db.message.belongsTo(db.user, { foreignKey: 'to_id' });
+db.user.hasMany(db.messsage, { as: 'incomingMessages', hostKey: 'to_id' });
 db.rating.belongsTo(db.user, { foreignKey: 'teacher_id' });
 db.rating.belongsTo(db.user, { foreignKey: 'student_id' });
 db.appointment.belongsTo(db.user, { foreignKey: 'from_id' });
+db.user.hasMany(db.appointment, { as: 'sentAppointments', hostKey: 'from_id' });
 db.appointment.belongsTo(db.user, { foreignKey: 'to_id' });
+db.user.hasMany(db.appointment, { as: 'incomingAppointments', hostKey: 'to_id' });
 db.rating.belongsTo(db.appointment, { foreignKey: 'appointment_id' });
 db.language.belongsToMany(db.user, { through: db.user_languages });
 db.user.belongsToMany(db.language, { through: db.user_languages });
