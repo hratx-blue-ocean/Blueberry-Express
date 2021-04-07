@@ -11,6 +11,7 @@ AuthRouter.get(
         'profile',
         'email',
         'openid',
+        'https://www.googleapis.com/auth/calendar',
         'https://www.googleapis.com/auth/calendar.events',
         'https://www.googleapis.com/auth/calendar.events.readonly',
         'https://www.googleapis.com/auth/calendar.readonly',

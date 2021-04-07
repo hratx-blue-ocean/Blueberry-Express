@@ -26,23 +26,23 @@ passport.use(new GoogleStrategy({
   callbackURL: `http://localhost:${process.env.PORT}/auth/google/callback`
 },
 function(accessToken, refreshToken, profile, done) {
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //if the user doesn't exist, we will need to run an axios call to post a new calendar for that user
-    axios
-      .post(('https://www.googleapis.com/calendar/v3/calendars'), {
-        summary: 'Blueberry Appointments'
-      }, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-      .then((response) => {
-        // grab the calendar id of the post request
-        // and put it in the database
-        console.log('response from calendarapi: ', response.data);
-      });
-    return done(err, user);
-  });
+  // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+  //   //if the user doesn't exist, we will need to run an axios call to post a new calendar for that user
+  //   axios
+  //     .post(('https://www.googleapis.com/calendar/v3/calendars'), {
+  //       summary: 'Blueberry Appointments'
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`
+  //       }
+  //     })
+  //     .then((response) => {
+  //       // grab the calendar id of the post request
+  //       // and put it in the database
+  //       console.log('response from calendarapi: ', response.data);
+  //     });
+  //   return done(err, user);
+  // });
   console.log('big access token: ', accessToken);
   return done(null, profile);
 }
