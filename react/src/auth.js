@@ -25,4 +25,8 @@ export const login = () => {
     //window.location = '/';
 }
 
+export const logout = () => {
+    localStorage.removeItem('jwt');
+}
+
 export const AuthContext = React.createContext();
