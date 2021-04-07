@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 500,
     height: 550,
-    background: 'rgb(222,222,222)',
-    background: 'linear-gradient(140deg, rgb(207, 207, 207) 5%, rgb(211, 211, 211) 20%, rgb(236, 236, 236) 62%, rgba(236,236,236,1) 100%)',
+    backgroundColor: '#2a2a72',
+    color: 'white',
     padding: theme.spacing(2, 4, 3),
   },
 }));
@@ -55,7 +55,7 @@ export const AvailabilityModal = ({ name }) => {
         <div className="text-center mr-10">
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Monday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -65,7 +65,7 @@ export const AvailabilityModal = ({ name }) => {
           </div>
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Tuesday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -75,7 +75,7 @@ export const AvailabilityModal = ({ name }) => {
           </div>
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Wednesday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -85,7 +85,7 @@ export const AvailabilityModal = ({ name }) => {
           </div>
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Thursday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -97,7 +97,7 @@ export const AvailabilityModal = ({ name }) => {
         <div className="text-center">
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Friday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -107,7 +107,7 @@ export const AvailabilityModal = ({ name }) => {
           </div>
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Saturday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
@@ -117,7 +117,7 @@ export const AvailabilityModal = ({ name }) => {
           </div>
           <div className="p-2 mb-2">
             <p className="text-lg underline mb-1">Sunday</p>
-            <select className="h-9 rounded-md p-2">
+            <select className="h-9 rounded-md p-2 text-black">
               <option>Select One...</option>
               <option>9:00am - 11:00am</option>
               <option>11:00am - 1:00pm</option>
