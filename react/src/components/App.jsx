@@ -5,6 +5,8 @@ import { Signup } from './Layouts/Signup.jsx';
 import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
+import { CalendarView } from './Layouts/CalendarView.jsx';
+import { UserProfileLang } from './Layouts/UserProfileLang';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
@@ -26,7 +28,7 @@ const App = () => {
       if (data.id) {
         setLoggedIn(true);
         setUserType(data.type);
-        setUserName(data.displayName);
+        setUserName(data.name);
       }
     });
   }, []);
@@ -42,6 +44,8 @@ const App = () => {
             <Route path="/studenthome" exact component={StudentHome} />
             <Route path="/teacherhome" exact component={TeacherHome} />
             <Route path="/userprofile" exact component={UserProfile} />
+            <Route path="/calendar" exact component={CalendarView} />
+            <Route path="/userprofilelang" exact component={UserProfileLang} />
           </Switch>
         </div>
       </Router>
