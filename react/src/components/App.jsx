@@ -13,7 +13,7 @@ import { UserProfileLang } from './Layouts/UserProfileLang'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState('teacher');
+  const [userType, setUserType] = useState(null);
   const [userName, setUserName] = useState('');
   const contextValue = {
     loggedIn,
