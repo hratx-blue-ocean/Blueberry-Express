@@ -25,21 +25,19 @@ export const UserProfile = ( { userType } ) => {
                     <TransparentLogo />
                 </div>
                 <div className="nav-links">
-                    <Nav />
+                    <Nav/>
                 </div>
             </div>
             <div className="flex justify-center">
-            Profile
+                Profile
             </div>
-            <div></div>
             <div className="flex gap-20">
-            <MenuSettings userType={userType} curPage={page} action={choosePage}/>
-            <div className="flex justify-around mt-5">
-            </div>
-            <PersonalInfo/>
-            <div className="smallbtn2">
-            <SmallBtn label={'Submit'}/>
-            </div>
+                <MenuSettings userType={userType} curPage={page} action={choosePage}/>
+                <div className="flex justify-around mt-5"></div>
+                    <PersonalInfo/>
+                <div className="smallbtn2">
+                    <SmallBtn label={'Submit'}/>
+                </div>
             </div>
             <Footer />
         </div>
@@ -56,19 +54,18 @@ export const UserProfile = ( { userType } ) => {
                     </div>
                 </div>
                 <div className="flex justify-center ml-80">
-                Language Selection
+                    Language Selection
                 </div>
-                <div></div>
                 <div className="flex gap-20">
-                <MenuSettings userType={userType} curPage={page} action={choosePage}/>
-                <div className="flex justify-around mt-5">
+                    <MenuSettings userType={userType} curPage={page} action={choosePage}/>
+                    <div className="flex justify-around mt-5">
                 </div>
-                <div className="container flex justify-around">
-                <LanguageSelection languages={["English", "Spanish", "Japanese", "German", "French", "Korean"]}/>
-                <div className="smallbtn">
-                <SmallBtn label={'Submit'}/>
-                </div>
-                </div>
+                    <div className="container flex justify-around">
+                        <LanguageSelection languages={["English", "Spanish", "Japanese", "German", "French", "Korean"]}/>
+                        <div className="smallbtn">
+                            <SmallBtn label={'Submit'}/>
+                        </div>
+                    </div>
                 </div>
                 <Footer />
             </div>
@@ -87,14 +84,12 @@ export const UserProfile = ( { userType } ) => {
                 <div className="flex justify-center ml-80">
                 Reviews
                 </div>
-                <div></div>
                 <div className="flex gap-20">
-                <MenuSettings userType={userType} action={choosePage}/>
-                <div className="flex justify-around mt-5">
-                </div>
-                <div className="reviews">
+                    <MenuSettings userType={userType} action={choosePage}/>
+                <div className="flex justify-around mt-5"></div>
+                    <div className="reviews">
                     <ReviewsContainer />
-                </div>
+                    </div>
                 </div>
                 <Footer />
             </div>
