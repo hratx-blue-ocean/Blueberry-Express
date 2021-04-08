@@ -3,17 +3,16 @@ const axios = require('axios');
 const Calendar = {};
 
 Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
-
   let event = {
     kind: 'calendar#event',
     summary: eventParams.summary,
     start: {
-      dateTime: eventParams.start.dateTime, // '2015-05-28T17:00:00-07:00'
-      timeZone: eventParams.timeZone // 'America/Minneapolis'
+      dateTime: eventParams.start, // '2015-05-28T17:00:00-07:00'
+      timeZone: 'US/Central' // 'America/Minneapolis'
     },
     end: {
-      dateTime: eventParams.end.dateTime,
-      timeZone: eventParams.timeZone
+      dateTime: eventParams.end,
+      timeZone: 'US/Central'
     }
   };
   // calendar id should look like: optdi857if3c83476keu5hp8g0@group.calendar.google.com

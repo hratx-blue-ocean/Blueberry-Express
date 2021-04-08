@@ -13,8 +13,9 @@ const isLoggedIn = (req, res, next) => {
         } else {
           req.userAuthorized = true;
         }
-        console.log(req.userAuthorized);
+        // console.log(req.userAuthorized);
         req.user = user;
+        // console.log('USER: ', user);
         req.accessToken = token.accessToken;
         req.refreshToken = token.refreshToken;
         next();
