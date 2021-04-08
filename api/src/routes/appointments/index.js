@@ -1,8 +1,10 @@
 const AppointmentsRouter = require('express').Router();
 const Calendar = require('../.././controller/index.js');
+const refresh = require('../.././controller/refresh.js');
 
 AppointmentsRouter.get('/', (req, res) => {
   // list all events
+  // req.refreshtoken
 
   res.sendStatus(400);
 });
@@ -25,17 +27,19 @@ AppointmentsRouter.get('/available', (req, res) => {
 });
 
 AppointmentsRouter.post('/', (req, res) => {
-  // creating an appointment
-  // query the db for the refresh token based on the req.user.id
-  // feed that accessToken in here
 
-  Calendar.createEvent(req.accessToken, req.refreshToken, req.user.dataValues.calendarId, req.body)
-    .then((responseObj) => {
-      // console.log('response: ', responseObj);
-      res.json(responseObj);
-    })
-    .catch((err) => {
-      res.send(err);
+  let newToken = refresh(req.refreshToken);
+
+  Promise.resolve(newToken)
+    .then((accessToken) => {
+      Calendar.createEvent(accessToken, req.refreshToken, req.user.dataValues.calendarId, req.body)
+        .then((responseObj) => {
+        // console.log('response: ', responseObj);
+          res.json(responseObj);
+        })
+        .catch((err) => {
+          res.send(err);
+        });
     });
 });
 
@@ -44,7 +48,6 @@ AppointmentsRouter.put('/:appointmentId', (req, res) => {
 });
 
 AppointmentsRouter.delete('/:appointmentId', (req, res) => {
-  // grab the user's calendar id from the db based on the user id attached to the jwt
   // get the user's accessToken and refresh token from the jwt
   Calendar.deleteEvent(accessToken, refreshToken, calendarId, req.params.appointmentId)
     .then((responseObj) => {

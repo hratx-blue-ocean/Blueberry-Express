@@ -1,6 +1,7 @@
 const db = require('../../postgres');
 const jwt = require('jsonwebtoken');
-
+const Calendar = require('../.././controller/index.js');
+const refresh = require('../.././controller/refresh.js');
 const UsersRouter = require('express').Router();
 
 UsersRouter.get('/', (req, res) => {
@@ -79,8 +80,32 @@ UsersRouter.post('/languages/:languageId', (req, res) => {
     });
 });
 
-UsersRouter.get('/users/:userId/availability', (req, res) => {
-  res.sendStatus(400);
+UsersRouter.get('/:userId/availability', (req, res) => {
+  // returns an array of busy start/end time objects
+  let selectedUserRefreshTkn = db.user.findOne({ where: { googleKey: req.params.userId } })
+    .then((user) => {
+      return {
+        refreshToken: user.refreshToken,
+        calendarId: user.calendarId
+      };
+    });
+
+  Promise.resolve((selectedUserRefreshTkn))
+    .then((userInfo) => {
+
+      let newToken = refresh(userInfo.refreshToken);
+      Promise.resolve(newToken)
+        .then((accessToken) => {
+          Calendar.freeBusy(accessToken, req.refreshToken, userInfo.calendarId, req.query.start, req.query.end)
+            .then((response) => {
+            // console.log('response: ', responseObj);
+              res.json(response.data);
+            })
+            .catch((err) => {
+              res.setStatus(400).send(err);
+            });
+        });
+    });
 });
 
 UsersRouter.post('/users/availability', (req, res) => {

@@ -226,7 +226,7 @@ Calendar.deleteEvent = (accessToken, refreshToken, calendarId, eventId) => {
     });
 };
 
-Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, timeZone) => {
+Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd) => {
   if (timeStart === undefined) {
     timeStart = new Date().toISOString();
   }
@@ -238,7 +238,7 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
   let body = {
     timemin: timeStart,
     timeMax: timeEnd,
-    timeZone: timeZone || 'America/Minneapolis',
+    timeZone: 'US/Central',
     groupExpansionMax: 50,
     calendarExpansionMas: 25,
     items: [
@@ -272,9 +272,7 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
       // }
 
       return {
-        response: response.data,
-        accessToken: accessToken,
-        refreshToken: refreshToken
+        busy: response.data.calendars[calendarId].busy
       };
     })
     .catch((err) => {
