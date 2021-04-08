@@ -26,12 +26,7 @@ AppointmentsRouter.get('/available', (req, res) => {
 
 AppointmentsRouter.post('/', (req, res) => {
   // creating an appointment
-  // grab the user's calendar id from the db based on the user id attached to the jwt
-  // get the username of the userId in the with category
-  console.log('req.accessToken: ', req.accessToken);
-  console.log('req.refreshToken: ', req.refreshToken);
-  console.log('req.user.dataValues.calendarId: ', req.user.dataValues.calendarId);
-  console.log('REQ.BODY: ', req.body);
+
   Calendar.createEvent(req.accessToken, req.refreshToken, req.user.dataValues.calendarId, req.body)
     .then((responseObj) => {
       // console.log('response: ', responseObj);
