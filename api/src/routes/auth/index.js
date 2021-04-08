@@ -1,7 +1,5 @@
 const AuthRouter = require('express').Router();
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-
 AuthRouter.get(
   '/google',
   passport.authenticate(
