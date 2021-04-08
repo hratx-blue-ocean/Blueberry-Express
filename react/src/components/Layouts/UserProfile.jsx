@@ -4,6 +4,7 @@ import { Nav } from '../Shared/Nav.jsx';
 import { Footer } from '../Shared/Footer.jsx';
 import { MenuSettings} from '../UserProfile/MenuSettings';
 import { PersonalInfo } from '../UserProfile/PersonalInfo';
+import { SmallBtn } from '../Buttons/SmallBtn'
 import './UserProfile.css';
 
 export const UserProfile = ( { userType } ) => {
@@ -26,6 +27,9 @@ export const UserProfile = ( { userType } ) => {
             <div className="flex justify-around mt-5">
             </div>
             <PersonalInfo/>
+            <div className="smallbtn2">
+              <SmallBtn label={'Submit'}/>
+            </div>
             </div>
             <Footer />
         </div>

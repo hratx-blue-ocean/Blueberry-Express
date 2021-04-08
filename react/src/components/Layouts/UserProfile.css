@@ -12,6 +12,12 @@
   right: 0;
 }
 
+.smallbtn2 {
+  position: relative;
+  top: 540px;
+  right: 200px;
+}
+
 .reviews-container {
   width: fit-content;
   height: fit-content;

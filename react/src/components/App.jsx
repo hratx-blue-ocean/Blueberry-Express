@@ -11,7 +11,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext } from '../auth';
-import { UserProfileLang } from './Layouts/UserProfileLang';
 import { UserProfileReviews } from './Layouts/UserProfileReviews';
 
 const App = () => {
