@@ -9,7 +9,6 @@ UsersRouter.get('/', (req, res) => {
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
       db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
-        console.log('USER', user);
         res.json({
           id: user.id,
           name: user.name,
