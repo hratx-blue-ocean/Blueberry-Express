@@ -95,9 +95,8 @@ export const UserProfile = ( { userType } ) => {
     )
 
 
-
     return (
-        {(page === 'main') && mainPage};
+        page === 'main' && mainPage || page === 'lang' && langPage || page === 'reviews' && reviewsPage
     )
 
 

@@ -6,12 +6,11 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { CalendarView } from './Layouts/CalendarView.jsx';
-import { UserProfileLang } from './Layouts/UserProfileLang';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext } from '../auth';
-import { UserProfileReviews } from './Layouts/UserProfileReviews';
+
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
