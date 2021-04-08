@@ -26,6 +26,8 @@ AppointmentsRouter.get('/available', (req, res) => {
 
 AppointmentsRouter.post('/', (req, res) => {
   // creating an appointment
+  // query the db for the refresh token based on the req.user.id
+  // feed that accessToken in here
 
   Calendar.createEvent(req.accessToken, req.refreshToken, req.user.dataValues.calendarId, req.body)
     .then((responseObj) => {
