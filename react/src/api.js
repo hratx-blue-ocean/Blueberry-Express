@@ -190,7 +190,7 @@ export function fetchAllMessages(count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);
@@ -221,7 +221,7 @@ export function fetchMessage(messageId) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);
@@ -244,11 +244,15 @@ export function fetchSentMessages(count, page) {
   });
 }
 
-export function sendMessage(to, subject, body) {
+export function sendMessage(id, subject, body) {
   const options = {
     method: 'post',
     url: `/messages`,
-    params: { to, subject, body }
+    data: {
+      toId: id,
+      body: body,
+      subject: subject
+    }
   };
 
   return axios(options)
@@ -266,7 +270,7 @@ export function fetchAllLanguages(count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);

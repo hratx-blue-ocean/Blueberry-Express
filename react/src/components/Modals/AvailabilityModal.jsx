@@ -70,8 +70,8 @@ export const AvailabilityModal = ({ name }) => {
       <button className="absolute right-5" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
       <h2 className="mb-6 text-2xl underline" id="simple-modal-title">Scheduling</h2>
       <h2 className="underline text-lg mb-1">Teacher's Current Schedule</h2>
-      {dummyAvailability.map(date => {
-        return <div className="p-1">
+      {dummyAvailability.map((date, index) => {
+        return <div key={index} className="p-1">
           <span>{date.start}</span> - <span>{date.end}</span>
         </div>
       })}

@@ -8,28 +8,64 @@ export const MessagesContainer = () => {
 
   let messagesArray = [
     {
-      id: '1',
-      from: 'Matt',
-      subject: 'Our Meeting Time',
-      created_at: '4/5/21'
+      "id": 1000,
+      "subject": "test1",
+      "from": 2,
+      "unread": false,
+      "created_at": "2021-04-08",
+      "fromUser": {
+        "id": 2,
+        "name": "Kate",
+        "email": "kate@gmail.com",
+        "googleKey": "1",
+        "calendarId": null,
+        "bio": null,
+        "profileImg": "https://picsum.photos/200",
+        "timezone": 0,
+        "lastLogin": "2021-04-08",
+        "zoomLink": null,
+        "student": false
+        }
     },
     {
-      id: '2',
-      from: 'Tahsin',
-      subject: 'Hey whats up?',
-      created_at: '4/5/21'
+      "id": 1001,
+      "subject": "test2",
+      "from": 3,
+      "unread": false,
+      "created_at": "2021-04-08",
+      "fromUser": {
+        "id": 2,
+        "name": "Tahsin",
+        "email": "kate@gmail.com",
+        "googleKey": "1",
+        "calendarId": null,
+        "bio": null,
+        "profileImg": "https://picsum.photos/200",
+        "timezone": 0,
+        "lastLogin": "2021-04-08",
+        "zoomLink": null,
+        "student": false
+        }
     },
     {
-      id: '3',
-      from: 'Brandon',
-      subject: 'Appointment Approved',
-      created_at: '4/5/21'
-    },
-    {
-      id: '3',
-      from: 'Cody',
-      subject: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      created_at: '4/5/21'
+      "id": 1002,
+      "subject": "test",
+      "from": 4,
+      "unread": false,
+      "created_at": "2021-04-08",
+      "fromUser": {
+        "id": 2,
+        "name": "Matt",
+        "email": "kate@gmail.com",
+        "googleKey": "1",
+        "calendarId": null,
+        "bio": null,
+        "profileImg": "https://picsum.photos/200",
+        "timezone": 0,
+        "lastLogin": "2021-04-08",
+        "zoomLink": null,
+        "student": false
+        }
     }
   ]
 

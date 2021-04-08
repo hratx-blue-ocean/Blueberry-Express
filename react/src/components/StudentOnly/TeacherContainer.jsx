@@ -46,7 +46,7 @@ export const TeacherContainer = () => {
 
   return (
     <div className="teacher-list-container">
-      <h1 className="welcome-back">Welcome back, {context.userName}</h1>
+      <h1 className="welcome-back">Welcome back, {context.user.name}!</h1>
       <div className="teacher-container">
         {dummyData.map((user, index) => {
           return <Teacher user={user} key={index} />
