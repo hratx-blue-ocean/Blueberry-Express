@@ -1,9 +1,11 @@
 const db = require('../../postgres');
+const jwt = require('jsonwebtoken');
 
 const UsersRouter = require('express').Router();
 
 UsersRouter.get('/', (req, res) => {
   if (req.headers.authorization) {
+    console.dir(req.user);
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
       db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
@@ -15,11 +17,24 @@ UsersRouter.get('/', (req, res) => {
         });
       });
     } catch (e) {
+      console.error(e);
       res.json({});
     }
   } else {
     res.json({});
   }
+});
+
+UsersRouter.get('/languages', (req, res) => {
+  req.user
+    .getLanguages()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+      console.log(err.message);
+    });
 });
 
 UsersRouter.get('/:userId', (req, res) => {
@@ -51,23 +66,26 @@ UsersRouter.put('/type', (req, res) => {
   }
 });
 
-// UsersRouter.post('/languages/:languageId', (req, res) => {
-//   res.sendStatus(400);
-// });
-
 UsersRouter.post('/languages/:languageId', (req, res) => {
   let languageId = req.params.languageId;
 
-  db.language
-    .findOne({
-      where: { id: languageId },
-    })
-    .then((data) => {
-      const lang = data;
-      lang.addUser(req.user);
-    })
+  req.user
+    .addLanguage(languageId)
     .then(() => {
-      res.status(201).send('saved!');
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+      console.log(err.message);
+    });
+});
+
+UsersRouter.delete('/languages/:languageId', (req, res) => {
+  let languageId = req.params.languageId;
+  req.user
+    .removeLanguage(languageId)
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       res.sendStatus(500);

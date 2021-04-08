@@ -1,7 +1,6 @@
 const axios = require('axios').default;
 
 const jwt = localStorage.getItem('jwt');
-console.log('jwt', jwt);
 
 axios.defaults.headers.common['Authorization'] = jwt;
 axios.defaults.baseURL = process.env.API_URL;
@@ -21,27 +20,23 @@ export function initializeUser(type) {
     data: {type: type}
   };
 
-  axios(options).then( res => {
-    res.sendStatus(200)
-  })
-  .catch( err => {
-    console.error(err);
-  });
+  return axios(options)
+    .catch( err => {
+      console.error(err);
+    });
 }
 
 // Sets a language as a preferred language in the DB
-export function setUserLanguage(languageId) {
+export function addUserLanguage(languageId) {
   const options = {
     method: 'post',
     url: `/users/languages/${languageId}`,
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200)
-  })
-  .catch(err => {
-    console.error(err);
-  });
+  return axios(options)
+    .catch(err => {
+      console.error(err);
+    });
 }
 
 // Deletes user preferred language in the DB
@@ -59,15 +54,13 @@ export function deleteUserLanguage(languageId) {
   });
 }
 
-export function fetchUser(userId) {
+export function fetchOtherUser(userId) {
   const options = {
     method: 'get',
     url: `/users/${userId}`,
   };
 
-  axios(options).then(res => {
-    res.send(res.data);
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
@@ -80,12 +73,8 @@ export function fetchBusySchedule(userId, start, end) {
     params: { start, end }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -103,9 +92,7 @@ export function setBusySchedule(userId, day, start, end) {
     }
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200);
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
@@ -128,12 +115,8 @@ export function fetchAppointments(status = null, start, end, count, page) {
     params: { start, end, count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -147,12 +130,8 @@ export function fetchRemainingAppointments() {
     url: '/appointments/available',
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -167,12 +146,8 @@ export function sendAppointmentRequest(withUser, start, end) {
     params: {withUser, start, end}
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -187,9 +162,7 @@ export function updateAppointmentRequest(appointmentId, approve) {
     params: {approve}
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200)
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
@@ -202,9 +175,7 @@ export function deleteAppointment(appointmentId) {
     url: `/appointments/${appointmentId}`,
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200)
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
@@ -218,12 +189,8 @@ export function fetchAllMessages(count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -238,12 +205,8 @@ export function fetchUnreadMessages(count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -257,12 +220,8 @@ export function fetchMessage(messageId) {
     url: `/messages/${messageId}`,
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -277,12 +236,8 @@ export function fetchSentMessages(count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -296,9 +251,7 @@ export function sendMessage(to, subject, body) {
     params: { to, subject, body }
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200);
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
@@ -312,12 +265,8 @@ export function fetchAllLanguages(count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -332,12 +281,8 @@ export function searchTeacherByLanguage( languageId, count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);
@@ -352,12 +297,8 @@ export function searchStudentByLanguage( languageId, count, page) {
     params: { count, page }
   };
 
-  axios(options).then(res => {
-    return res.body;
-  })
-  .then((body) => {
-    // Parse data here
-    console.log(body);
+  return axios(options).then(res => {
+    return res.json();
   })
   .catch(err => {
     console.error(err);

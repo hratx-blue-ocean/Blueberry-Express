@@ -185,8 +185,7 @@
   color: white;
   text-align: center;
   box-shadow: 5px 5px 8px #a1a1a1;
-  background-color: #2a2a72;
-  background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
+  background-color: #2d739e;
 }
 
 .teacher-appointments {
@@ -199,9 +198,31 @@
 .teacher-messages-container {
   font-family: 'Poppins', sans-serif;
   position: relative;
+  text-align: center;
   width: 40%;
-/* ------- Shared Reviews -------- */
+  border-radius: 20px;
+  padding: 5px;
+  color: white;
+  box-shadow: 5px 5px 8px #a1a1a1;
+  background-color: #2a2a72;
 }
+.teacher-individual-message {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 13px;
+  margin: 5px;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+.teacher-message-subject {
+  color: rgb(209, 209, 209);
+  font-size: 15px;
+  font-weight: 600;
+}
+/* ------- Shared Reviews -------- */
 
 .reviews-container {
   font-family: 'Poppins', sans-serif;
@@ -254,4 +275,18 @@
 }
 .reviews-body {
   background-color:rgb(209, 209, 209);
+}
+
+/* ------- Calendar Layout -------- */
+
+.calendar-container {
+  margin: 0 auto;
+  width: 80%;
+  background-color: #4bbcfdec;
+  border-radius: 5px;
+  padding: 20px;
+
+}
+.calendar-bg {
+  margin: 0 auto;
 }

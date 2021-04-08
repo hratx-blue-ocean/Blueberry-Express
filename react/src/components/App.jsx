@@ -5,6 +5,8 @@ import { Signup } from './Layouts/Signup.jsx';
 import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
+import { CalendarView } from './Layouts/CalendarView.jsx';
+import { UserProfileLang } from './Layouts/UserProfileLang';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
@@ -24,7 +26,6 @@ const App = () => {
 
   useEffect(() => {
     getUser().then((data) => {
-      console.log('data:', data);
       if (data.id) {
         setLoggedIn(true);
         setUserType(data.type);
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/userprofile" render={() => <UserProfile userType={userType}/>} />
             <Route path="/userprofilelang" render={() => <UserProfileLang userType={userType}/>} />
             <Route path="/userprofilereviews" render={() => <UserProfileReviews userType={userType}/>} />
+            <Route path="/calendar" exact component={CalendarView} />
           </Switch>
         </div>
       </Router>

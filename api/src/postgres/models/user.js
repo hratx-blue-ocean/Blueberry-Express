@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
+      calendarId: {
+        field: 'calendar_id',
+        type: DataTypes.STRING,
+      },
       bio: {
         type: DataTypes.TEXT,
         allowNull: true,
