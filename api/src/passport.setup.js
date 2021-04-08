@@ -30,8 +30,6 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
 
-
-
       db.user.findOrCreate({
         where: {
           googleKey: profile.id,
@@ -57,9 +55,6 @@ passport.use(
           const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
           return done(null, token);
         });
-
-
-
     }
   )
 );
