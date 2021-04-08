@@ -43,8 +43,7 @@ passport.use(
         .then((user) => {
           if (!user[0].calendarId) {
             console.log('making calendar for: ', user[0]);
-            let calendar = Calendar.createCalendar(accessToken, refreshToken);
-            Promise.resolve(calendar)
+            Calendar.createCalendar(accessToken, refreshToken)
               .then((calendarObject) => {
                 user[0].calendarId = calendarObject.response.id;
                 return user[0].save();
@@ -54,6 +53,9 @@ passport.use(
         .then(()=> {
           const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
           return done(null, token);
+        })
+        .catch((e) => {
+          return done(e, token);
         });
     }
   )
