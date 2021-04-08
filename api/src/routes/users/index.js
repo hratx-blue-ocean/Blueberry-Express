@@ -1,12 +1,15 @@
 const db = require('../../postgres');
+const jwt = require('jsonwebtoken');
 
 const UsersRouter = require('express').Router();
 
 UsersRouter.get('/', (req, res) => {
   if (req.headers.authorization) {
+    console.dir(req.user);
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
       db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
+        console.log('USER', user);
         res.json({
           id: user.id,
           name: user.name,
@@ -15,6 +18,7 @@ UsersRouter.get('/', (req, res) => {
         });
       });
     } catch (e) {
+      console.error(e);
       res.json({});
     }
   } else {
