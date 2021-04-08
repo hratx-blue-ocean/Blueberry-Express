@@ -14,7 +14,7 @@ const refresh = (refreshToken) => {
   return axios
     .post((`https://oauth2.googleapis.com/token?${params}`, body, headers))
     .then((response) => {
-      return response;
+      return response.data.access_token;
     });
 };
 
