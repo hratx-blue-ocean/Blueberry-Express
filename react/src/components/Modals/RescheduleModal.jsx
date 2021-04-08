@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { MessageBtn } from '../Buttons/MessageBtn';
-import { XLargeBtn } from '../Buttons/XLargeBtn';
+import { LargeBtn } from '../Buttons/LargeBtn';
+import { RescheduleBtn } from '../Buttons/RescheduleBtn';
 import CloseIcon from '@material-ui/icons/Close';
 
 function getModalStyle() {
@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 500,
     height: 450,
-    backgroundColor: '#2a2a72',
-    color: 'white',
+    background: 'rgb(222,222,222)',
+    background: 'linear-gradient(140deg, rgb(207, 207, 207) 5%, rgb(211, 211, 211) 20%, rgb(236, 236, 236) 62%, rgba(236,236,236,1) 100%)',
     padding: theme.spacing(2, 4, 3),
   },
 }));
 
-export const MessageSend = ({ name }) => {
+export const RescheduleModal = ({ name, reschedule }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -47,26 +47,26 @@ export const MessageSend = ({ name }) => {
   };
 
   const body = (
-    <div className="change-font message-send-modal">
+    <div className="change-font">
       <div style={modalStyle} className={classes.paper}>
         <button className="absolute right-5" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
         <h2 className="mb-10 text-2xl underline" id="simple-modal-title">Message</h2>
         <div className="flex items-center justify-center mb-8 mr-2">
           <p className="text-xl mr-4">To: </p>
-          <input className="w-30 rounded-md p-2 h-8 text-lg text-black bg-white border-black border" type="text" value={name} disabled></input>
+          <input className="w-30 rounded-md p-2 h-8 text-lg bg-white border-black border" type="text" value={name} disabled></input>
         </div>
-        <input className="w-80 h-12 p-2 text-black rounded-md border border-black mb-10" type="text" placeholder="Enter Subject..."
+        <input className="w-80 h-12 p-2 rounded-md border border-black mb-10" type="text" placeholder="Enter Reschedule Notice..."
           onChange={(e) => { setSubject(e.target.value) }}></input>
-        <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
+        <textarea className="w-80 h-28 p-2 rounded-md border border-black mb-10" placeholder="Enter Reschedule Message..."
           onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <XLargeBtn label="Send" handleClick={handleClose} />
+        <RescheduleBtn label="Send" handleClick={handleClose} reschedule={reschedule}/>
       </div>
     </div>
   );
 
   return (
     <div>
-      <MessageBtn handleClick={handleOpen} />
+      <LargeBtn label="Reschedule" handleClick={handleOpen} />
       <Modal
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         open={open}

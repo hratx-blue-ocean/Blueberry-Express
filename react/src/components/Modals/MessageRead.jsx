@@ -45,8 +45,14 @@ export const MessageRead = ({ message }) => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 className="text-2xl text-bold pb-4 border-b">{message.from}</h2>
+      <div className="flex justify-between pb-4 border-b">
+        <h2 className="text-2xl text-bold">{message.from}</h2>
+        <h3 className="text-sm italic">{message.created_at}</h3>
+      </div>
       <p className="pt-4">{message.subject}</p>
+      <div className="pt-7 flex justify-end">
+        <button className="border rounded-full" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
+      </div>
     </div>
   );
 
