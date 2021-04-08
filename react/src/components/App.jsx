@@ -14,7 +14,7 @@ import { AuthContext } from '../auth';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState(null);
+  const [userType, setUserType] = useState('teacher');
   const [userName, setUserName] = useState('');
   const contextValue = {
     loggedIn,

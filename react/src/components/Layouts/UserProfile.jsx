@@ -9,8 +9,15 @@ import { ReviewsContainer } from '../UserProfile/ReviewsContainer';
 import { LanguageSelection } from '../Shared/LanguageSelection';
 import './UserProfile.css';
 
+
 export const UserProfile = ( { userType } ) => {
-    const [page, setPage] = useState('main');
+    const [page, setPage] = useState('Personal Info');
+
+    function choosePage(e) {
+        console.log(e.target.innerHTML);
+        setPage(e.target.innerHTML);
+    }
+
 
     var mainPage = (
         <div className="student-home-container">
@@ -27,7 +34,7 @@ export const UserProfile = ( { userType } ) => {
             </div>
             <div></div>
             <div className="flex gap-20">
-            <MenuSettings userType={userType}/>
+            <MenuSettings userType={userType} action={choosePage}/>
             <div className="flex justify-around mt-5">
             </div>
             <PersonalInfo/>
@@ -54,7 +61,7 @@ export const UserProfile = ( { userType } ) => {
                 </div>
                 <div></div>
                 <div className="flex gap-20">
-                <MenuSettings/>
+                <MenuSettings userType={userType} action={choosePage}/>
                 <div className="flex justify-around mt-5">
                 </div>
                 <div className="container flex justify-around">
@@ -83,7 +90,7 @@ export const UserProfile = ( { userType } ) => {
                 </div>
                 <div></div>
                 <div className="flex gap-20">
-                <MenuSettings/>
+                <MenuSettings userType={userType} action={choosePage}/>
                 <div className="flex justify-around mt-5">
                 </div>
                 <div className="reviews">
@@ -96,7 +103,7 @@ export const UserProfile = ( { userType } ) => {
 
 
     return (
-        page === 'main' && mainPage || page === 'lang' && langPage || page === 'reviews' && reviewsPage
+        page === 'Personal Info' && mainPage || page === 'Languages' && langPage || page === 'Ratings' && reviewsPage
     )
 
 
