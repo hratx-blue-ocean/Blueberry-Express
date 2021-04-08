@@ -12,8 +12,6 @@ import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext, openPaths } from '../auth';
 
-console.log('openPaths: ', openPaths);
-
 const App = () => {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
