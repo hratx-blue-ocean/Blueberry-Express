@@ -26,6 +26,18 @@ UsersRouter.get('/', (req, res) => {
   }
 });
 
+UsersRouter.get('/languages', (req, res) => {
+  req.user
+    .getLanguages()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+      console.log(err.message);
+    });
+});
+
 UsersRouter.get('/:userId', (req, res) => {
   var userId = req.params.userId;
 
@@ -55,23 +67,26 @@ UsersRouter.put('/type', (req, res) => {
   }
 });
 
-// UsersRouter.post('/languages/:languageId', (req, res) => {
-//   res.sendStatus(400);
-// });
-
 UsersRouter.post('/languages/:languageId', (req, res) => {
   let languageId = req.params.languageId;
 
-  db.language
-    .findOne({
-      where: { id: languageId },
-    })
-    .then((data) => {
-      const lang = data;
-      lang.addUser(req.user);
-    })
+  req.user
+    .addLanguage(languageId)
     .then(() => {
-      res.status(201).send('saved!');
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      res.sendStatus(500);
+      console.log(err.message);
+    });
+});
+
+UsersRouter.delete('/languages/:languageId', (req, res) => {
+  let languageId = req.params.languageId;
+  req.user
+    .removeLanguage(languageId)
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       res.sendStatus(500);
