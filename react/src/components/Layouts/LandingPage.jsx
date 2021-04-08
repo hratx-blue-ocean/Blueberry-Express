@@ -17,7 +17,6 @@ export const LandingPage = (props) => {
                 { user.loggedIn ? user.userName : (<Link to="/login">
                     <LargeBtn label='Login'/>
                 </Link>)}
-                
             </div>
 
             <div className="flex items-center justify-center mt-16">
