@@ -50,6 +50,10 @@ module.exports = (sequelize, DataTypes) => {
       student: {
         type: DataTypes.BOOLEAN,
       },
+      refreshToken: {
+        field: 'refresh_token',
+        type: DataTypes.STRING,
+      }
     },
     {
       freezeTableName: true,

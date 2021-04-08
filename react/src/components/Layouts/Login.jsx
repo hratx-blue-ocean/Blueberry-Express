@@ -8,11 +8,11 @@ import { login } from '../../auth';
 export const Login = () => {
     return (
         <div>
-            <div className="flex flex-row items-center justify-between border-b p-5">
+            <div className="flex flex-row items-center justify-between border-b p-4">
               <Link to="/">
                 <div className="flex flex-row items-center">
                     <Logo />
-                    <h1 className="text-2xl text-gray-800 font-bold italic ml-4">Blueberry Express</h1>
+                    <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
                 </div>
               </Link>
             </div>

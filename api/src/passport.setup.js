@@ -4,7 +4,6 @@ const db = require('./postgres');
 const jwt = require('jsonwebtoken');
 const Calendar = require('./controller');
 
-
 passport.serializeUser(function (user, done) {
   // creating the cookie
   done(null, user.id);
@@ -38,6 +37,7 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value,
           profileImg: profile.photos[0].value,
+          refreshToken: refreshToken,
         }
       })
         .then((user) => {
@@ -46,16 +46,19 @@ passport.use(
             Calendar.createCalendar(accessToken, refreshToken)
               .then((calendarObject) => {
                 user[0].calendarId = calendarObject.response.id;
-                return user[0].save();
               });
           }
+          if (!user[0].refreshToken) {
+            user[0].refreshToken = refreshToken;
+          }
+          return user[0].save();
         })
-        .then(()=> {
+        .then(() => {
           const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
           return done(null, token);
         })
         .catch((e) => {
-          return done(e, token);
+          return done(e);
         });
     }
   )
