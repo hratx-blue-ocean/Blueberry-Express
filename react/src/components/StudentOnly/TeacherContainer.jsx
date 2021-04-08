@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Teacher } from './Teacher.jsx';
+import { AuthContext } from '../../auth';
 
 export const TeacherContainer = () => {
+  const context = useContext(AuthContext);
 
   // TODO: Remove dummyData with API request Data.
   const dummyData = [
@@ -44,7 +46,7 @@ export const TeacherContainer = () => {
 
   return (
     <div className="teacher-list-container">
-      <h1 className="welcome-back">Welcome back, Student!</h1>
+      <h1 className="welcome-back">Welcome back, {context.userName}</h1>
       <div className="teacher-container">
         {dummyData.map((user, index) => {
           return <Teacher user={user} key={index} />
