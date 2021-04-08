@@ -24,7 +24,6 @@ const App = () => {
 
   useEffect(() => {
     getUser().then((data) => {
-      console.log('data:', data);
       if (data.id) {
         setLoggedIn(true);
         setUserType(data.type);

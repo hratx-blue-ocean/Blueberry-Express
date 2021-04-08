@@ -20,7 +20,7 @@ Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
   // https://www.googleapis.com/calendar/v3/calendars/optdi857if3c83476keu5hp8g0@group.calendar.google.com/events
 
 
-  axios
+  return axios
     .post((`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`), event, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -74,7 +74,7 @@ Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
 
 Calendar.listEvents = (accessToken, refreshToken, calendarId) => {
 
-  axios
+  return axios
     .get((`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`), {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -171,7 +171,7 @@ Calendar.listEvents = (accessToken, refreshToken, calendarId) => {
 };
 
 Calendar.createCalendar = (accessToken, refreshToken) => {
-  axios
+  return axios
     .post(('https://www.googleapis.com/calendar/v3/calendars'), {
       summary: 'Blueberry Appointments'
     }, {
@@ -207,7 +207,7 @@ Calendar.createCalendar = (accessToken, refreshToken) => {
 
 Calendar.deleteEvent = (accessToken, refreshToken, calendarId, eventId) => {
 
-  axios
+  return axios
     .get((`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`), {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -247,7 +247,7 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
     ]
   };
 
-  axios
+  return axios
     .get(('https://www.googleapis.com/calendar/v3/freeBusy'), body, {
       headers: {
         Authorization: `Bearer ${accessToken}`
