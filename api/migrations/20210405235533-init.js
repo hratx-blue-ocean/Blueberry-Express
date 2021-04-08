@@ -26,6 +26,7 @@ exports.up = (db) => {
       calendar_id: { type: 'string' },
       zoom_link: { type: 'string', notNull: false },
       student: { type: 'boolean' },
+      refresh_token: { type: 'string' },
     })
     .then(() => {
       return db.createTable('appointments', {

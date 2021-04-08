@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { MessageBtn } from '../Buttons/MessageBtn';
 import { XLargeBtn } from '../Buttons/XLargeBtn';
 import CloseIcon from '@material-ui/icons/Close';
+import { sendMessage } from '../../api';
 
 function getModalStyle() {
   const top = 25;
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MessageSend = ({ name }) => {
+export const MessageSend = ({ name, id }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -43,6 +44,14 @@ export const MessageSend = ({ name }) => {
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const postMessage = () => {
+    sendMessage(id, messageSubject, messageBody)
+      .catch(error => {
+        console.error(error);
+      });
     setOpen(false);
   };
 
@@ -59,7 +68,7 @@ export const MessageSend = ({ name }) => {
           onChange={(e) => { setSubject(e.target.value) }}></input>
         <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
           onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <XLargeBtn label="Send" handleClick={handleClose} />
+        <XLargeBtn label="Send" handleClick={postMessage} />
       </div>
     </div>
   );
