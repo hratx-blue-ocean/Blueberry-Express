@@ -4,7 +4,6 @@ const db = require('./postgres');
 const jwt = require('jsonwebtoken');
 const Calendar = require('./controller');
 
-
 passport.serializeUser(function (user, done) {
   // creating the cookie
   done(null, user.id);
@@ -29,33 +28,32 @@ passport.use(
       callbackURL: `http://localhost:${process.env.PORT}/auth/google/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
-
-      db.user.findOrCreate({
-        where: {
-          googleKey: profile.id,
-        },
-        defaults: {
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          profileImg: profile.photos[0].value,
-        }
-      })
+      db.user
+        .findOrCreate({
+          where: {
+            googleKey: profile.id,
+          },
+          defaults: {
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            profileImg: profile.photos[0].value,
+          },
+        })
         .then((user) => {
           if (!user[0].calendarId) {
             console.log('making calendar for: ', user[0]);
-            Calendar.createCalendar(accessToken, refreshToken)
-              .then((calendarObject) => {
-                user[0].calendarId = calendarObject.response.id;
-                return user[0].save();
-              });
+            Calendar.createCalendar(accessToken, refreshToken).then((calendarObject) => {
+              user[0].calendarId = calendarObject.response.id;
+              return user[0].save();
+            });
           }
         })
-        .then(()=> {
+        .then(() => {
           const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
           return done(null, token);
         })
         .catch((e) => {
-          return done(e, token);
+          return done(e);
         });
     }
   )
