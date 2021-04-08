@@ -14,7 +14,6 @@ export const UserProfile = ( { userType } ) => {
     const [page, setPage] = useState('Personal Info');
 
     function choosePage(e) {
-        console.log(e.target.innerHTML);
         setPage(e.target.innerHTML);
     }
 
@@ -34,7 +33,7 @@ export const UserProfile = ( { userType } ) => {
             </div>
             <div></div>
             <div className="flex gap-20">
-            <MenuSettings userType={userType} action={choosePage}/>
+            <MenuSettings userType={userType} curPage={page} action={choosePage}/>
             <div className="flex justify-around mt-5">
             </div>
             <PersonalInfo/>
@@ -61,7 +60,7 @@ export const UserProfile = ( { userType } ) => {
                 </div>
                 <div></div>
                 <div className="flex gap-20">
-                <MenuSettings userType={userType} action={choosePage}/>
+                <MenuSettings userType={userType} curPage={page} action={choosePage}/>
                 <div className="flex justify-around mt-5">
                 </div>
                 <div className="container flex justify-around">
@@ -105,6 +104,4 @@ export const UserProfile = ( { userType } ) => {
     return (
         page === 'Personal Info' && mainPage || page === 'Languages' && langPage || page === 'Ratings' && reviewsPage
     )
-
-
 }
