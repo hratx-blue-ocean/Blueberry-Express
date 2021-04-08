@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { LargeBtn } from '../Buttons/LargeBtn';
+import { RescheduleModal } from '../Modals/RescheduleModal.jsx';
 
 const useStyles = makeStyles((theme) => ({
   check: {
@@ -44,7 +45,7 @@ export const TeacherAppointment = ({ appointment }) => {
           <div className="flex items-center appointment-button">
             <MessageSend name={appointment.with}/>
             {checked ?
-              <LargeBtn label="Reschedule" />
+              <RescheduleModal name={appointment.with} reschedule={setClear}/>
             :
               <>
                 <IconButton className={classes.check} onClick={() => {setChecked(true)}}>
