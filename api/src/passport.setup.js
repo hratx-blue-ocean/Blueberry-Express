@@ -2,6 +2,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./postgres');
 const jwt = require('jsonwebtoken');
+const Calendar = require('./controller');
+
 
 passport.serializeUser(function (user, done) {
   // creating the cookie
@@ -27,13 +29,9 @@ passport.use(
       callbackURL: `http://localhost:${process.env.PORT}/auth/google/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
-      // use the profile info, mainly the id, to check if the user is registered in our db
-      // if user doesn't exist, create them in the database using a combination of the info from
-      // their profile object sent by google and info that they enter in the sign up process
-      // if they do exist, redirect them to their profile page.
-      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      //   return done(err, user);
-      // });
+
+
+
       db.user.findOrCreate({
         where: {
           googleKey: profile.id,
@@ -42,11 +40,26 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value,
           profileImg: profile.photos[0].value,
-        },
-      });
-      //console.log('big access token: ', accessToken);
-      const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
-      return done(null, token);
+        }
+      })
+        .then((user) => {
+          if (!user[0].calendarId) {
+            console.log('making calendar for: ', user[0]);
+            let calendar = Calendar.createCalendar(accessToken, refreshToken);
+            Promise.resolve(calendar)
+              .then((calendarObject) => {
+                user[0].calendarId = calendarObject.response.id;
+                return user[0].save();
+              });
+          }
+        })
+        .then(()=> {
+          const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
+          return done(null, token);
+        });
+
+
+
     }
   )
 );
