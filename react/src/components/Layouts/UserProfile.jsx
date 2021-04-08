@@ -10,9 +10,9 @@ import { LanguageSelection } from '../Shared/LanguageSelection';
 import './UserProfile.css';
 
 export const UserProfile = ( { userType } ) => {
-    const [page, setPage] = useState('lang');
+    const [page, setPage] = useState('main');
 
-    return (
+    var mainPage = (
         <div className="student-home-container">
             <div className="nav-bar-container">
                 <div className="nav-logo">
@@ -37,10 +37,9 @@ export const UserProfile = ( { userType } ) => {
             </div>
             <Footer />
         </div>
-    )
+    );
 
-    if (page === 'lang') {
-        return (
+    var langPage = (
             <div className="student-home-container">
                 <div className="nav-bar-container">
                     <div className="nav-logo">
@@ -67,11 +66,9 @@ export const UserProfile = ( { userType } ) => {
                 </div>
                 <Footer />
             </div>
-        )
-    }
+    )
 
-    if (page === 'reviews') {
-        return (
+    var reviewsPage = (
             <div className="student-home-container">
                 <div className="nav-bar-container">
                     <div className="nav-logo">
@@ -95,6 +92,13 @@ export const UserProfile = ( { userType } ) => {
                 </div>
                 <Footer />
             </div>
-        )
-    }
+    )
+
+
+
+    return (
+        {(page === 'main') && mainPage};
+    )
+
+
 }
