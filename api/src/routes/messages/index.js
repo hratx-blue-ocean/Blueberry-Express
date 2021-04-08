@@ -17,7 +17,14 @@ MessagesRouter.get('/', (req, res) => {
   let page = req.query.page || 1;
 
   req.user
-    .getIncomingMessages()
+  .getIncomingMessages({
+    include: [
+      {
+        model: db.user,
+        as: 'from',
+      },
+    ],
+  })
     .then((data) => {
       let filtered = data.map((message) => {
         let messageObj = {
@@ -26,6 +33,7 @@ MessagesRouter.get('/', (req, res) => {
           from: message.fromId,
           unread: message.opened,
           created_at: message.createdAt,
+          fromUser: message.from
         };
         return messageObj;
       });
@@ -51,7 +59,15 @@ MessagesRouter.get('/unread', (req, res) => {
   let page = req.query.page || 1;
 
   req.user
-    .getIncomingMessages({ where: { opened: false } })
+    .getIncomingMessages({
+      where: { opened: false },
+      include: [
+        {
+          model: db.user,
+          as: 'from',
+        },
+      ],
+     })
     .then((data) => {
       let filtered = data.map((message) => {
         let messageObj = {
@@ -60,6 +76,7 @@ MessagesRouter.get('/unread', (req, res) => {
           from: message.fromId,
           unread: message.opened,
           created_at: message.createdAt,
+          fromUser: message.from
         };
         return messageObj;
       });
@@ -85,7 +102,14 @@ MessagesRouter.get('/sent', (req, res) => {
   let page = req.query.page || 1;
 
   req.user
-    .getSentMessages()
+    .getSentMessages({
+      include: [
+        {
+          model: db.user,
+          as: 'to',
+        },
+      ],
+    })
     .then((data) => {
       let filtered = data.map((message) => {
         let messageObj = {
@@ -95,6 +119,7 @@ MessagesRouter.get('/sent', (req, res) => {
           to: message.toId,
           unread: message.opened,
           created_at: message.createdAt,
+          toUser: message.to
         };
         return messageObj;
       });
@@ -138,7 +163,7 @@ MessagesRouter.post('/', (req, res) => {
   }
   let newMessage = {
     fromId: req.user.id,
-    toId: req.body.toId,
+    toId: 1,
     body: req.body.body,
     subject: req.body.subject,
     opened: false,
