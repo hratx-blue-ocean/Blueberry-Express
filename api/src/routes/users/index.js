@@ -21,6 +21,7 @@ UsersRouter.get('/', (req, res) => {
       console.error(e);
       res.json({});
     }
+
   } else {
     res.json({});
   }
