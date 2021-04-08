@@ -163,7 +163,7 @@ MessagesRouter.post('/', (req, res) => {
   }
   let newMessage = {
     fromId: req.user.id,
-    toId: 1,
+    toId: req.body.toId,
     body: req.body.body,
     subject: req.body.subject,
     opened: false,
