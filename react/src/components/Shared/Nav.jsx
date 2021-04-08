@@ -1,7 +1,11 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext, logout } from '../../auth';
 
-export const Nav = () => (
+export const Nav = () => {
+  const context = useContext(AuthContext);
+
+  return (
   <div className="inline-block px-7 py-5 text-white">
     <NavLink
       className="text-lg inline"
@@ -33,6 +37,10 @@ export const Nav = () => (
     >
       My Profile
     </NavLink>
+    <a
+      className="text-sm inline ml-5 cursor-pointer"
+      onClick={logout}
+    > Log Out</a>
   </div>
-);
+)};
 

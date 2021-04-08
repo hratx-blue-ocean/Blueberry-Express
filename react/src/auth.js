@@ -27,6 +27,12 @@ export const login = () => {
 
 export const logout = () => {
     localStorage.removeItem('jwt');
+    window.location = '/';
 }
 
 export const AuthContext = React.createContext();
+
+export const openPaths = [
+    '/',
+    '/signup'
+]

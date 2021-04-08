@@ -8,12 +8,15 @@ UsersRouter.get('/', (req, res) => {
     console.dir(req.user);
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-      db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
+      db.user.findOne({ where: { googleKey: token.googleKey } }).then(async (user) => {
+        const languages = await user.getLanguages();
         res.json({
           id: user.id,
           name: user.name,
           email: user.email,
-          type: user.student ? 'student' : 'teacher',
+          type: user.student !== null ? (user.student ? 'student' : 'teacher') : null,
+          languages: languages.map(({ id, name }) => ({ id, name })),
+          bio: user.bio,
         });
       });
     } catch (e) {
