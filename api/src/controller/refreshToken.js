@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const refresh = (refreshToken) => {
-  let params = `client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
+  let params = `client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${process.env.GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
 
   let headers = {
     headers: {
