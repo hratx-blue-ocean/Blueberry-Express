@@ -2,7 +2,7 @@ import React from 'react';
 import { RoleSelectBtn } from '../Buttons/RoleSelectBtn';
 import { Logo } from '../Shared/Logo';
 
-export const TeachVLearnModal = ({ action, setType }) => {
+export const UserTypeForm = ({ action, setType }) => {
 
   return (
     <div>

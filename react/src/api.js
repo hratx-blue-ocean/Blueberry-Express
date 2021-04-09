@@ -266,7 +266,7 @@ export function fetchAllLanguages(count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);
