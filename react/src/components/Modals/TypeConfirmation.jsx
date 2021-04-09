@@ -32,18 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TypeConfirmation = ({ action, type, proceed }) => {
+export const TypeConfirmation = ({ action, type }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [messageSubject, setSubject] = useState('');
   const [messageBody, setBody] = useState('');
-
-  useEffect(() => {
-    if (proceed === true) {
-      setOpen(false);
-    }
-  }, [proceed])
 
   const handleOpen = () => {
     setOpen(true);
@@ -57,9 +51,10 @@ export const TypeConfirmation = ({ action, type, proceed }) => {
     <div className="change-font message-send-modal">
       <div style={modalStyle} className={classes.paper}>
         <button style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
-        <p>You have selected to join as a <u>{type}</u>, <b>this can't be undone</b>.</p>
+        <h1>You have selected to join as a <u>{type}</u>.</h1>
+        <p><b>This can't be undone without deleting your account.</b>.</p>
         <p>Would you like to proceed?</p>
-        <div className="relative bottom-0 right-0">
+        <div>
           <ContinueBtn handleClick={action} />
         </div>
       </div>

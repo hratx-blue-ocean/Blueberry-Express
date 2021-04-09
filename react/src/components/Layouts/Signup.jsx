@@ -5,7 +5,6 @@ import { Logo } from '../Shared/Logo'
 import { Footer } from '../Shared/Footer'
 import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
-import { TypeConfirmation } from '../Modals/TypeConfirmation';
 import { initializeUser, addUserLanguage } from '../../api.js';
 import { AuthContext } from '../../auth';
 
@@ -13,10 +12,9 @@ export const Signup = ({ setUser }) => {
   const context = useContext(AuthContext);
   const history = useHistory();
   const [userType, updateUserType] = useState(null);
-  const [proceed, updateProceed] = useState(false);
 
   function setUserType(e) {
-    updateUserType(e.target.innerHTML.toLowerCase());
+    updateUserType(e.target.innerHTML);
 
     e.target.style.backgroundColor = 'green';
     if (e.target.innerHTML === 'Teacher') {
@@ -27,7 +25,7 @@ export const Signup = ({ setUser }) => {
   }
 
   async function confirmUser() {
-    await initializeUser(userType);
+    await initializeUser(userType.toLowerCase());
     window.location = '/signup';
   }
 
@@ -37,11 +35,7 @@ export const Signup = ({ setUser }) => {
       addUserLanguage(check.value)
     })
 
-    if (userType === 'teacher' || context.user.type === 'teacher') {
-      history.push('/teacherhome')
-    } else {
-      history.push('/studenthome')
-    }
+    window.location = '/signup';
   }
 
   const Main = (
@@ -69,18 +63,18 @@ export const Signup = ({ setUser }) => {
       </div>
   );
 
-  const UserType = (
-      <div>
-        <UserTypeForm setType={setUserType} action={confirmUser}/>
+  const TypeSelection = (
+      <div className="flex justify-center flex-col">
+        <UserTypeForm userType={userType} setType={setUserType} action={confirmUser}/>
       </div>
   );
 
   return (
     <div>
+      <Logo />
       { !context.loggedIn && Main }
-      { (context.loggedIn && !context.user.type) && UserType }
-      { (context.loggedIn && ( !context.user.type && !proceed )) && <TypeConfirmation type={userType} action={confirmUser} /> }
-      { (context.loggedIn && ( context.user.type || proceed )) && (
+      { (context.loggedIn && !context.user.type) && TypeSelection }
+      { (context.loggedIn && context.user.type ) && (
         <LanguageForm userType={userType} action={updateUserLanguages} /> )
       }
     </div>

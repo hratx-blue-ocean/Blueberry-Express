@@ -43,13 +43,13 @@ const App = () => {
       .then((data) => {
         setLoggedIn(true);
         setUser(data);
-        // if (!data.type || !data.languages.length) {
-        //   history.push('/signup');
-        // } else if (data.type === 'student' && history.location.pathname === '/') {
-        //   history.push('/studenthome');
-        // } else if (data.type === 'teacher' && history.location.pathname === '/') {
-        //   history.push('/teacherhome');
-        // }
+        if (!data.type || !data.languages.length) {
+          history.push('/signup');
+        } else if (data.type === 'student') {
+          history.push('/studenthome');
+        } else if (data.type === 'teacher') {
+          history.push('/teacherhome');
+        }
       })
       .catch((e) => {
         if (e.response.status === 403) {
