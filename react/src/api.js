@@ -74,7 +74,7 @@ export function fetchBusySchedule(userId, start, end) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);
@@ -116,7 +116,7 @@ export function fetchAppointments(status = null, start, end, count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);

@@ -7,7 +7,7 @@ import { MessagesContainer } from '../Shared/MessagesContainer.jsx';
 import { TeacherContainer } from '../StudentOnly/TeacherContainer.jsx';
 import { Footer } from '../Shared/Footer.jsx';
 import './StudentHome.css';
-import { fetchAllLanguages, searchTeacherByLanguage, fetchAllMessages } from '../../api';
+import { fetchAllLanguages, searchTeacherByLanguage, fetchAllMessages, fetchAppointments } from '../../api';
 import { AuthContext } from '../../auth';
 
 export const StudentHome = () => {
@@ -18,6 +18,10 @@ export const StudentHome = () => {
   const [teacherList, setTeacherList] = useState(null);
 
   useEffect( async() => {
+    fetchAppointments()
+      .then(data => {
+      })
+
     fetchAllLanguages()
       .then(data => {
         setLanguages(data.languages);

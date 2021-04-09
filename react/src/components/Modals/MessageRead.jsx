@@ -37,6 +37,8 @@ export const MessageRead = ({ message }) => {
   const [open, setOpen] = React.useState(false);
   const [currentMessage, setCurrentMessage] = useState(null);
 
+
+
   const handleOpen = async() => {
     let getMessageBody = await fetchMessage(message.id)
     setCurrentMessage(getMessageBody)
@@ -54,8 +56,8 @@ export const MessageRead = ({ message }) => {
         <h2 className="text-2xl text-bold">{message.fromUser.name}</h2>
         <h3 className="text-sm italic">{message.created_at}</h3>
       </div>
-      <p className="pt-4">{message.subject}</p>
-      <p>Body:</p>
+      <p className="pt-4 mb-4">Subject: {message.subject}</p>
+      {currentMessage ? <p>Body: {currentMessage.body}</p> : null}
       <div className="pt-7 flex justify-between">
         <MessageSend name={message.fromUser.name} id={message.fromUser.id}/>
         <button className=" ml-2 pl-1" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
