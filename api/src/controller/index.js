@@ -186,11 +186,7 @@ Calendar.createCalendar = (accessToken) => {
       //         ]
       //     }
       // }
-      return {
-        response: response.data,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      };
+      return response.data;
     })
     .catch((err) => {
       // if the error has the issue that it is outdated, use the refresh token to get a new token
