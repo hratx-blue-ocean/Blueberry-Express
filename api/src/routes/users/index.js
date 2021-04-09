@@ -1,7 +1,7 @@
 const db = require('../../postgres');
 const jwt = require('jsonwebtoken');
 const Calendar = require('../.././controller/index.js');
-const refresh = require('../.././controller/refresh.js');
+const refresh = require('../.././controller/refreshToken.js');
 const UsersRouter = require('express').Router();
 
 UsersRouter.get('/', (req, res) => {
