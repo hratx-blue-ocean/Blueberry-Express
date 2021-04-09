@@ -9,6 +9,7 @@ export const TeacherMessage = ({ message, handleClick }) => {
       </div>
       <div>
         <p className="teacher-message-subject">{message.created_at}</p>
+        {message.unread ? <p>Read</p> : <p>Unread</p>}
       </div>
     </div>
   )
