@@ -38,7 +38,7 @@ export const Nav = () => {
       My Profile
     </NavLink>
     <a
-      className="text-sm inline ml-5 cursor-pointer"
+      className="text-lg inline ml-5 cursor-pointer"
       onClick={logout}
     > Log Out</a>
   </div>

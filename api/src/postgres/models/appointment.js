@@ -17,20 +17,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      scheduledFor: {
-        field: 'scheduled_for',
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
       createdAt: {
         field: 'created_at',
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
-      googleCalendarId: {
-        field: 'google_calendar_id',
-        type: DataTypes.INTEGER,
+      fromEventId: {
+        field: 'from_event_id',
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      toEventId: {
+        field: 'to_event_id',
+        type: DataTypes.STRING,
         allowNull: false,
       },
       approved: {
