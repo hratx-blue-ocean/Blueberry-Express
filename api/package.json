@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "migrate:all": "db-migrate reset && db-migrate up"
+    "migrate:all": "db-migrate reset && db-migrate up",
+    "migrate:student": "db-migrate up:student",
+    "migrate:student:down": "db-migrate down:student",
+    "migrate:teacher": "db-migrate up:teacher",
+    "migrate:teacher:down": "db-migrate down:teacher",
+    "migrate:languages": "db-migrate up:languages",
+    "migrate:languages:down": "db-migrate down:languages"
   },
   "keywords": [],
   "author": "",
