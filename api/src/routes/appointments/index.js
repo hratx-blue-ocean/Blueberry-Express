@@ -4,10 +4,16 @@ const refresh = require('../.././controller/refreshToken.js');
 const db = require('../../postgres');
 
 AppointmentsRouter.get('/', (req, res) => {
-  // list all events
-  // db calls only (appointments table in the db)
-
-  res.sendStatus(400);
+  refresh(req.refreshToken)
+  .then((accessToken) => {
+    Calendar.listEvents(accessToken, req.refreshToken, req.user.calendarId)
+        .then((response) => {
+          res.json(response);
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+  })
 });
 
 AppointmentsRouter.get('/appointments/pending', (req, res) => {
