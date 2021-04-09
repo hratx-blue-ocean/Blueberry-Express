@@ -8,16 +8,21 @@ import { SmallBtn } from '../Buttons/SmallBtn';
 import { ReviewsContainer } from '../UserProfile/ReviewsContainer';
 import { LanguageSelection } from '../Shared/LanguageSelection';
 import './UserProfile.css';
+import axios from 'axios';
 
 
 export const UserProfile = ( { userType } ) => {
     const [page, setPage] = useState('Personal Info');
+    const [languages, setLanguages] = useState(["English", "Spanish", "Japanese", "German", "French", "Korean"]);
+
 
     function choosePage(e) {
         setPage(e.target.innerHTML);
     }
 
 
+
+    //main page
     var mainPage = (
         <div className="student-home-container">
             <div className="nav-bar-container">
@@ -43,6 +48,8 @@ export const UserProfile = ( { userType } ) => {
         </div>
     );
 
+
+    //languages page
     var langPage = (
             <div className="student-home-container">
                 <div className="nav-bar-container">
@@ -61,16 +68,15 @@ export const UserProfile = ( { userType } ) => {
                     <div className="flex justify-around mt-5">
                 </div>
                     <div className="container flex justify-around">
-                        <LanguageSelection languages={["English", "Spanish", "Japanese", "German", "French", "Korean"]}/>
-                        <div className="smallbtn">
-                            <SmallBtn label={'Submit'}/>
-                        </div>
+                        <LanguageSelection/>
                     </div>
                 </div>
                 <Footer />
             </div>
     )
 
+
+    //reviews page
     var reviewsPage = (
             <div className="student-home-container">
                 <div className="nav-bar-container">
