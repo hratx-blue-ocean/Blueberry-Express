@@ -7,16 +7,13 @@ export const LanguageSelection = () => {
 	const context = useContext(AuthContext);
 
 	useEffect(() => {
-		console.log('Logged in:', context.loggedIn);
-		if (context.loggedIn) {
-			fetchAllLanguages()
-			.then(data => {
-				setLanguages(data);
-			})
-			.catch(err => {
-				console.error(err);
-			})
-		}
+		fetchAllLanguages()
+		.then(data => {
+			setLanguages(data);
+		})
+		.catch(err => {
+			console.error(err);
+		})
 	}, [])
 
 	if (languages) {
