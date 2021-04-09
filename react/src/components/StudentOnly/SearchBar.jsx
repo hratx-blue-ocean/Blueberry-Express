@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 
-export const SearchBar = ({ languages }) => {
+export const SearchBar = ({ languages, setPreferredLanguage}) => {
   const [searchInput, setSearchInput] = useState('');
   const [searchLanguage, setSearchLanguage] = useState('english')
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState('true');
 
-  let langArray = ['english', 'spanish', 'french', 'german', 'japanese', 'korean'];
-
-  // languages.forEach(lang => {
-  //   langArray.push(lang.name)
-  // })
-
+  let langArray = languages.map(language => {
+    return language.name.toLowerCase();
+  })
 
   const checkSearch = (str) => {
-   if (!langArray.includes(str.toLowerCase())) {
-      setIsValid(false);
-    }
-
-    if (!valid) {
-      alert('Must Contain Valid Language')
+    const index = langArray.indexOf(str.toLowerCase());
+    if (index !== -1) {
+      setIsValid(true);
+      setPreferredLanguage(languages[index].id)
     } else {
-      setSearchLanguage(searchInput);
+      setIsValid(false)
     }
   }
 
