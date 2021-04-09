@@ -5,3 +5,28 @@
   position: relative;
   right: 10px;
 }
+
+.smallbtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.smallbtn2 {
+  position: relative;
+  top: 540px;
+  right: 200px;
+}
+
+.reviews-container {
+  width: fit-content;
+  height: fit-content;
+}
+
+.reviews {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  left: 150px;
+  bottom: 30px;
+}

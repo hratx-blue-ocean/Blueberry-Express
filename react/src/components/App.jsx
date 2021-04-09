@@ -6,11 +6,11 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { CalendarView } from './Layouts/CalendarView.jsx';
-import { UserProfileLang } from './Layouts/UserProfileLang';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext, openPaths } from '../auth';
+
 
 const App = () => {
   const history = useHistory();
@@ -71,7 +71,6 @@ const App = () => {
           <Route path="/teacherhome" exact component={TeacherHome} />
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/calendar" exact component={CalendarView} />
-          <Route path="/userprofilelang" exact component={UserProfileLang} />
         </Switch>
       </div>
     </AuthContext.Provider>
