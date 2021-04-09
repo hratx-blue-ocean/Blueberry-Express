@@ -17,23 +17,23 @@ MessagesRouter.get('/', (req, res) => {
   let page = req.query.page || 1;
 
   req.user
-  .getIncomingMessages({
-    include: [
-      {
-        model: db.user,
-        as: 'from',
-      },
-    ],
-  })
+    .getIncomingMessages({
+      include: [
+        {
+          model: db.user,
+          as: 'from',
+        },
+      ],
+    })
     .then((data) => {
       let filtered = data.map((message) => {
         let messageObj = {
           id: message.id,
           subject: message.subject,
           from: message.fromId,
-          unread: message.opened,
+          unread: !message.opened,
           created_at: message.createdAt,
-          fromUser: message.from
+          fromUser: message.from,
         };
         return messageObj;
       });
@@ -67,16 +67,16 @@ MessagesRouter.get('/unread', (req, res) => {
           as: 'from',
         },
       ],
-     })
+    })
     .then((data) => {
       let filtered = data.map((message) => {
         let messageObj = {
           id: message.id,
           subject: message.subject,
           from: message.fromId,
-          unread: message.opened,
+          unread: !message.opened,
           created_at: message.createdAt,
-          fromUser: message.from
+          fromUser: message.from,
         };
         return messageObj;
       });
@@ -117,9 +117,9 @@ MessagesRouter.get('/sent', (req, res) => {
           subject: message.subject,
           from: message.fromId,
           to: message.toId,
-          unread: message.opened,
+          unread: !message.opened,
           created_at: message.createdAt,
-          toUser: message.to
+          toUser: message.to,
         };
         return messageObj;
       });
@@ -147,8 +147,10 @@ MessagesRouter.get('/:messageId', (req, res) => {
   }
   db.message
     .findOne({ where: { id: req.params.messageId } })
-    .then((message) => {
-      res.json(message);
+    .then(async (message) => {
+      message.opened = true;
+      await message.save();
+      res.json({ ...message.dataValues, unread: !message.opened });
     })
     .catch((err) => {
       res.sendStatus(500);
