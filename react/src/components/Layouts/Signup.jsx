@@ -1,22 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { GoogleBtn } from '../Buttons/GoogleBtn'
 import { Logo } from '../Shared/Logo'
 import { Footer } from '../Shared/Footer'
 import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
-import { TypeConfirmation } from '../Modals/TypeConfirmation';
 import { initializeUser, addUserLanguage } from '../../api.js';
+import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { AuthContext } from '../../auth';
 
-export const Signup = ({ setUser }) => {
+export const Signup = () => {
   const context = useContext(AuthContext);
   const history = useHistory();
-  const [userType, updateUserType] = useState(null);
-  const [proceed, updateProceed] = useState(false);
+  const [userType, updateUserType] = useState('Teacher');
+
+  useEffect(() => {
+    if (context.user.type && context.user.languages.length){
+      window.location = `/${context.user.type}home`;
+    }
+  })
 
   function setUserType(e) {
-    updateUserType(e.target.innerHTML.toLowerCase());
+    updateUserType(e.target.innerHTML);
 
     e.target.style.backgroundColor = 'green';
     if (e.target.innerHTML === 'Teacher') {
@@ -27,30 +32,25 @@ export const Signup = ({ setUser }) => {
   }
 
   async function confirmUser() {
-    await initializeUser(userType);
-    window.location = '/signup';
+    await initializeUser(userType.toLowerCase());
+    await context.setUser({...context.user, type: userType})
   }
 
-  function updateUserLanguages(e) {
-    var checked = document.querySelectorAll('input[type=checkbox]:checked');
-    checked.forEach(check => {
-      addUserLanguage(check.value)
-    })
+  async function updateUserLanguages(e) {
+    var checked = [...document.querySelectorAll('input[type=checkbox]:checked')];
+    await Promise.all(checked.map(async (language) => {
+      addUserLanguage(language.value)
+    }));
 
-    if (userType === 'teacher' || context.user.type === 'teacher') {
-      history.push('/teacherhome')
-    } else {
-      history.push('/studenthome')
-    }
+    await context.setUser({...context.user, languages: checked})
   }
 
   const Main = (
       <div>
         <div className="flex flex-row items-center justify-between border-b p-4">
           <Link to="/">
-            <div className="flex flex-row items-center">
-              <Logo />
-              <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
+            <div className="nav-logo">
+              <TransparentLogo />
             </div>
           </Link>
         </div>
@@ -69,20 +69,18 @@ export const Signup = ({ setUser }) => {
       </div>
   );
 
-  const UserType = (
-      <div>
-        <UserTypeForm setType={setUserType} action={confirmUser}/>
+  const TypeSelection = (
+      <div className="flex justify-center flex-col">
+        <UserTypeForm userType={userType} setType={setUserType} action={confirmUser}/>
       </div>
   );
 
   return (
     <div>
+      <Logo />
       { !context.loggedIn && Main }
-      { (context.loggedIn && !context.user.type) && UserType }
-      { (context.loggedIn && ( !context.user.type && !proceed )) && <TypeConfirmation type={userType} action={confirmUser} /> }
-      { (context.loggedIn && ( context.user.type || proceed )) && (
-        <LanguageForm userType={userType} action={updateUserLanguages} /> )
-      }
+      { (context.loggedIn && !context.user.type) && TypeSelection }
+      { (context.loggedIn && context.user.type ) && ( <LanguageForm userType={userType} action={updateUserLanguages} /> ) }
     </div>
   )
 }

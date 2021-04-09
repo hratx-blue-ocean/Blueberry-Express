@@ -28,6 +28,7 @@ const App = () => {
   const contextValue = {
     loggedIn,
     user,
+    setUser
   };
 
   useEffect(() => {
@@ -45,9 +46,9 @@ const App = () => {
         setUser(data);
         if (!data.type || !data.languages.length) {
           history.push('/signup');
-        } else if (data.type === 'student' && history.location.pathname === '/') {
+        } else if (data.type === 'student' && ( history.location.pathname === '/' || history.location.pathname === '/teacherhome' ) ) {
           history.push('/studenthome');
-        } else if (data.type === 'teacher' && history.location.pathname === '/') {
+        } else if (data.type === 'teacher' && ( history.location.pathname === '/' || history.location.pathname === '/studenthome' ) ) {
           history.push('/teacherhome');
         }
       })
