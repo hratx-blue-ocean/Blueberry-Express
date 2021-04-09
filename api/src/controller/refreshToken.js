@@ -10,7 +10,7 @@ const refresh = (refreshToken) => {
   };
   let body = {};
 
-  return axios.post((`https://oauth2.googleapis.com/token?${params}`, body, headers)).then((response) => {
+  return axios.post(`https://oauth2.googleapis.com/token?${params}`, body, headers).then((response) => {
     return response.data.access_token;
   });
 };
