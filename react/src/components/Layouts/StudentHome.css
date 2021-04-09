@@ -77,7 +77,7 @@
 
 .individual-appointment {
   width: 90%;
-  height: 100px;
+  height: 120px;
   font-size: 15px;
   display: flex;
   justify-content: space-between;
@@ -92,7 +92,7 @@
 }
 
 .appointment-info {
-  margin: 5px;
+  margin: 10px;
 }
 
 

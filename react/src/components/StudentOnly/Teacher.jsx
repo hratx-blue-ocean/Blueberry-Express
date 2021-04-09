@@ -11,11 +11,11 @@ export const Teacher = ({ user }) => {
         <ProfilePic url={user.profileImg} name={user.name}/>
       </div>
       <div>
-        <p className="mb-5">Bio: Hello I am happy to be here and teach.{user.bio}</p>
+        <p className="mb-5"> Hello I am happy to be here and teach.{user.bio}</p>
         <p>Languages: English, Russian, French.</p>
       </div>
       <div>
-        <AvailabilityModal />
+        <AvailabilityModal id={user.id}/>
       </div>
     </div>
   )
