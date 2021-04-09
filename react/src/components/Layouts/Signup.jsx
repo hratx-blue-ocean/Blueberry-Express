@@ -12,7 +12,6 @@ import { AuthContext } from '../../auth';
 export const Signup = ({ setUser }) => {
   const context = useContext(AuthContext);
   const history = useHistory();
-
   const [userType, updateUserType] = useState(null);
   const [proceed, updateProceed] = useState(false);
 
@@ -27,18 +26,17 @@ export const Signup = ({ setUser }) => {
     }
   }
 
-  function confirmUser() {
-    initializeUser(userType);
-    updateProceed(true);
+  async function confirmUser() {
+    await initializeUser(userType);
+    window.location = '/signup';
   }
 
-  function storeUserLanguages(e) {
+  function updateUserLanguages(e) {
     var checked = document.querySelectorAll('input[type=checkbox]:checked');
     checked.forEach(check => {
       addUserLanguage(check.value)
     })
 
-    console.log('user type:', userType, context.user.type);
     if (userType === 'teacher' || context.user.type === 'teacher') {
       history.push('/teacherhome')
     } else {
@@ -81,9 +79,9 @@ export const Signup = ({ setUser }) => {
     <div>
       { !context.loggedIn && Main }
       { (context.loggedIn && !context.user.type) && UserType }
-      { (context.loggedIn && !context.user.type) && <TypeConfirmation type={userType} action={confirmUser} /> }
+      { (context.loggedIn && ( !context.user.type && !proceed )) && <TypeConfirmation type={userType} action={confirmUser} /> }
       { (context.loggedIn && ( context.user.type || proceed )) && (
-        <LanguageForm userType={userType} action={storeUserLanguages} /> )
+        <LanguageForm userType={userType} action={updateUserLanguages} /> )
       }
     </div>
   )
