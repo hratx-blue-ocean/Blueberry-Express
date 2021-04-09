@@ -237,7 +237,7 @@ export function fetchSentMessages(count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);
@@ -286,7 +286,7 @@ export function searchTeacherByLanguage( languageId, count, page) {
   };
 
   return axios(options).then(res => {
-    return res.json();
+    return res.data;
   })
   .catch(err => {
     console.error(err);

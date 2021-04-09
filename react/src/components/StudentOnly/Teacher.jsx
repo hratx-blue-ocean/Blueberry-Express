@@ -1,21 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProfilePic} from '../Shared/ProfilePic';
 import {MediumBtn} from '../Buttons/MediumBtn';
 import { AvailabilityModal } from '../Modals/AvailabilityModal';
+import { fetchOtherUser } from '../../api';
 
 export const Teacher = ({ user }) => {
   return (
     <div className="individual-teacher">
       <div>
-        <ProfilePic url={user.profile_picture} name={user.name}/>
+        <ProfilePic url={user.profileImg} name={user.name}/>
       </div>
       <div>
-        <p className="mb-5">Bio: {user.bio}</p>
-        <p>Languages:&nbsp;
-          {user.languages.map((language, index) => {
-            return <span key={index}>{language}{index < user.languages.length - 1 ? ',' : null} </span>
-          })}
-        </p>
+        <p className="mb-5">Bio: Hello I am happy to be here and teach.{user.bio}</p>
+        <p>Languages: English, Russian, French.</p>
       </div>
       <div>
         <AvailabilityModal />
