@@ -1,25 +1,21 @@
 const axios = require('axios');
 
 const refresh = (refreshToken) => {
-  let params =
-    `client_id=72049321950-t0dcl714jtn83ste38331gk9mh7e9kja.apps.googleusercontent.com&client_secret=nfhS-I1U0UuG_mFjlkuRXlYR&refresh_token=${refreshToken}&grant_type=refresh_token`;
+  let params = `client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${process.env.GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
 
   let headers = {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
   };
   let body = {};
 
-  return axios
-    .post((`https://oauth2.googleapis.com/token?${params}`, body, headers))
-    .then((response) => {
-      return response.data.access_token;
-    });
+  return axios.post(`https://oauth2.googleapis.com/token?${params}`, body, headers).then((response) => {
+    return response.data.access_token;
+  });
 };
 
 module.exports = refresh;
-
 
 // return value:
 // {

@@ -7,7 +7,7 @@ export const LargeBtn = ({label, handleClick}) => {
         type="button"
         className="h-12 px-6 m-2 text-lg text-white transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-800"
         onClick={handleClick}
-        > {label}
+        >{label}
         </button>
     )
 }

@@ -6,11 +6,11 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { CalendarView } from './Layouts/CalendarView.jsx';
-import { UserProfileLang } from './Layouts/UserProfileLang';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext, openPaths } from '../auth';
+
 
 const App = () => {
   const history = useHistory();
@@ -28,6 +28,7 @@ const App = () => {
   const contextValue = {
     loggedIn,
     user,
+    setUser
   };
 
   useEffect(() => {
@@ -43,13 +44,13 @@ const App = () => {
       .then((data) => {
         setLoggedIn(true);
         setUser(data);
-        // if (!data.type || !data.languages.length) {
-        //   history.push('/signup');
-        // } else if (data.type === 'student' && history.location.pathname === '/') {
-        //   history.push('/studenthome');
-        // } else if (data.type === 'teacher' && history.location.pathname === '/') {
-        //   history.push('/teacherhome');
-        // }
+        if (!data.type || !data.languages.length) {
+          history.push('/signup');
+        } else if (data.type === 'student' && ( history.location.pathname === '/' || history.location.pathname === '/teacherhome' ) ) {
+          history.push('/studenthome');
+        } else if (data.type === 'teacher' && ( history.location.pathname === '/' || history.location.pathname === '/studenthome' ) ) {
+          history.push('/teacherhome');
+        }
       })
       .catch((e) => {
         if (e.response.status === 403) {
@@ -70,7 +71,6 @@ const App = () => {
           <Route path="/teacherhome" exact component={TeacherHome} />
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/calendar" exact component={CalendarView} />
-          <Route path="/userprofilelang" exact component={UserProfileLang} />
         </Switch>
       </div>
     </AuthContext.Provider>

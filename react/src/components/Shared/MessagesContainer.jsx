@@ -9,9 +9,9 @@ export const MessagesContainer = () => {
   let messagesArray = [
     {
       "id": 1000,
-      "subject": "test1",
+      "subject": "true",
       "from": 2,
-      "unread": false,
+      "unread": true,
       "created_at": "2021-04-08",
       "fromUser": {
         "id": 2,
@@ -29,9 +29,9 @@ export const MessagesContainer = () => {
     },
     {
       "id": 1001,
-      "subject": "test2",
+      "subject": "true",
       "from": 3,
-      "unread": false,
+      "unread": true,
       "created_at": "2021-04-08",
       "fromUser": {
         "id": 2,

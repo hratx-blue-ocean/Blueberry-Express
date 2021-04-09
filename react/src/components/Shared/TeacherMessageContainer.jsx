@@ -10,7 +10,7 @@ export const TeacherMessageContainer = ({ messages }) => {
       "id": 1000,
       "subject": "test1",
       "from": 2,
-      "unread": false,
+      "unread": true,
       "created_at": "2021-04-08",
       "fromUser": {
         "id": 2,

@@ -61,17 +61,17 @@ exports.up = (db) => {
             },
           },
         },
-        scheduled_for: {
-          type: 'date',
-          notNull: true,
-        },
         created_at: {
           type: 'date',
           notNull: true,
           defaultValue: new String('Now()'),
         },
-        google_calendar_id: {
-          type: 'int',
+        from_event_id: {
+          type: 'string',
+          notNull: true,
+        },
+        to_event_id: {
+          type: 'string',
           notNull: true,
         },
         approved: { type: 'boolean', notNull: true, defaultValue: false },
