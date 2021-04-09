@@ -38,6 +38,25 @@ export const AvailabilityModal = ({ name }) => {
   const [messageSubject, setSubject] = useState('');
   const [messageBody, setBody] = useState('');
 
+  let dummyAvailability = [
+    {
+      start: 'Wed, 1:00pm',
+      end: 'Wed, 3:00pm'
+    },
+    {
+      start: 'Thurs, 9:00am',
+      end: 'Thurs, 11:00am'
+    },
+    {
+      start: 'Fri, 11:00am',
+      end: 'Fri, 1:00pm'
+    },
+    {
+      start: 'Mon, 11:00am',
+      end: 'Mon, 1:00pm'
+    }
+  ]
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -49,82 +68,37 @@ export const AvailabilityModal = ({ name }) => {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <button className="absolute right-5" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
-      <h2 className="mb-5 text-2xl underline" id="simple-modal-title">Availability</h2>
-
-      <div className="flex mb-10 change-font">
-        <div className="text-center mr-10">
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Monday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Tuesday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Wednesday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Thursday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
+      <h2 className="mb-6 text-2xl underline" id="simple-modal-title">Scheduling</h2>
+      <h2 className="underline text-lg mb-1">Teacher's Current Schedule</h2>
+      {dummyAvailability.map((date, index) => {
+        return <div key={index} className="p-1">
+          <span>{date.start}</span> - <span>{date.end}</span>
         </div>
-        <div className="text-center">
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Friday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Saturday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
-          <div className="p-2 mb-2">
-            <p className="text-lg underline mb-1">Sunday</p>
-            <select className="h-9 rounded-md p-2 text-black">
-              <option>Select One...</option>
-              <option>9:00am - 11:00am</option>
-              <option>11:00am - 1:00pm</option>
-              <option>1:00pm - 3:00pm</option>
-              <option>3:00pm - 5:00pm</option>
-            </select>
-          </div>
+      })}
+      <h2 className="mt-10 text-lg">(select time frame not listed above)</h2>
+      <div className="flex justify-center text-center change-font mb-10">
+        <div className="p-2 mb-2">
+          <p className="text-lg underline mb-1">Day</p>
+          <select className="h-9 w-48 rounded-md p-2 text-black">
+            <option>Select One...</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+        </div>
+        <div className="p-2 mb-2">
+          <p className="text-lg underline mb-1">Hours</p>
+          <select className="h-9 w-48 rounded-md p-2 text-black">
+            <option>Select One...</option>
+            <option>9:00am - 11:00am</option>
+            <option>11:00am - 1:00pm</option>
+            <option>1:00pm - 3:00pm</option>
+            <option>3:00pm - 5:00pm</option>
+          </select>
         </div>
       </div>
       <XLargeBtn className="p-2" label="Submit" handleClick={handleClose} />

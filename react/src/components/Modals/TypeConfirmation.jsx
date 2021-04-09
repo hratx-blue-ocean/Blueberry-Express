@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { MessageBtn } from '../Buttons/MessageBtn';
 import { XLargeBtn } from '../Buttons/XLargeBtn';
 import CloseIcon from '@material-ui/icons/Close';
-import { sendMessage } from '../../api';
+import { ContinueBtn } from '../Buttons/ContinueBtn';
+
 
 function getModalStyle() {
   const top = 25;
@@ -32,12 +32,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MessageSend = ({ name, id }) => {
+export const TypeConfirmation = ({ action, type, proceed }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [messageSubject, setSubject] = useState('');
   const [messageBody, setBody] = useState('');
+
+  useEffect(() => {
+    if (proceed === true) {
+      setOpen(false);
+    }
+  }, [proceed])
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,35 +53,22 @@ export const MessageSend = ({ name, id }) => {
     setOpen(false);
   };
 
-  const postMessage = () => {
-    sendMessage(id, messageSubject, messageBody)
-      .catch(error => {
-        console.error(error);
-      });
-    setOpen(false);
-  };
-
   const body = (
     <div className="change-font message-send-modal">
       <div style={modalStyle} className={classes.paper}>
-        <button className="absolute right-5" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
-        <h2 className="mb-10 text-2xl underline" id="simple-modal-title">Message</h2>
-        <div className="flex items-center justify-center mb-8 mr-2">
-          <p className="text-xl mr-4">To: </p>
-          <input className="w-30 rounded-md p-2 h-8 text-lg text-black bg-white border-black border" type="text" value={name} disabled></input>
+        <button style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
+        <p>You have selected to join as a <u>{type}</u>, <b>this can't be undone</b>.</p>
+        <p>Would you like to proceed?</p>
+        <div className="relative bottom-0 right-0">
+          <ContinueBtn handleClick={action} />
         </div>
-        <input className="w-80 h-12 p-2 text-black rounded-md border border-black mb-10" type="text" placeholder="Enter Subject..."
-          onChange={(e) => { setSubject(e.target.value) }}></input>
-        <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
-          onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <XLargeBtn label="Send" handleClick={postMessage} />
       </div>
     </div>
   );
 
   return (
     <div>
-      <MessageBtn handleClick={handleOpen} />
+      <XLargeBtn handleClick={handleOpen} label="Continue" />
       <Modal
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         open={open}
