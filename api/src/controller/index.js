@@ -3,17 +3,16 @@ const axios = require('axios');
 const Calendar = {};
 
 Calendar.createEvent = (accessToken, refreshToken, calendarId, eventParams) => {
-
   let event = {
     kind: 'calendar#event',
     summary: eventParams.summary,
     start: {
-      dateTime: eventParams.start.dateTime, // '2015-05-28T17:00:00-07:00'
-      timeZone: eventParams.start.timeZone // 'America/Minneapolis'
+      dateTime: eventParams.start, // '2015-05-28T17:00:00-07:00'
+      timeZone: 'US/Central' // 'America/Minneapolis'
     },
     end: {
-      dateTime: eventParams.end.dateTime,
-      timeZone: eventParams.end.timeZone
+      dateTime: eventParams.end,
+      timeZone: 'US/Central'
     }
   };
   // calendar id should look like: optdi857if3c83476keu5hp8g0@group.calendar.google.com
@@ -223,7 +222,7 @@ Calendar.deleteEvent = (accessToken, refreshToken, calendarId, eventId) => {
     });
 };
 
-Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, timeZone) => {
+Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd) => {
   if (timeStart === undefined) {
     timeStart = new Date().toISOString();
   }
@@ -235,7 +234,7 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
   let body = {
     timemin: timeStart,
     timeMax: timeEnd,
-    timeZone: timeZone || 'America/Minneapolis',
+    timeZone: 'US/Central',
     groupExpansionMax: 50,
     calendarExpansionMas: 25,
     items: [
@@ -269,9 +268,7 @@ Calendar.freeBusy = (accessToken, refreshToken, calendarId, timeStart, timeEnd, 
       // }
 
       return {
-        response: response.data,
-        accessToken: accessToken,
-        refreshToken: refreshToken
+        busy: response.data.calendars[calendarId].busy
       };
     })
     .catch((err) => {
