@@ -13,24 +13,17 @@ export const LanguageSelection = () => {
 		fetchAllLanguages()
 		.then(data => {
 			setLanguages(data);
+			setChosen(context.user.languages);
 		})
 		.catch(err => {
 			console.error(err);
 		})
 	}, [])
 
-	useEffect(() => {
-		setChosen(context.user.languages);
-	}, [])
-
-
   useEffect(() => {
-		window.onLoad(console.log('hey'))
 		if (chosen.length) {
 			chosen.forEach((lang) => {
-		    // document.getElementById(lang.name).checked = true;
-				console.log('name', lang.name)
-				console.log(document.getElementById(lang.name));
+			  document.getElementById(lang.name).checked = true;
 			})
 		}
 	}, [chosen])
