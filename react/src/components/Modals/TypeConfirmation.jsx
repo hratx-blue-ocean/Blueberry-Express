@@ -5,7 +5,6 @@ import { XLargeBtn } from '../Buttons/XLargeBtn';
 import CloseIcon from '@material-ui/icons/Close';
 import { ContinueBtn } from '../Buttons/ContinueBtn';
 
-
 function getModalStyle() {
   const top = 25;
   const left = 35;
@@ -24,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     borderRadius: 20,
     alignItems: 'center',
-    width: 500,
-    height: 450,
     backgroundColor: '#2a2a72',
     color: 'white',
     padding: theme.spacing(2, 4, 3),
@@ -52,7 +49,7 @@ export const TypeConfirmation = ({ action, type }) => {
       <div style={modalStyle} className={classes.paper}>
         <button style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
         <h1>You have selected to join as a <u>{type}</u>.</h1>
-        <p><b>This can't be undone without deleting your account.</b>.</p>
+        <p><b>This can't be undone without deleting your account.</b></p>
         <p>Would you like to proceed?</p>
         <div>
           <ContinueBtn handleClick={action} />

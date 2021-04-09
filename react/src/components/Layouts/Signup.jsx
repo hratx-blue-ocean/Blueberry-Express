@@ -7,13 +7,12 @@ import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
 import { initializeUser, addUserLanguage } from '../../api.js';
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
-
 import { AuthContext } from '../../auth';
 
 export const Signup = () => {
   const context = useContext(AuthContext);
   const history = useHistory();
-  const [userType, updateUserType] = useState(null);
+  const [userType, updateUserType] = useState('Teacher');
 
   useEffect(() => {
     if (context.user.type && context.user.languages.length){
