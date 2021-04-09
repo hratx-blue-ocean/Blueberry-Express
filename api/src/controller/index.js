@@ -66,9 +66,17 @@ Calendar.createEvent = (accessToken, calendarId, eventParams) => {
     });
 };
 
-Calendar.listEvents = (accessToken, calendarId) => {
+Calendar.listEvents = (accessToken, calendarId, timeMin, timeMax) => {
+  let start = `timeMin=${timeMin}&`;
+  let end = `timeMax=${timeMax}&`;
+  if (!timeMin) {
+    start = '';
+  }
+  if (!timeMin) {
+    end = '';
+  }
   return axios
-    .get(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`, {
+    .get(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?${start + end}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -268,6 +276,26 @@ Calendar.freeBusy = (accessToken, calendarId, timeStart, timeEnd) => {
     })
     .catch((err) => {
       // Will return busy: [] if there are no conflicts
+      return err;
+    });
+};
+
+Calendar.markCancelled = (accessToken, calendarId, eventId) => {
+  let event = {
+    summary: 'Cancelled Appointment',
+  };
+
+  return axios
+    .patch(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`, event, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      // if the error has the issue that it is outdated, use the refresh token to get a new token
       return err;
     });
 };
