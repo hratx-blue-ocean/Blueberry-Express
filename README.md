@@ -62,6 +62,28 @@ Because the database containers do not expose their ports to the host machine, y
 
 Instead, you can connect to the interactive shells with `npm run docker:mongo` and `npm run docker:postgres`.
 
+### Migrations
+
+Currently, there are a host of migrations that need to run before you can actually begin development. The different migration commands you can run are detailed below:
+
+_NOTE: If you run any of the migration commands below other than the base `postgres:migrate` command, you must run the "down" version of that command manually if you're trying to reset something, otherwise you run the risk of damaging the migrations table in the database, and I ain't got the time to fix it with you._
+
+### `postgres:migrate`
+
+Sets up (or resets) the database to an initial state, with all tables created and populated with some dummy data (most importantly, it contains 'starter' user information associated with all of the current developers' Google IDs, so messaging APIs are testable).
+
+### `postgres:migrate:student`
+
+Sets all developer accounts to be the `student` type on your local machine. Useful for testing the student portal.
+
+### `postgres:migrate:teacher`
+
+Sets all developer accounts to be the `teacher` type.
+
+### `postgres:migrate:languages`
+
+Sets all developer accounts to have _all_ languages as a preferred language.
+
 ## About the Docker Containers
 
 ### api
