@@ -1,7 +1,8 @@
 const axios = require('axios');
 
 const refresh = (refreshToken) => {
-  let params = `client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
+  let params = `client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${process.env.GOOGLE_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
+
 
   let headers = {
     headers: {
@@ -10,7 +11,7 @@ const refresh = (refreshToken) => {
   };
   let body = {};
 
-  return axios.post((`https://oauth2.googleapis.com/token?${params}`, body, headers)).then((response) => {
+  return axios.post(`https://oauth2.googleapis.com/token?${params}`, body, headers).then((response) => {
     return response.data.access_token;
   });
 };

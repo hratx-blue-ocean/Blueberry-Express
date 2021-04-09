@@ -40,10 +40,10 @@ passport.use(
             refreshToken: refreshToken,
           },
         })
-        .then((user) => {
+        .then(async(user) => {
           if (!user[0].calendarId) {
             console.log('making calendar for: ', user[0]);
-            Calendar.createCalendar(accessToken, refreshToken).then((calendarObject) => {
+            await Calendar.createCalendar(accessToken, refreshToken).then((calendarObject) => {
               user[0].calendarId = calendarObject.response.id;
             });
           }
