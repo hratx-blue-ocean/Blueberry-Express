@@ -82,8 +82,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: thin solid white;
-  border-radius: 5px;
+  border-bottom: thin solid white;
   padding: 10px;
   margin: 5px;
 }
