@@ -23,8 +23,8 @@ passport.deserializeUser(function (id, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '72049321950-t0dcl714jtn83ste38331gk9mh7e9kja.apps.googleusercontent.com',
-      clientSecret: 'nfhS-I1U0UuG_mFjlkuRXlYR',
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: `http://localhost:${process.env.PORT}/auth/google/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
@@ -37,6 +37,7 @@ passport.use(
             name: profile.displayName,
             email: profile.emails[0].value,
             profileImg: profile.photos[0].value,
+            refreshToken: refreshToken,
           },
         })
         .then((user) => {
@@ -44,12 +45,15 @@ passport.use(
             console.log('making calendar for: ', user[0]);
             Calendar.createCalendar(accessToken, refreshToken).then((calendarObject) => {
               user[0].calendarId = calendarObject.response.id;
-              return user[0].save();
             });
           }
+          if (!user[0].refreshToken) {
+            user[0].refreshToken = refreshToken;
+          }
+          return user[0].save();
         })
-        .then(() => {
-          const token = jwt.sign({ accessToken, refreshToken, googleKey: profile.id }, process.env.JWT_SECRET);
+        .then((user) => {
+          const token = jwt.sign({ id: user.id, googleKey: profile.id }, process.env.JWT_SECRET);
           return done(null, token);
         })
         .catch((e) => {

@@ -1,20 +1,18 @@
 const AuthRouter = require('express').Router();
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-
 AuthRouter.get(
   '/google',
   passport.authenticate(
     'google',
     {
+      accessType: 'offline',
+      prompt: 'consent',
       scope: [
         'profile',
         'email',
         'openid',
         'https://www.googleapis.com/auth/calendar',
         'https://www.googleapis.com/auth/calendar.events',
-        'https://www.googleapis.com/auth/calendar.events.readonly',
-        'https://www.googleapis.com/auth/calendar.readonly',
         'https://www.googleapis.com/auth/calendar.settings.readonly',
       ],
     },

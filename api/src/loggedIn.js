@@ -7,16 +7,14 @@ const isLoggedIn = (req, res, next) => {
   } else {
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-      db.user.findOne({ where: { googleKey: token.googleKey } }).then((user) => {
+      db.user.findOne({ where: { id: token.id } }).then((user) => {
         if (!user || user.student === null) {
           req.userAuthorized = false;
         } else {
           req.userAuthorized = true;
         }
-        console.log(req.userAuthorized);
         req.user = user;
-        req.accessToken = token.accessToken;
-        req.refreshToken = token.refreshToken;
+        req.refreshToken = user.refreshToken;
         next();
       });
     } catch (e) {

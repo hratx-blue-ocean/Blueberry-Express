@@ -8,8 +8,9 @@ UsersRouter.get('/', (req, res) => {
     console.dir(req.user);
     try {
       const token = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-      db.user.findOne({ where: { googleKey: token.googleKey } }).then(async (user) => {
+      db.user.findOne({ where: { id: token.id } }).then(async (user) => {
         const languages = await user.getLanguages();
+        if (!user) return res.json({});
         res.json({
           id: user.id,
           name: user.name,
