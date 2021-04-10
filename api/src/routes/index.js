@@ -1,11 +1,10 @@
 const Router = require('express').Router();
+const isLoggedIn = require('../loggedIn');
 
-Router.use('/users', require('./users'));
-Router.use('/appointments', require('./appointments'));
-Router.use('/messages', require('./messages'));
-Router.use('/languages', require('./languages'));
-Router.use('/', (req, res) => {
-  res.send('Hello, BackEnd!');
-});
+Router.use('/users', isLoggedIn, require('./users'));
+Router.use('/appointments', isLoggedIn, require('./appointments'));
+Router.use('/messages', isLoggedIn, require('./messages'));
+Router.use('/languages', isLoggedIn, require('./languages'));
+Router.use('/auth', require('./auth'));
 
 module.exports = Router;

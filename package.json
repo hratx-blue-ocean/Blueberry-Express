@@ -15,7 +15,14 @@
     "docker:mongo": "docker-compose exec mongo mongo",
     "docker:postgres": "docker-compose exec postgres psql -U postgres",
     "docker:api": "docker-compose exec api sh",
-    "docker:react": "docker-compose exec react sh"
+    "docker:react": "docker-compose exec react sh",
+    "postgres:migrate": "docker-compose exec api npm run migrate:all",
+    "postgres:migrate:student": "docker-compose exec api npm run migrate:student",
+    "postgres:migrate:student:down": "docker-compose exec api npm run migrate:student:down",
+    "postgres:migrate:teacher": "docker-compose exec api npm run migrate:teacher",
+    "postgres:migrate:teacher:down": "docker-compose exec api npm run migrate:teacher:down",
+    "postgres:migrate:languages": "docker-compose exec api npm run migrate:languages",
+    "postgres:migrate:languages:down": "docker-compose exec api npm run migrate:languages:down"
   },
   "repository": {
     "type": "git",

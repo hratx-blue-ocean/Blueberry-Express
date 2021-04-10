@@ -16,15 +16,21 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       googleKey: {
-        type: DataTypes.INTEGER,
+        field: 'google_key',
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      calendarId: {
+        field: 'calendar_id',
+        type: DataTypes.STRING,
       },
       bio: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
       profileImg: {
+        field: 'profile_img',
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -34,18 +40,25 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 0,
       },
       lastLogin: {
+        field: 'last_login',
         type: DataTypes.DATE,
       },
       zoomLink: {
+        field: 'zoom_link',
         type: DataTypes.STRING,
       },
       student: {
         type: DataTypes.BOOLEAN,
       },
+      refreshToken: {
+        field: 'refresh_token',
+        type: DataTypes.STRING,
+      }
     },
     {
       freezeTableName: true,
       tableName: 'users',
+      timestamps: false,
     }
   );
   return User;

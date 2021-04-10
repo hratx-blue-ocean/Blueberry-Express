@@ -4,15 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "migrate:all": "db-migrate reset && db-migrate up",
+    "migrate:student": "db-migrate up:student",
+    "migrate:student:down": "db-migrate down:student",
+    "migrate:teacher": "db-migrate up:teacher",
+    "migrate:teacher:down": "db-migrate down:teacher",
+    "migrate:languages": "db-migrate up:languages",
+    "migrate:languages:down": "db-migrate down:languages"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "db-migrate": "^0.11.12",
+    "db-migrate-pg": "^1.2.2",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.3",
     "passport": "^0.4.1",

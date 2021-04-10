@@ -5,7 +5,6 @@ const { Sequelize } = require('sequelize');
 const db = {};
 const basename = path.basename(__dirname);
 const env = process.env.NODE_ENV;
-
 const sequelize = new Sequelize(
   process.env.POSTGRES_DATABASE,
   process.env.POSTGRES_USER,
@@ -27,14 +26,19 @@ fs.readdirSync(path.join(__dirname, './models'))
   });
 
 // Define relationships here
-db.message.belongsTo(db.user, { foreignKey: 'from_id' });
-db.message.belongsTo(db.user, { foreignKey: 'to_id' });
+db.message.belongsTo(db.user, { as: 'from', foreignKey: 'from_id' });
+db.user.hasMany(db.message, { as: 'sentMessages', foreignKey: 'from_id' });
+db.message.belongsTo(db.user, { as: 'to', foreignKey: 'to_id' });
+db.user.hasMany(db.message, { as: 'incomingMessages', foreignKey: 'to_id' });
 db.rating.belongsTo(db.user, { foreignKey: 'teacher_id' });
 db.rating.belongsTo(db.user, { foreignKey: 'student_id' });
-db.appointment.belongsTo(db.user, { foreignKey: 'from_id' });
-db.appointment.belongsTo(db.user, { foreignKey: 'to_id' });
+db.appointment.belongsTo(db.user, { as: 'from', foreignKey: 'from_id' });
+db.user.hasMany(db.appointment, { as: 'sentAppointments', foreignKey: 'from_id' });
+db.appointment.belongsTo(db.user, { as: 'to', foreignKey: 'to_id' });
+db.user.hasMany(db.appointment, { as: 'incomingAppointments', foreignKey: 'to_id' });
 db.rating.belongsTo(db.appointment, { foreignKey: 'appointment_id' });
-db.language.belongsToMany(db.user, { through: 'user_langauges' });
+db.language.belongsToMany(db.user, { through: db.user_languages });
+db.user.belongsToMany(db.language, { through: db.user_languages });
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

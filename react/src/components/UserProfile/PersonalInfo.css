@@ -1,0 +1,137 @@
+/* ------- Profile Info ------- */
+.personal-info-container {
+  width: 700px;
+  height: 420px;
+  background: rgb(222,222,222);
+  background: linear-gradient(140deg, rgb(207, 207, 207) 0%, rgb(211, 211, 211) 20%, rgb(236, 236, 236) 62%, rgba(236,236,236,1) 100%);
+  border-radius: 20px;
+  margin-top: 100px;
+  box-shadow: 5px 5px 8px #a1a1a1;
+}
+
+.personal-info-bio {
+  width: 53%;
+  letter-spacing: .02em;
+}
+
+.profile-info-span {
+  font-weight: bold;
+}
+
+.personal-info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.personal-info-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.personal-info-image {
+  border-radius: 50%;
+  margin-right: 40px;
+  margin-left: 20px;
+}
+
+/* MenuSettingsContainer */
+.MenuSettingsContainer {
+  position: relative;
+  left: 10px;
+  width: 40%;
+  height: 590px;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 5px 5px 8px #a1a1a1;
+  background-color: #2a2a72;
+  background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
+}
+
+.profile-info-img {
+  width: 400px;
+  height: 280px;
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+}
+
+
+
+/* ------ Profile Languages ------- */
+
+.profile-language-container {
+  width: 700px;
+  height: 420px;
+  background: rgb(222,222,222);
+  background: linear-gradient(140deg, rgb(207, 207, 207) 0%, rgb(211, 211, 211) 20%, rgb(236, 236, 236) 62%, rgba(236,236,236,1) 100%);
+  border-radius: 20px;
+  margin-top: 100px;
+  box-shadow: 5px 5px 8px #a1a1a1;
+}
+
+.profile-lang-container {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.language-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 170px;
+  height: 40px;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #616161;
+  padding: 3px;
+}
+
+.testing {
+  background-color: green;
+}
+
+
+/* -------- Menu Settings ------- */
+
+.menu-settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  height: 550px;
+  margin-top: 40px;
+  margin-left: 20px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 8px #a1a1a1;
+  background-color: #2a2a72;
+  background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
+}
+
+.menu-container {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.settings-reviews-container {
+  display: flex;
+}
+
+
+@media only screen and (max-width: 1700px) {
+  .profile-info-img {
+    display: none;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "defaultEnv": "development",
+  "dotenvCustomPath": "src/.env.development",
+  "development": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "devpassword",
+    "host": "postgres",
+    "database": "api"
+  }
+}

@@ -1,0 +1,20 @@
+FROM node:15-alpine3.13
+
+ENV NODE_ENV=production
+ENV PORT=80
+
+EXPOSE 80
+
+RUN mkdir -p /app/config /app/src
+WORKDIR /app
+
+COPY package.json ./package.json
+COPY package-lock.json ./package-lock.json
+
+RUN npm install
+RUN npm install pm2 -g
+
+COPY . .
+
+
+CMD ["pm2-runtime", "src/index.js"]

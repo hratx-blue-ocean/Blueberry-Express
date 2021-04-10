@@ -1,0 +1,36 @@
+/* -------- Text Fields ------- */
+.container {
+  background-color: #b3b3b3c0;
+  border-radius: 10px;
+  position: relative;
+  right: 10px;
+}
+
+.smallbtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.smallbtn2 {
+  position: relative;
+  top: 540px;
+  right: 200px;
+}
+
+.reviews-container {
+  width: 900px;
+}
+
+.reviews {
+  width: fit-content;
+  height: fit-content;
+
+}
+
+.make-scroll {
+  width: 800px;
+  height: 520px;
+  overflow-y: scroll;
+  margin-bottom: 40px;
+}
