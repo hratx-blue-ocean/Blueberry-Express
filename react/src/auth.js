@@ -21,7 +21,7 @@ const setToken = (e) => {
 export const login = () => {
     console.log('Logging in');
     window.addEventListener('message', setToken, false);
-    window.open('http://localhost:3000/auth/google');
+    window.open(`${process.env.API_URL}auth/google`);
     //window.location = '/';
 }
 
