@@ -14,10 +14,9 @@ Because we rely on volunteer teachers, we have very low costs to operate our ser
 
 [Live demo](http://BlueberryExpress.net)
 
-
-![](https://gfycat.com/icynaughtyasp) &nbsp; &nbsp;
-![](https://thumbs.gfycat.com/InsistentOptimisticGoshawk-size_restricted.gif) &nbsp; &nbsp;
-![](https://thumbs.gfycat.com/FrighteningLameFrogmouth-size_restricted.gif) &nbsp; &nbsp;
+![](https://thumbs.gfycat.com/ShabbyLiquidBlackrussianterrier-size_restricted.gif)
+![](https://thumbs.gfycat.com/BruisedPointedAoudad-size_restricted.gif)
+![](https://thumbs.gfycat.com/BarrenWelldocumentedAmphibian-size_restricted.gif)
 
 # User Stories
 We worked with a lot of feedback at every stage of this project, here are the user stories we decided to explore:
@@ -40,7 +39,7 @@ We worked with a lot of feedback at every stage of this project, here are the us
 ## Coming Soon:
 - As a user, I want to be able to live chat with my learner/teacher without leaving the app.
 - As a user, I want to be able to browse teachers as a guest without logging in.
-- As a user, I want to be able to turn on email/text notifications of upcoming appointments 24/12/1 hour before the appointment.
+- As a user, I want to be able to turn on email/text notifications of upcoming appointments.
 
 # Stack
 
@@ -71,78 +70,63 @@ We worked with a lot of feedback at every stage of this project, here are the us
   </tr>
 </table>
 
+
 ## Front-End
-Although we lifted some components from the Grommet library, the majority of the styling is custom in order to match the [wireframes](https://www.figma.com/file/JnKGDEIyFEjL456ZDV97XL/chickpeach?node-id=5643%3A3615) we designed. We were also fans of Grommet's built in accessibility features. We used React Router to manage routes, and managed state with Redux. Persistence is maintained at the browser level, but we will be moving it to the account level at a later date.
+
+We designed our website to have a minimalistic look which aims to be user friendly in every aspect. The sign up process was designed to reduce any confusion and made to be as efficient as possible. The goal for both student and teacher portals are quick and easy connections between both users. The message and appointment sections plus the calendar page provides the user with the upmost ease-off use. We placed elements within the app to be familiar to users of the most common social media sites. Check out our initial [wireframes](https://miro.com/welcomeonboard/QfRdsuYlUZOM6zQelCUecN0Jr131kHxx5uUIaBLi8GzPOBnhgcSVrd35cB6FAzKs) here.
 
 ## Back-End
-Users, preferences, favorites and recipes had to be tracked in our database. Additionally, because of how the Spoonacular API is structured, recipes were broken down into general info, nutrition, ingredients and steps. We chose to implement a relational database to both handle complex queries and reduce the amount of duplicated data. MySQL was a great option for this, and the the MySQL npm packages helped us easily design queries. The server was built on express.
+We decided to track our user information and appointments primarily in Postgres as the data structure for user info and appointments is highly relational. We used Sequelize to create relationships between tables and to query our Postgres db. Here is a link to our [Postgres Relationships](https://cdn.discordapp.com/attachments/802245906983551058/830515517924179998/Blueberry_Express_V2_3.png). Notifications, on the other hand, take many different shapes. To accommodate this irregular data and to future-proof our application, we decided to also implement a MongoDB database. Searching for all notifications for a user is simplified by being able to query one table in our MongoDB rather than searching multiple tables in a relational database like Postgres. Our server was built on Node.js and Express.
+
 
 ## Deployment
-We managed deployment through partitions (usually front-end and back-end) of Docker images. We then deployed on AWS EC2 using PM2 to keep our server running and routed traffic with the help of NGINX.
+We depoloyed our application to Blue Ocean via Dockerizing our api, front-end, Postgres, and MongoDB. We then registered the domain [BlueberryExpress.net](http://blueberryexpress.net).
 
 ## APIs
-We used the Firebase Auth API for authentication. For recipes, we found Spoonacular's API to be the most comprehensive.
+We used the Google OAuth2.0 API for authentication combined with Passport.js. We found Googles Authentification process to be highly secure and familiar to users. This fits our goals of being simple and intuitive. We also used Google's Calendar Api for scheduling, changing, and removing events. Since many users already use Google Calendar, adding appointment notifications will feel familiar for our users.
 
 # Work Flow
 
-This project was managed using the git workflow:
+This project was managed using the agile workflow practices and git workflow:
 
-![](https://thumbs.gfycat.com/ImaginativeWelltodoCreature-size_restricted.gif)
+## [Trello Board](https://trello.com/c/pgtzKvIh/83-implement-conditional-rendering-for-ratings-button-on-user-profile)
+![](https://thumbs.gfycat.com/MerrySinfulGlassfrog-size_restricted.gif) &nbsp; &nbsp;
 
-We have one development branch that branches out specific features. When they are ready to be deployed, features are deployed as follows:
+## Git Workflow
+![](https://thumbs.gfycat.com/GrippingLazyGannet-size_restricted.gif)
 
-1. The branch is rebased to consolidate commit history and ensure only working code is pushed to the dev branch.
-2. The branch is pushed.
-3. A pull request is made.
-4. Another member of the team is to perform a review before merging the branch into developer.
-5. At the end of a sprint, the developer branch is merged into production.
-
-In addition to git, we also used [Trello](https://trello.com/b/FbPFygN4/chickpeach) to manage pending tasks, bugs and feedback.
+We have one main branch that branches out to staging. Our staging branch is where we merge our features until we have a batch of tested, functioning features in staging at which point we will merge staging to main.
 
 # Coming Soon
 
 This repo contains our first release. Here are the features we are currently working on:
 
-- User generated recipes
-- Calendar view for cook planning
-- Tie state persistence to account, not browser
-- Login with Google
+- Live chat between teacher and learner without leaving the app.
+- Guest browsing of our service.
+- Email, SMS, and Push notifications.
 
 # Get started
 
-Take the following steps to run the app in your localhost, you will need to have the following:
-- MySQL should be running on your machine
-- You will need to register for a [Spoonacular API key](https://spoonacular.com/food-api/)
+If you are interested in contributing to this project, follow this [guide](https://github.com/hratx-blue-ocean/Blueberry-Express/blob/main/CONTRIBUTING.md).
 
-From your MySQL shell:
-```
-source [PATH TO ROOT/db/schema.sql]
-```
-
-From terminal in the index folder:
-```
-npm install
-npm run compile
-npm start
-```
 
 # Challenges & Learnings
-This is a project created by a group of friends all trying to fill a gap that we saw in many popular meal-planing apps. This app was also an opportunity for us to learn, as at the time of this writing we are a team of passionate new developers. Here are some of the learnings we've had so far:
+This is a project is the child of a group of hungry software engineers all eager to create a viable product and to learn along the way. As passionate new developers, we did end up learning a lot here are some of the learnings we've had so far:
 
 ## Challenges
-- We all approached the project with a new technology to implement and tried to do so in it's early stages. We've learned lessons on how to assess an entire tech stack before beginning to implement it.
-- On the front-end, we planned to build and then add state management later. Eventually we had to refactor all of our React components to be stateless in order to work with hooks and Redux. A more productive strategy would have been to start with Redux and hooks and build from that convention instead of refactoring.
-- On the back-end, we tried to use GraphQL but quickly realized it didn't make sense for us at the current scale. In this, we learned to apply the technology to the use case and not simply add complexity for the sake of learning new technology or to greatly scale down the line.
+- Each of us selected new technologies we wanted to play around with during this project. We gained insight on assessing technologies prior to use as well as practical implementation practice with these new technologies.
+- On the front-end, we planned to style the entire app using tailwind. However, we learned that tailwind is not set up to be highly customizable by default. We decided we needed to customize more features than tailwind would easily allow so we ended up using a blend of css and tailwind.
+- On the back-end, interacting with Google's Calendar Api became available fairly late into the project. This led to a bit of a time crunch with lining up our db queries.
 
 ## Learnings
-- The importance of planning is reinforced daily in our workflow. Between detailed wireframes on Figma and a detailed Trello board, we were able to stay relatively organized.
-- Pair programming was a big part of building Chickpeach. Although it did slow us down a bit, the code pushed from pairs was visibly more accurate and concise.
-- Good communication between stakeholders, the team, and user testing was a boon for development. As developers, we were able to articulate the direction of where the app was going and properly manage stakeholder expectations against user feedback and developer input.
+- The importance of planning is reinforced daily in our workflow. Between detailed wireframes on Miro and a detailed Trello board, we were able to stay well organized.
+- Pair programming was a big part of building Blueberry Express. Although initially, we were concerned that pair programming might slow us down, we found that both parties learned more while making roughly the same amount of progress. Futhermore, the code produced was less likely to contain bugs which saved time in the long run.
+- After our initial meeting with the stakeholder, our team predicted that we would be able to implement all features that were proposed. After several days into creating this app, we found that we had underestimated the time commitment necessary to implement several features. We all certainly learned how seemingly simple applications may have much more going on under the hood than is first apparent and will keep this in mind for future projects.
 
 ## Potential Improvements
-- We may benefit from dividing sprints into specific features instead of splitting our team into traditional (front-end/back-end) roles. As we're all full-stack developers, an iterative approach may have allowed us to develop more consistently. In our experience so far, with one team working on front-end and the other on back-end, we found ourselves waiting on eachother as well as in situations where we lost familiarity with the other side of the code base and had to spend more time catching up.
-- In the future, we will be extending our UI mockup to also include data flow between apps.
+- Implementing unit tests earlier in the production of our application would have been helpful. Using a CCID or Typescript would both have been a viable solution.
+- Mapping out dependencies and structuring our gameplan to target foundational features first would have been helpful as we did run into challenges with testing features while our back end was still being set up.
 
 # Contributors
 
-[John Connolly](https://github.com/jkcryptolock), [Arohan Dutt](https://github.com/ArohanD), [Gibran Iqbal](https://github.com/Jibbscript), [Julia Kim](https://github.com/jxkim), [Whitney Lee](https://github.com/wiggitywhitney), [Sean McCarthy](https://github.com/SeanMcCarthy3223), [Jeff Salinas](https://github.com/JeffSalinas)
+[Cody Haines](https://github.com/chaines), [Tahsin Ahmed](https://github.com/tahsinocity), [Matt Collinsl](https://github.com/matt-collins087), [Brandon Harden](https://github.com/bmh0013), [Zach Thomas](https://github.com/zt2401), [Ekaterina Drozdova](https://github.com/Katerina-spb), [Steve Gackstetter](https://github.com/stevehackreactor)
