@@ -42,6 +42,11 @@ exports.up = function (db) {
       user_languages (user_id, language_id)
     VALUES
       (200, 1),
+      (200, 2),
+      (200, 3),
+      (200, 4),
+      (200, 5),
+      (200, 6),
       (201, 2),
       (202, 3),
       (203, 4),
