@@ -6,6 +6,7 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { CalendarView } from './Layouts/CalendarView.jsx';
+import { AboutUs } from './Layouts/AboutUs.jsx';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
@@ -71,6 +72,7 @@ const App = () => {
           <Route path="/teacherhome" exact component={TeacherHome} />
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/calendar" exact component={CalendarView} />
+          <Route path="/aboutus" exact component={AboutUs} />
         </Switch>
       </div>
     </AuthContext.Provider>
