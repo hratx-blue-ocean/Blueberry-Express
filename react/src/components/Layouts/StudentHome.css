@@ -63,7 +63,7 @@
   border-radius: 20px;
   color: white;
   text-align: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   box-shadow: 5px 5px 8px #a1a1a1;
   background-color: #2a2a72;
   background-image: linear-gradient(140deg, #3939b9 0%, #4bbcfdec 99%);
@@ -140,7 +140,7 @@
 
 .messages-container {
   font-family: 'Poppins', sans-serif;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
   top: 60px;
   width: 21%;

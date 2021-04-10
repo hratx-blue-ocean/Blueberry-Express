@@ -10,7 +10,7 @@ export const StudentAppointment = ({ appointment }) => {
   return (
     <div className="individual-appointment">
       <div className="appointment-info text-left">
-        <p className="pb-1 text-lg"><span>Teacher:</span> {appointment.with.name}</p>
+        <p className="pb-1"><span>Teacher:</span> {appointment.with.name}</p>
         <p className="pb-1">Date: {appointmentDate.toLocaleDateString()}</p>
         <p className="pb-1">Start: {appointmentStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
         <p className="pb-1 mb-2">End: {appointmentEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
