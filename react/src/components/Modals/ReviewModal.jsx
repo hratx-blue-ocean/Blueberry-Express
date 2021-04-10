@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { LargeBtn } from '../Buttons/LargeBtn';
 import { RescheduleBtn } from '../Buttons/RescheduleBtn';
 import CloseIcon from '@material-ui/icons/Close';
-import { sendMessage } from '../../api';
+import {HoverRating} from '../Shared/Star'
 
 function getModalStyle() {
   const top = 25;
@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     borderRadius: 20,
-    alignItems: 'center',
     width: 500,
     height: 450,
     backgroundColor: '#2a2a72',
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RescheduleModal = ({ name, reschedule, id }) => {
+export const ReviewModal = ({ name, reschedule }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -47,35 +46,28 @@ export const RescheduleModal = ({ name, reschedule, id }) => {
     setOpen(false);
   };
 
-  const postReschedule = () => {
-    sendMessage(id, messageSubject, messageBody)
-      .catch(error => {
-        console.error(error);
-      });
-    setOpen(false);
-  };
-
   const body = (
     <div className="change-font">
       <div style={modalStyle} className={classes.paper}>
         <button className="absolute right-5" style={{ outline: 'none' }} onClick={handleClose}> <CloseIcon fontSize="large" /></button>
-        <h2 className="mb-10 text-2xl underline" id="simple-modal-title">Message</h2>
-        <div className="flex items-center justify-center mb-8 mr-2">
-          <p className="text-xl mr-4">To: </p>
-          <input className="w-30 rounded-md p-2 h-8 text-lg text-black bg-white border-black border" type="text" value={name} disabled></input>
+        <h2 className="text-2xl underline" id="simple-modal-title">Review Teacher</h2>
+        <p className="text-sm mr-4 mb-10">Please leave a review! </p>
+        <div className="pb-4">
+            <h1>Leave a star rating: </h1>
+            <HoverRating />
         </div>
-        <input className="w-80 h-12 p-2 text-black rounded-md border border-black mb-10" type="text" placeholder="Enter Subject..."
-          onChange={(e) => { setSubject(e.target.value) }}></input>
-        <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
-          onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <RescheduleBtn label="Send" handleClick={handleClose} reschedule={reschedule} postReschedule={postReschedule}/>
+        <div className="">
+            <h1>Write a review: </h1>
+            <textarea className="w-80 h-28 p-2 rounded-md border border-black mb-10" placeholder="Enter Review Message..." onChange={(e) => { setBody(e.target.value) }}></textarea>
+            <LargeBtn label="Submit" handleClick={handleClose}/>
+        </div>
       </div>
     </div>
   );
 
   return (
     <div>
-      <LargeBtn label="Reschedule" handleClick={handleOpen} />
+      <LargeBtn label="Review" handleClick={handleOpen} />
       <Modal
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         open={open}

@@ -12,7 +12,7 @@ export const Teacher = ({ user }) => {
       </div>
       <div>
         <p className="mb-5"> Hello I am happy to be here and teach.{user.bio}</p>
-        <p>Languages: English, Russian, French.</p>
+        <p>Languages: {user.languages.map(({name}) => name).join(', ')}</p>
       </div>
       <div>
         <AvailabilityModal id={user.id}/>

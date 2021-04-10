@@ -6,11 +6,11 @@ import { StudentHome } from './Layouts/StudentHome.jsx';
 import { TeacherHome } from './Layouts/TeacherHome.jsx';
 import { UserProfile } from './Layouts/UserProfile.jsx';
 import { CalendarView } from './Layouts/CalendarView.jsx';
+import { AboutUs } from './Layouts/AboutUs.jsx';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext, openPaths } from '../auth';
-
 
 const App = () => {
   const history = useHistory();
@@ -28,7 +28,7 @@ const App = () => {
   const contextValue = {
     loggedIn,
     user,
-    setUser
+    setUser,
   };
 
   useEffect(() => {
@@ -46,16 +46,27 @@ const App = () => {
         setUser(data);
         if (!data.type || !data.languages.length) {
           history.push('/signup');
-        } else if (data.type === 'student' && ( history.location.pathname === '/' || history.location.pathname === '/teacherhome' ) ) {
+        } else if (
+          data.type === 'student' &&
+          (history.location.pathname === '/' || history.location.pathname === '/teacherhome')
+        ) {
           history.push('/studenthome');
-        } else if (data.type === 'teacher' && ( history.location.pathname === '/' || history.location.pathname === '/studenthome' ) ) {
+        } else if (
+          data.type === 'teacher' &&
+          (history.location.pathname === '/' || history.location.pathname === '/studenthome')
+        ) {
           history.push('/teacherhome');
         }
       })
       .catch((e) => {
         if (e.response.status === 403) {
           // User is not logged in
+          // Clear the JWT just to be certain nothing weird happens
+          localStorage.removeItem('jwt');
           if (!openPaths.includes(history.location.pathname)) history.push('/');
+        } else if (e.response.status === 401) {
+          localStorage.removeItem('jwt');
+          window.location.reload();
         }
       });
   }, []);
@@ -71,6 +82,7 @@ const App = () => {
           <Route path="/teacherhome" exact component={TeacherHome} />
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/calendar" exact component={CalendarView} />
+          <Route path="/aboutus" exact component={AboutUs} />
         </Switch>
       </div>
     </AuthContext.Provider>

@@ -9,7 +9,7 @@ export const Nav = () => {
   <div className="inline-block px-7 py-5 text-white">
     <NavLink
       className="text-lg inline"
-      to="/teacherhome"
+      to={`/${context.user.type}home`}
       activeStyle={{
         fontWeight: "bold",
         textDecoration: 'underline'

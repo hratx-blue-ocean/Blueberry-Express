@@ -34,5 +34,7 @@ export const AuthContext = React.createContext();
 
 export const openPaths = [
     '/',
-    '/signup'
+    '/signup',
+    '/aboutus',
+    '/login'
 ]

@@ -16,10 +16,12 @@ export const StudentHome = () => {
   const [languages, setLanguages] = useState([]);
   const [preferredLanguage, setPreferredLanguage] = useState(1);
   const [teacherList, setTeacherList] = useState(null);
+  const [appointments, setAppointments] = useState([]);
 
-  useEffect( async() => {
+  useEffect( () => {
     fetchAppointments()
       .then(data => {
+        setAppointments(data.appointments);
       })
 
     fetchAllLanguages()
@@ -51,7 +53,7 @@ export const StudentHome = () => {
         </div>
       </div>
       <div className="flex justify-around mt-5">
-        <StudentAppointmentsContainer />
+        <StudentAppointmentsContainer appointments={appointments}/>
         <TeacherContainer className="shadow-md" teacherList={teacherList}/>
         <MessagesContainer messages={studentMessages} />
       </div>

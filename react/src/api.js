@@ -46,12 +46,20 @@ export function deleteUserLanguage(languageId) {
     url: `/users/languages/${languageId}`,
   };
 
-  axios(options).then(res => {
-    res.sendStatus(200)
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
+}
+
+export function setUserLanguages(languageIds) {
+  const options = {
+    method: 'post',
+    url: '/users/languages',
+    data: { languageIds }
+  };
+  return axios(options)
+    .catch(console.log);
 }
 
 export function fetchOtherUser(userId) {
@@ -81,15 +89,11 @@ export function fetchBusySchedule(userId, start, end) {
   });
 }
 
-export function setBusySchedule(userId, day, start, end) {
+export function setBusySchedule(busySchedule) {
   const options = {
     method: 'post',
-    url: `/users/${userId}/availability`,
-    params: {
-      [day]: {
-        busy: [{start, end}]
-      }
-    }
+    url: `/users/availability`,
+    data: busySchedule,
   };
 
   return axios(options)

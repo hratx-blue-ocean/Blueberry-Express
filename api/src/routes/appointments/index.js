@@ -2,6 +2,8 @@ const AppointmentsRouter = require('express').Router();
 const Calendar = require('../.././controller/index.js');
 const refresh = require('../.././controller/refreshToken.js');
 const db = require('../../postgres');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 AppointmentsRouter.get('/', async (req, res) => {
   const accessToken = await refresh(req.refreshToken);
@@ -167,13 +169,40 @@ AppointmentsRouter.get('/rejected', async (req, res) => {
   });
 });
 
-AppointmentsRouter.get('/available', (req, res) => {
-  // free busy
-  res.sendStatus(400);
+/**
+ * Fuck it, might as well implement the route, even if we're not going to actually verify anything...
+ *
+ * the nextAvailable creation logic here is *horrendous*, but I'm not sure there's a way around
+ * creating multiple date objects per appointment.
+ *
+ * Fortunately, there should never be a *ton* of appointments, so it's not suuuper rough, but it is
+ * definitely rough.
+ */
+AppointmentsRouter.get('/available', async (req, res) => {
+  if (!req.user.student) return res.sendStatus(403);
+
+  const appointments = await req.user.getSentAppointments({
+    attributes: ['createdAt'],
+    where: {
+      [Op.and]: {
+        [Op.or]: {
+          pending: true,
+          approved: true,
+        },
+        createdAt: {
+          [Op.lte]: Sequelize.literal(`NOW() + INTERVAL '7d'`),
+        },
+      },
+    },
+  });
+  const dates = appointments.map(({ createdAt }) => createdAt);
+  res.json({
+    count: 5 - dates.length,
+    nextAvailable: dates.map((date) => new Date(new Date(date).valueOf() + 86400000 * 7)),
+  });
 });
 
 AppointmentsRouter.post('/', async (req, res) => {
-  console.log(req.body);
   const withUser = await db.user.findOne({ where: { id: req.body.with } });
   if (withUser === null) {
     return res.sendStatus(400);
@@ -206,7 +235,6 @@ AppointmentsRouter.post('/', async (req, res) => {
 });
 
 AppointmentsRouter.put('/:appointmentId', async (req, res) => {
-  console.log(typeof req.body.approve);
   if (req.body.approve === undefined) return res.sendStatus(400);
 
   const appointment = await db.appointment.findOne({

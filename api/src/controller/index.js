@@ -15,6 +15,9 @@ Calendar.createEvent = (accessToken, calendarId, eventParams) => {
       timeZone: 'US/Central',
     },
   };
+  if (eventParams.recurrence) {
+    event.recurrence = [eventParams.recurrence];
+  }
   // calendar id should look like: optdi857if3c83476keu5hp8g0@group.calendar.google.com
   // https://www.googleapis.com/calendar/v3/calendars/optdi857if3c83476keu5hp8g0@group.calendar.google.com/events
 
@@ -204,18 +207,14 @@ Calendar.createCalendar = (accessToken) => {
 
 Calendar.deleteEvent = (accessToken, calendarId, eventId) => {
   return axios
-    .get(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`, {
+    .delete(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     })
     .then((response) => {
       // a successful delete does not return anything
-      return {
-        response: `deleted event ${eventId}`,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      };
+      return response.data;
     })
     .catch((err) => {
       // An error here indicates the eventID was already deleted (410) or it was not found (404)
@@ -228,12 +227,12 @@ Calendar.freeBusy = (accessToken, calendarId, timeStart, timeEnd) => {
     timeStart = new Date().toISOString();
   }
   if (timeEnd === undefined) {
-    var oneWeek = newDate().valueOf() + 86400000 * 7;
-    timeEnd = newDate(oneWeek).toISOString(); // one week later
+    var oneWeek = new Date().valueOf() + 86400000 * 7;
+    timeEnd = new Date(oneWeek).toISOString(); // one week later
   }
   // iso 8601
   let body = {
-    timemin: timeStart,
+    timeMin: timeStart,
     timeMax: timeEnd,
     timeZone: 'US/Central',
     groupExpansionMax: 50,
@@ -242,7 +241,7 @@ Calendar.freeBusy = (accessToken, calendarId, timeStart, timeEnd) => {
   };
 
   return axios
-    .get('https://www.googleapis.com/calendar/v3/freeBusy', body, {
+    .post('https://www.googleapis.com/calendar/v3/freeBusy', body, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -294,6 +293,21 @@ Calendar.markCancelled = (accessToken, calendarId, eventId) => {
       // if the error has the issue that it is outdated, use the refresh token to get a new token
       return err;
     });
+};
+
+Calendar.findOrCreateCalendar = async (accessToken) => {
+  const calendars = (
+    await axios.get('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  ).data.items.filter((calendar) => calendar.summary === 'Blueberry Appointments');
+  if (calendars.length) {
+    console.log(`Found ${calendars.length} calendars with the name 'Blueberry Appointments'`);
+    return calendars[0].id;
+  }
+  return (await Calendar.createCalendar(accessToken)).id;
 };
 
 module.exports = Calendar;
