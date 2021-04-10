@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { MessageBtn } from '../Buttons/MessageBtn';
-import { XLargeBtn } from '../Buttons/XLargeBtn';
+import { MattsBtn } from '../Buttons/MattsBtn';
 import CloseIcon from '@material-ui/icons/Close';
 import { sendMessage } from '../../api';
 
@@ -68,7 +68,7 @@ export const MessageSend = ({ name, id }) => {
           onChange={(e) => { setSubject(e.target.value) }}></input>
         <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
           onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <XLargeBtn label="Send" handleClick={postMessage} />
+        <MattsBtn label="Send" handleClick={postMessage} />
       </div>
     </div>
   );

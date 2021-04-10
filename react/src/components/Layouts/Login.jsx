@@ -12,7 +12,7 @@ export const Login = () => {
               <Link to="/">
                 <div className="flex flex-row items-center">
                     <Logo />
-                    <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
+                    <h1 className="text-2xl text-gray-800 font-bold italic mt-3 -ml-8">Blueberry Express</h1>
                 </div>
               </Link>
             </div>
