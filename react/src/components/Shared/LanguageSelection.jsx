@@ -4,7 +4,7 @@ import { AuthContext } from '../../auth';
 import { SmallBtn } from '../Buttons/SmallBtn';
 import { setUserLanguages } from './../../api.js';
 
-export const LanguageSelection = () => {
+export const LanguageSelection = ({ action }) => {
 	const [languages, setLanguages] = useState(null);
 	const [chosen, setChosen] = useState([]);
 	const context = useContext(AuthContext);
@@ -46,7 +46,7 @@ export const LanguageSelection = () => {
 					</label>
 				))}
 				<div className="absolute bottom-0 right-0">
-					<SmallBtn label="submit" handleClick={submitChange}/>
+					<SmallBtn label="submit" handleClick={ action ? action : submitChange}/>
 				</div>
 			</div>
 		);
