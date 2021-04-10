@@ -20,10 +20,6 @@ export const Signup = () => {
     }
   })
 
-  useEffect(() => {
-    console.log(context.user);
-  }, [context.user])
-
   function setUserType(e) {
     updateUserType(e.target.innerHTML);
 

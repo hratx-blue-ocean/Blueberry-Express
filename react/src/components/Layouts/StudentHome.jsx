@@ -35,10 +35,6 @@ export const StudentHome = () => {
       })
   }, []);
 
-  useEffect(() => {
-    console.log(context.user);
-  }, [context.user])
-
   useEffect( async () => {
     let teacher = await searchTeacherByLanguage(preferredLanguage)
     setTeacherList(teacher.users)
