@@ -43,7 +43,6 @@ passport.use(
         .then(async (user) => {
           if (!user[0].calendarId) {
             await Calendar.createCalendar(accessToken).then((calendarObject) => {
-              console.log(calendarObject);
               user[0].calendarId = calendarObject.id;
             });
           }

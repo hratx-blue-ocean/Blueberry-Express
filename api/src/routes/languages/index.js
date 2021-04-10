@@ -33,21 +33,20 @@ LanguagesRouter.get('/:languageId/teachers', async (req, res) => {
     res.sendStatus(403);
   } else {
     try {
-      const result = await db.user.findAndCountAll({
-        where: { student: false },
-        include: {
-          model: db.language,
-          required: true,
-          where: {
-            id: languageId,
-          },
-        },
-      });
+      const language = await db.language.findOne({ where: { id: languageId } });
+      const teachers = await language.getUsers({ where: { student: false }, include: [{ model: db.language }] });
+      //console.log(teachers.map(({ languages }) => ({ languages: languages.map(({ id }) => id) })));
       res.json({
-        count: Math.min(count, result.count),
-        page: page,
-        totalCount: result.count,
-        users: result.rows.map((u) => ({ id: u.id, name: u.name, bio: u.bio, profileImg: u.profileImg })),
+        count: teachers.length,
+        totalCount: teachers.length,
+        page: 1,
+        users: teachers.map(({ id, name, bio, profileImg, languages }) => ({
+          id,
+          name,
+          bio,
+          profileImg,
+          languages: languages.map(({ id, name }) => ({ id, name })),
+        })),
       });
     } catch (e) {
       console.error(e);
@@ -64,21 +63,20 @@ LanguagesRouter.get('/:languageId/students', async (req, res) => {
     res.sendStatus(403);
   } else {
     try {
-      const result = await db.user.findAndCountAll({
-        where: { student: true },
-        include: {
-          model: db.language,
-          required: true,
-          where: {
-            id: languageId,
-          },
-        },
-      });
+      const language = await db.language.findOne({ where: { id: languageId } });
+      const teachers = await language.getUsers({ where: { student: true }, include: [{ model: db.language }] });
+      //console.log(teachers.map(({ languages }) => ({ languages: languages.map(({ id }) => id) })));
       res.json({
-        count: Math.min(count, result.count),
-        page: page,
-        totalCount: result.count,
-        users: result.rows.map((u) => ({ id: u.id, name: u.name, bio: u.bio, profileImg: u.profileImg })),
+        count: teachers.length,
+        totalCount: teachers.length,
+        page: 1,
+        users: teachers.map(({ id, name, bio, profileImg, languages }) => ({
+          id,
+          name,
+          bio,
+          profileImg,
+          languages: languages.map(({ id, name }) => ({ id, name })),
+        })),
       });
     } catch (e) {
       console.error(e);

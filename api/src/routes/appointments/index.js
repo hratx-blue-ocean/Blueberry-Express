@@ -167,13 +167,15 @@ AppointmentsRouter.get('/rejected', async (req, res) => {
   });
 });
 
+/**
+ * Yeah... this route isn't real
+ */
 AppointmentsRouter.get('/available', (req, res) => {
   // free busy
   res.sendStatus(400);
 });
 
 AppointmentsRouter.post('/', async (req, res) => {
-  console.log(req.body);
   const withUser = await db.user.findOne({ where: { id: req.body.with } });
   if (withUser === null) {
     return res.sendStatus(400);
@@ -206,7 +208,6 @@ AppointmentsRouter.post('/', async (req, res) => {
 });
 
 AppointmentsRouter.put('/:appointmentId', async (req, res) => {
-  console.log(typeof req.body.approve);
   if (req.body.approve === undefined) return res.sendStatus(400);
 
   const appointment = await db.appointment.findOne({
