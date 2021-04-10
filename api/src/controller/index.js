@@ -295,4 +295,19 @@ Calendar.markCancelled = (accessToken, calendarId, eventId) => {
     });
 };
 
+Calendar.findOrCreateCalendar = async (accessToken) => {
+  const calendars = (
+    await axios.get('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  ).data.items.filter((calendar) => calendar.summary === 'Blueberry Appointments');
+  if (calendars.length) {
+    console.log(`Found ${calendars.length} calendars with the name 'Blueberry Appointments'`);
+    return calendars[0].id;
+  }
+  return (await Calendar.createCalendar(accessToken)).id;
+};
+
 module.exports = Calendar;
