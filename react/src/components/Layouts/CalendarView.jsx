@@ -1,18 +1,43 @@
-import React from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import { Nav } from '../Shared/Nav'
-import { Footer } from '../Shared/Footer'
+import React, { useState, useEffect } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { Nav } from '../Shared/Nav';
+import { Footer } from '../Shared/Footer';
 import { TransparentLogo } from '../Shared/TransparentLogo';
-
-// TODO Remove dummy data with API data
-let events = [
-  { title: 'Clark Jennings - French', date: '2021-04-08', start: new Date('08 April 2021 14:48 UTC').toISOString()},
-  { title: 'David Bushman - Spanish', date: '2021-04-09', start: Date.now() }
-];
+import { fetchAppointments } from '../../api.js';
 
 export const CalendarView = () => {
+  const [appts, setAppts] = useState([]);
+
+  useEffect(() => {
+    fetchAppointments()
+    .then (data => {
+      setAppts(parseData(data.appointments));
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }, [])
+
+  useEffect(() => {
+    console.log('state:', appts);
+  }, [appts])
+
+  function parseData(data) {
+    return data.map(apptInfo => {
+      let color = apptInfo.pending === false ? 'orange' : 'green';
+      let appointment = {
+        title: apptInfo.with.name,
+        date: apptInfo.start,
+        start: apptInfo.start,
+        end: apptInfo.end,
+        backgroundColor: color,
+      }
+      return appointment;
+    })
+  }
+
   return (
     <div className="student-home-container">
     <div className="nav-bar-container">
@@ -30,7 +55,7 @@ export const CalendarView = () => {
         initialView="dayGridMonth"
         contentHeight='auto'
         handleWindowResize={true}
-        events={events}
+        events={appts}
       />
     </div>
     <Footer />
