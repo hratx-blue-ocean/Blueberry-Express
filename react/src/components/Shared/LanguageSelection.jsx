@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { fetchAllLanguages } from '../../api.js';
 import { AuthContext } from '../../auth';
 import { SmallBtn } from '../Buttons/SmallBtn';
-import { setUserLanguages } from './../../api.js';
 
 export const LanguageSelection = ({ action }) => {
 	const [languages, setLanguages] = useState(null);
