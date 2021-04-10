@@ -77,9 +77,9 @@ export const TeacherAppointmentContainer = ( { teacherAppointments } ) => {
     <div className="teacher-appointment-container bg-blue-600">
       <h1 className="underline text-xl mb-2 mt-3 tracking-wide">Appointments</h1>
       <div className="teacher-appointments">
-        {appointments.appointments.map((appointment, index) => {
+        {teacherAppointments.length ? teacherAppointments.map((appointment, index) => {
           return <TeacherAppointment appointment={appointment} key={index}/>
-        })}
+        }) : "No upcoming appointments!"}
       </div>
     </div>
   )

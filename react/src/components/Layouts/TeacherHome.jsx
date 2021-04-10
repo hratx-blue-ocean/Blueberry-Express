@@ -11,7 +11,7 @@ import { AuthContext } from '../../auth';
 export const TeacherHome = () => {
   const context = useContext(AuthContext);
   const [teacherMessages, setTeacherMessages] = useState([]);
-  const [teacherAppointments, setTeacherAppointments] = useState(null);
+  const [teacherAppointments, setTeacherAppointments] = useState([]);
 
   useEffect(() => {
     fetchAppointments()

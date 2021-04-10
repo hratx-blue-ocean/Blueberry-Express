@@ -12,7 +12,6 @@ import './AppStyles.css';
 import { getUser } from '../api';
 import { AuthContext, openPaths } from '../auth';
 
-
 const App = () => {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,7 +28,7 @@ const App = () => {
   const contextValue = {
     loggedIn,
     user,
-    setUser
+    setUser,
   };
 
   useEffect(() => {
@@ -47,16 +46,27 @@ const App = () => {
         setUser(data);
         if (!data.type || !data.languages.length) {
           history.push('/signup');
-        } else if (data.type === 'student' && ( history.location.pathname === '/' || history.location.pathname === '/teacherhome' ) ) {
+        } else if (
+          data.type === 'student' &&
+          (history.location.pathname === '/' || history.location.pathname === '/teacherhome')
+        ) {
           history.push('/studenthome');
-        } else if (data.type === 'teacher' && ( history.location.pathname === '/' || history.location.pathname === '/studenthome' ) ) {
+        } else if (
+          data.type === 'teacher' &&
+          (history.location.pathname === '/' || history.location.pathname === '/studenthome')
+        ) {
           history.push('/teacherhome');
         }
       })
       .catch((e) => {
         if (e.response.status === 403) {
           // User is not logged in
+          // Clear the JWT just to be certain nothing weird happens
+          localStorage.removeItem('jwt');
           if (!openPaths.includes(history.location.pathname)) history.push('/');
+        } else if (e.response.status === 401) {
+          localStorage.removeItem('jwt');
+          window.location.reload();
         }
       });
   }, []);

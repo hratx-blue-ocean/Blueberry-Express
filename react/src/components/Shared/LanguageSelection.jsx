@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { fetchAllLanguages } from '../../api.js';
 import { AuthContext } from '../../auth';
 import { SmallBtn } from '../Buttons/SmallBtn';
-import { addUserLanguage } from './../../api.js';
+import { setUserLanguages } from './../../api.js';
 
 export const LanguageSelection = () => {
 	const [languages, setLanguages] = useState(null);
@@ -31,13 +31,9 @@ export const LanguageSelection = () => {
 	function submitChange(e) {
 			e.preventDefault();
 			e.target.style.backgroundColor = 'green';
-			var selected = [...document.querySelectorAll('input[type=checkbox]:checked')]
-			selected.forEach((item) => {
-				addUserLanguage(item.value)
-				.catch(err => {
-					console.log(err);
-				})
-			})
+			const selected = [...document.querySelectorAll('input[type=checkbox]:checked')];
+			setUserLanguages(selected.map(({value}) => value))
+				.then(() => e.target.style.backgroundColor = null);
 	}
 
 	if (languages) {

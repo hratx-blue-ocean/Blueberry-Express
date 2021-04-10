@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { Nav } from '../Shared/Nav.jsx';
 import { Footer } from '../Shared/Footer.jsx';
@@ -7,13 +7,14 @@ import { PersonalInfo } from '../UserProfile/PersonalInfo';
 import { SmallBtn } from '../Buttons/SmallBtn';
 import { ReviewsContainer } from '../UserProfile/ReviewsContainer';
 import { LanguageSelection } from '../Shared/LanguageSelection';
+import { AuthContext } from '../../auth';
 import './UserProfile.css';
 import axios from 'axios';
 
 
 export const UserProfile = ( { userType } ) => {
     const [page, setPage] = useState('Personal Info');
-    const [languages, setLanguages] = useState(["English", "Spanish", "Japanese", "German", "French", "Korean"]);
+    const context = useContext(AuthContext);
 
 
     function choosePage(e) {
@@ -37,7 +38,7 @@ export const UserProfile = ( { userType } ) => {
                 Profile
             </div>
             <div className="flex gap-20">
-                <MenuSettings userType={userType} curPage={page} action={choosePage}/>
+                <MenuSettings userType={context.user.type} curPage={page} action={choosePage}/>
                 <div className="flex justify-around mt-5"></div>
                     <PersonalInfo/>
                 <div className="smallbtn2">
@@ -64,7 +65,7 @@ export const UserProfile = ( { userType } ) => {
                     Language Selection
                 </div>
                 <div className="flex gap-20">
-                    <MenuSettings userType={userType} curPage={page} action={choosePage}/>
+                    <MenuSettings userType={context.user.type} curPage={page} action={choosePage}/>
                     <div className="flex justify-around mt-5">
                 </div>
                     <div className="container flex justify-around">
@@ -91,7 +92,7 @@ export const UserProfile = ( { userType } ) => {
                 Reviews
                 </div>
                 <div className="flex gap-20">
-                    <MenuSettings userType={userType} action={choosePage}/>
+                    <MenuSettings userType={context.user.type} action={choosePage}/>
                 <div className="flex justify-around mt-5"></div>
                     <div className="reviews">
                     <ReviewsContainer />

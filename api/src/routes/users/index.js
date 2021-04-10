@@ -19,6 +19,7 @@ UsersRouter.get('/', (req, res) => {
           type: user.student !== null ? (user.student ? 'student' : 'teacher') : null,
           languages: languages.map(({ id, name }) => ({ id, name })),
           bio: user.bio,
+          profileImg: user.profileImg,
         });
       });
     } catch (e) {
@@ -73,7 +74,6 @@ UsersRouter.put('/type', (req, res) => {
 
 UsersRouter.post('/languages/:languageId', (req, res) => {
   let languageId = req.params.languageId;
-
   req.user
     .addLanguage(languageId)
     .then(() => {
@@ -83,6 +83,13 @@ UsersRouter.post('/languages/:languageId', (req, res) => {
       res.sendStatus(500);
       console.log(err.message);
     });
+});
+
+UsersRouter.post('/languages', async (req, res) => {
+  const languageIds = req.body.languageIds;
+  await req.user.setLanguages(languageIds);
+
+  res.sendStatus(201);
 });
 
 UsersRouter.delete('/languages/:languageId', (req, res) => {
@@ -98,36 +105,63 @@ UsersRouter.delete('/languages/:languageId', (req, res) => {
     });
 });
 
-UsersRouter.get('/:userId/availability', (req, res) => {
+UsersRouter.get('/:userId/availability', async (req, res) => {
   // returns an array of busy start/end time objects
-  let selectedUserRefreshTkn = db.user.findOne({ where: { googleKey: req.params.userId } })
-    .then((user) => {
-      return {
-        refreshToken: user.refreshToken,
-        calendarId: user.calendarId
-      };
-    });
-
-  Promise.resolve((selectedUserRefreshTkn))
-    .then((userInfo) => {
-
-      let newToken = refresh(userInfo.refreshToken);
-      Promise.resolve(newToken)
-        .then((accessToken) => {
-          Calendar.freeBusy(accessToken, req.refreshToken, userInfo.calendarId, req.query.start, req.query.end)
-            .then((response) => {
-            // console.log('response: ', responseObj);
-              res.json(response.data);
-            })
-            .catch((err) => {
-              res.setStatus(400).send(err);
-            });
-        });
-    });
+  const user = await db.user.findOne({ where: { id: req.params.userId } });
+  if (!user) return res.sendStatus(400);
+  try {
+    const accessToken = await refresh(user.refreshToken);
+    const freeBusy = await Calendar.freeBusy(accessToken, user.calendarId);
+    res.json(freeBusy);
+  } catch (e) {
+    console.log(e.message);
+    res.status((e.response && e.response.status) || 400);
+    res.send(e.message);
+  }
 });
 
-UsersRouter.post('/users/availability', (req, res) => {
-  res.sendStatus(400);
+UsersRouter.post('/availability', async (req, res) => {
+  /**
+   * So, the general workflow here is to setup recurring weekly events, with the summary '{DayOfWeek} Unavailable'.
+   * In order to do that, we need to delete all previous events in the calendar with the summary '{DayOfWeek} Unavailable', and then set new ones
+   */
+  try {
+    // Step 0, get accessToken
+    const accessToken = await refresh(req.user.refreshToken);
+
+    // Step 1 get all events
+    const events = (await Calendar.listEvents(accessToken, req.user.calendarId)).items;
+
+    // Step 2, filter to the 'recurring events' with the name '{DayOfWeek} Unavailable'
+    const recurring = events.filter((e) => e.recurrence && e.summary.includes('Unavailable'));
+
+    // Step 3, Delete those recurring events.
+    const results = await Promise.all(
+      recurring.map(({ id }) => Calendar.deleteEvent(accessToken, req.user.calendarId, id))
+    );
+    console.log(results);
+
+    // Step 4, create new recurring events for each day that was sent.
+    const promises = [];
+    Object.keys(req.body).forEach((day) => {
+      req.body[day].forEach((busyBlock) => {
+        promises.push(
+          Calendar.createEvent(accessToken, req.user.calendarId, {
+            start: busyBlock.start,
+            end: busyBlock.end,
+            summary: `${day} Unavailable`,
+            recurrence: 'RRULE:FREQ=WEEKLY;UNTIL=21001231T000000Z',
+          })
+        );
+      });
+    });
+    await Promise.all(promises);
+    res.sendStatus(204);
+  } catch (e) {
+    console.log(e.message);
+    res.status((e.response && e.response.status) || 400);
+    res.send(e.message);
+  }
 });
 
 module.exports = UsersRouter;
