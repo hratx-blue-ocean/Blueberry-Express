@@ -28,14 +28,6 @@ export const LanguageSelection = ({ action }) => {
 		}
 	}, [chosen])
 
-	function submitChange(e) {
-			e.preventDefault();
-			e.target.style.backgroundColor = 'green';
-			const selected = [...document.querySelectorAll('input[type=checkbox]:checked')];
-			setUserLanguages(selected.map(({value}) => value))
-				.then(() => e.target.style.backgroundColor = null);
-	}
-
 	if (languages) {
 		return (
 			<div id="language-selection" className="grid ml-5 grid-cols-3 p-10">
