@@ -19,7 +19,6 @@ const useStyles = makeStyles({
   },
 });
 
-// import {HoverRating} from './Shared/Star';
 export const HoverRating = () => {
   const [value, setValue] = React.useState(null);
   const [hover, setHover] = React.useState(-1);

@@ -20,13 +20,9 @@ export const CalendarView = () => {
     })
   }, [])
 
-  useEffect(() => {
-    console.log('state:', appts);
-  }, [appts])
-
   function parseData(data) {
     return data.map(apptInfo => {
-      let color = apptInfo.pending === false ? 'orange' : 'green';
+      let color = apptInfo.pending === true ? 'orange' : 'green';
       let appointment = {
         title: apptInfo.with.name,
         date: apptInfo.start,
@@ -53,8 +49,7 @@ export const CalendarView = () => {
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
         initialView="dayGridMonth"
-        contentHeight='auto'
-        handleWindowResize={true}
+        height={550}
         events={appts}
       />
     </div>

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { MediumBtn } from '../Buttons/MediumBtn';
-import { XLargeBtn } from '../Buttons/XLargeBtn';
+import { MattsBtn } from '../Buttons/MattsBtn';
 import CloseIcon from '@material-ui/icons/Close';
+import { sendAppointmentRequest } from '../../api';
 
 function getModalStyle() {
   const top = 25;
@@ -41,6 +42,18 @@ export const AvailabilityModal = ({ name, id }) => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
+
+
+  const sendNewAppointment = () => {
+    let start = new Date(`${startDate} ${startTime}`);
+    let startIso = start.toISOString();
+    let end = new Date(`${startDate} ${endTime}`);
+    let endIso = end.toISOString();
+
+    sendAppointmentRequest(id, startTime, endTime);
+    handleClose();
+  }
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -56,19 +69,19 @@ export const AvailabilityModal = ({ name, id }) => {
 
       <div className="p-2 mb-3 text-center">
         <p className="text-lg underline mb-1">Select Date:</p>
-        <input onChange={(e) => {setStartDate(e.target.value)}} className="text-black p-1 rounded-md" type="date" />
+        <input onChange={(e) => { setStartDate(e.target.value) }} className="text-black p-1 rounded-md" type="date" />
       </div>
       <div className="flex p-2 mb-8 text-center">
         <div className="mr-10">
           <p className="text-lg underline mb-1">Start Time:</p>
-          <input onChange={(e) => {setStartTime(e.target.value)}} className="text-black p-1 rounded-md" type="time" />
+          <input onChange={(e) => { setStartTime(e.target.value) }} className="text-black p-1 rounded-md" type="time" />
         </div>
         <div>
           <p className="text-lg underline mb-1">End Time:</p>
-          <input onChange={(e) => {setEndTime(e.target.value)}} className="text-black p-1 rounded-md" type="time" />
+          <input onChange={(e) => { setEndTime(e.target.value) }} className="text-black p-1 rounded-md" type="time" />
         </div>
       </div>
-      <XLargeBtn className="p-2" label="Submit" handleClick={handleClose} />
+      <MattsBtn className="p-2" label="Submit" handleClick={sendNewAppointment} />
     </div>
   );
 

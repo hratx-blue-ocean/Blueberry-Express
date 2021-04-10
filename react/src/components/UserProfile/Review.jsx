@@ -6,7 +6,7 @@ export const Review = ({ review }) => {
   return (
     <div className="individual-review">
       <div>
-        <ProfilePic url="assets/logo_icon.png" name={review.reviewer} />
+        <ProfilePic url="assets/transparent_logo_2.png" name={review.reviewer} />
       </div>
       <div className="w-4/5 text-left ml-5">
         <StaticRating rating={review.rating} />
