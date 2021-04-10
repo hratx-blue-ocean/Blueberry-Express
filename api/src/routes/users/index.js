@@ -19,6 +19,7 @@ UsersRouter.get('/', (req, res) => {
           type: user.student !== null ? (user.student ? 'student' : 'teacher') : null,
           languages: languages.map(({ id, name }) => ({ id, name })),
           bio: user.bio,
+          profileImg: user.profileImg,
         });
       });
     } catch (e) {
@@ -73,7 +74,6 @@ UsersRouter.put('/type', (req, res) => {
 
 UsersRouter.post('/languages/:languageId', (req, res) => {
   let languageId = req.params.languageId;
-
   req.user
     .addLanguage(languageId)
     .then(() => {
@@ -83,6 +83,13 @@ UsersRouter.post('/languages/:languageId', (req, res) => {
       res.sendStatus(500);
       console.log(err.message);
     });
+});
+
+UsersRouter.post('/languages', async (req, res) => {
+  const languageIds = req.body.languageIds;
+  await req.user.setLanguages(languageIds);
+
+  res.sendStatus(201);
 });
 
 UsersRouter.delete('/languages/:languageId', (req, res) => {

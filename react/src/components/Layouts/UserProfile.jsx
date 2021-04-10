@@ -13,7 +13,6 @@ import axios from 'axios';
 
 export const UserProfile = ( { userType } ) => {
     const [page, setPage] = useState('Personal Info');
-    const [languages, setLanguages] = useState(["English", "Spanish", "Japanese", "German", "French", "Korean"]);
 
 
     function choosePage(e) {
