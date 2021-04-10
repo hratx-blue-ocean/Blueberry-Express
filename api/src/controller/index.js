@@ -15,6 +15,9 @@ Calendar.createEvent = (accessToken, calendarId, eventParams) => {
       timeZone: 'US/Central',
     },
   };
+  if (eventParams.recurrence) {
+    event.recurrence = [eventParams.recurrence];
+  }
   // calendar id should look like: optdi857if3c83476keu5hp8g0@group.calendar.google.com
   // https://www.googleapis.com/calendar/v3/calendars/optdi857if3c83476keu5hp8g0@group.calendar.google.com/events
 
@@ -204,18 +207,14 @@ Calendar.createCalendar = (accessToken) => {
 
 Calendar.deleteEvent = (accessToken, calendarId, eventId) => {
   return axios
-    .get(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`, {
+    .delete(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     })
     .then((response) => {
       // a successful delete does not return anything
-      return {
-        response: `deleted event ${eventId}`,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      };
+      return response.data;
     })
     .catch((err) => {
       // An error here indicates the eventID was already deleted (410) or it was not found (404)

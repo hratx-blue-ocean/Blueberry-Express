@@ -113,8 +113,48 @@ UsersRouter.get('/:userId/availability', async (req, res) => {
   }
 });
 
-UsersRouter.post('/users/availability', (req, res) => {
-  res.sendStatus(400);
+UsersRouter.post('/availability', async (req, res) => {
+  /**
+   * So, the general workflow here is to setup recurring weekly events, with the summary '{DayOfWeek} Unavailable'.
+   * In order to do that, we need to delete all previous events in the calendar with the summary '{DayOfWeek} Unavailable', and then set new ones
+   */
+  // Step 0, get accessToken
+  try {
+    const accessToken = await refresh(req.user.refreshToken);
+    // Step 1 get all events
+    const events = (await Calendar.listEvents(accessToken, req.user.calendarId)).items;
+    // Step 2, filter to the 'recurring events' with the name '{DayOfWeek} Unavailable'
+    const recurring = events.filter((e) => e.recurrence && e.summary.includes('Unavailable'));
+    console.log(recurring.length);
+    console.log(req.user.calendarId);
+    console.log(recurring[0].id);
+
+    // Step 3, Delete those recurring events.
+    const results = await Promise.all(
+      recurring.map(({ id }) => Calendar.deleteEvent(accessToken, req.user.calendarId, id))
+    );
+    console.log(results);
+    // Step 4, create new recurring events for each day.
+    const promises = [];
+    Object.keys(req.body).forEach((day) => {
+      req.body[day].forEach((busyBlock) => {
+        promises.push(
+          Calendar.createEvent(accessToken, req.user.calendarId, {
+            start: busyBlock.start,
+            end: busyBlock.end,
+            summary: `${day} Unavailable`,
+            recurrence: 'RRULE:FREQ=WEEKLY;UNTIL=21001231T000000Z',
+          })
+        );
+      });
+    });
+    await Promise.all(promises);
+    res.sendStatus(204);
+  } catch (e) {
+    console.log(e.message);
+    res.status((e.response && e.response.status) || 400);
+    res.send(e.message);
+  }
 });
 
 module.exports = UsersRouter;
