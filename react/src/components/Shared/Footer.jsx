@@ -2,6 +2,7 @@ import React from 'react';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -16,7 +17,7 @@ export const Footer = () => {
       </div>
       <div>
         <a className="pr-5 text-md" href="#">Contact Us</a>
-        <a className="mr-10 text-md" href="#">About Us</a>
+        <a className="mr-10 text-md" href="/aboutus">About Us</a>
       </div>
     </div>
   )

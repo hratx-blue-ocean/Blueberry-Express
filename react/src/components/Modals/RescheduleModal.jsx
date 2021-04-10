@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { LargeBtn } from '../Buttons/LargeBtn';
 import { RescheduleBtn } from '../Buttons/RescheduleBtn';
 import CloseIcon from '@material-ui/icons/Close';
+import { sendMessage } from '../../api';
 
 function getModalStyle() {
   const top = 25;
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RescheduleModal = ({ name, reschedule }) => {
+export const RescheduleModal = ({ name, reschedule, id }) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -46,6 +47,14 @@ export const RescheduleModal = ({ name, reschedule }) => {
     setOpen(false);
   };
 
+  const postReschedule = () => {
+    sendMessage(id, messageSubject, messageBody)
+      .catch(error => {
+        console.error(error);
+      });
+    setOpen(false);
+  };
+
   const body = (
     <div className="change-font">
       <div style={modalStyle} className={classes.paper}>
@@ -55,11 +64,11 @@ export const RescheduleModal = ({ name, reschedule }) => {
           <p className="text-xl mr-4">To: </p>
           <input className="w-30 rounded-md p-2 h-8 text-lg text-black bg-white border-black border" type="text" value={name} disabled></input>
         </div>
-        <input className="w-80 h-12 p-2 rounded-md border border-black mb-10" type="text" placeholder="Enter Reschedule Notice..."
+        <input className="w-80 h-12 p-2 text-black rounded-md border border-black mb-10" type="text" placeholder="Enter Subject..."
           onChange={(e) => { setSubject(e.target.value) }}></input>
-        <textarea className="w-80 h-28 p-2 rounded-md border border-black mb-10" placeholder="Enter Reschedule Message..."
+        <textarea className="w-80 h-28 p-2 text-black rounded-md border border-black mb-10" placeholder="Enter Message..."
           onChange={(e) => { setBody(e.target.value) }}></textarea>
-        <RescheduleBtn label="Send" handleClick={handleClose} reschedule={reschedule}/>
+        <RescheduleBtn label="Send" handleClick={handleClose} reschedule={reschedule} postReschedule={postReschedule}/>
       </div>
     </div>
   );

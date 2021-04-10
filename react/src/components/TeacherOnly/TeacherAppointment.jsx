@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import { LargeBtn } from '../Buttons/LargeBtn';
+import { CompleteBtn } from '../Buttons/CompleteBtn';
 import { RescheduleModal } from '../Modals/RescheduleModal.jsx';
+import { updateAppointmentRequest, deleteAppointment } from '../../api';
 import { ReviewModal } from '../Modals/ReviewModal.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,6 +31,19 @@ export const TeacherAppointment = ({ appointment }) => {
   const[checked, setChecked] = useState(false);
   const[clear, setClear] = useState(false);
   const classes = useStyles();
+  let appointmentDate = new Date(appointment.start);
+  let appointmentStart = new Date(appointment.start);
+  let appointmentEnd = new Date(appointment.end);
+
+  const answerAppointment = async (answer) => {
+    await updateAppointmentRequest(appointment.id, answer);
+
+    if (answer) {
+      setChecked(true);
+    } else {
+      setClear(true)
+    }    
+  }
 
   return (
     <div className="individual-appointment">
@@ -37,26 +51,27 @@ export const TeacherAppointment = ({ appointment }) => {
           <h1 className="text-3xl">Cleared</h1>
         :
         <>
-          <div className="appointment-info">
-            <p className="pb-1 text-lg"><span>Student:</span> {appointment.with}</p>
-            <p className="pb-1"><span>Lang:</span> {appointment.lang}</p>
-            <p className="pb-1">4/5/21 {appointment.start}</p>
+          <div className="appointment-info text-left">
+            <p className="pb-1 text-lg"><span>Teacher:</span> {appointment.with.name}</p>
+            <p className="pb-1">Date: {appointmentDate.toLocaleDateString()}</p>
+            <p className="pb-1">Start: {appointmentStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+            <p className="pb-1 mb-2">End: {appointmentEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
           </div>
 
           <div className="flex items-center appointment-button">
-            <MessageSend name={appointment.with}/>
+            <MessageSend name={appointment.with.name} id={appointment.with.id}/>
             {checked ?
               <>
-                <RescheduleModal name={appointment.with} reschedule={setClear}/>
+                <RescheduleModal name={appointment.with.name} reschedule={setClear} id={appointment.with.id}/>
                 {/* <ReviewModal name={appointment.with} reschedule={setClear}/> */}
-                <LargeBtn label="Complete" handleClick={setClear} />
+                <CompleteBtn label="Complete" handleClick={setClear} appointmentId={appointment.with.id}/>
               </>
             :
               <>
-                <IconButton className={classes.check} onClick={() => {setChecked(true)}}>
+                <IconButton className={classes.check} onClick={() => {answerAppointment(true)}}>
                   <CheckIcon />
                 </IconButton>
-                <IconButton className={classes.clear} onClick={() => {setClear(true)}}>
+                <IconButton className={classes.clear} onClick={() => {answerAppointment(false)}}>
                   <ClearIcon />
                 </IconButton>
               </>
