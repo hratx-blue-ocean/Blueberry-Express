@@ -49,8 +49,7 @@ export const CalendarView = () => {
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
         initialView="dayGridMonth"
-        contentHeight='auto'
-        handleWindowResize={true}
+        height={550}
         events={appts}
       />
     </div>
