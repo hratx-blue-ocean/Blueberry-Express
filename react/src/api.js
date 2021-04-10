@@ -89,15 +89,11 @@ export function fetchBusySchedule(userId, start, end) {
   });
 }
 
-export function setBusySchedule(userId, day, start, end) {
+export function setBusySchedule(busySchedule) {
   const options = {
     method: 'post',
-    url: `/users/${userId}/availability`,
-    params: {
-      [day]: {
-        busy: [{start, end}]
-      }
-    }
+    url: `/users/availability`,
+    data: busySchedule,
   };
 
   return axios(options)
