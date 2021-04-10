@@ -90,10 +90,7 @@ export const UserProfile = ({ userType }) => {
                     <Nav />
                 </div>
             </div>
-            <div className="flex justify-center ml-80">
-                Reviews
-                </div>
-            <div className="flex gap-20">
+            <div className="settings-reviews-container">
                 <MenuSettings userType={context.user.type} action={choosePage} />
                 <div className="flex justify-around mt-5"></div>
                 <div className="reviews">

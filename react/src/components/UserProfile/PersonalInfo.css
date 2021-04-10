@@ -40,7 +40,7 @@
 .MenuSettingsContainer {
   position: relative;
   left: 10px;
-  width: 21%;
+  width: 40%;
   height: 590px;
   font-family: 'Poppins', sans-serif;
   border-radius: 20px;
@@ -122,4 +122,9 @@
   width: 200px;
   display: flex;
   flex-direction: column;
+}
+
+
+.settings-reviews-container {
+  display: flex;
 }

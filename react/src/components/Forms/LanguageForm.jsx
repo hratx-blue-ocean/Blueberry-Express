@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ContinueBtn } from '../Buttons/ContinueBtn';
-import { LanguageSelection } from '../Shared/LanguageSelection';
+import { LanguageSignup } from './LanguageSignup';
 import { AuthContext } from '../../auth';
 
 export const LanguageForm = ({ action, userType }) => {
@@ -20,7 +20,7 @@ export const LanguageForm = ({ action, userType }) => {
           {header}
         </h1>
         <div className="flex justify-center h-50 p-15 mb-7">
-          <LanguageSelection action={action} />
+          <LanguageSignup action={action} />
         </div>
       </div>
     </div>

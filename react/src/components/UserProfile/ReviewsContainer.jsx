@@ -28,7 +28,7 @@ import { Review } from './Review.jsx';
 
 export const ReviewsContainer = () => {
   return (
-    <div className="reviews-container w-2/3 bg-blue-600">
+    <div className="reviews-container ml-36 bg-blue-600">
       <h2 className="reviews-header tracking-wide">My Reviews</h2>
       <div>
       {reviewsArray.map((review, index) => {
