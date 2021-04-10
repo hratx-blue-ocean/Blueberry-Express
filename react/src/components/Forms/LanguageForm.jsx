@@ -20,10 +20,7 @@ export const LanguageForm = ({ action, userType }) => {
           {header}
         </h1>
         <div className="flex justify-center h-50 p-15 mb-7">
-          <LanguageSelection />
-        </div>
-        <div  className="absolute bottom-0 right-0 flex justify-end">
-          <ContinueBtn handleClick={action} />
+          <LanguageSelection action={action} />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { Logo } from '../Shared/Logo'
 import { Footer } from '../Shared/Footer'
 import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
-import { initializeUser, setUserLanguages } from '../../api.js';
+import { initializeUser, setUserLanguages, getUser } from '../../api.js';
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { AuthContext, login } from '../../auth';
 
@@ -33,37 +33,24 @@ export const Signup = () => {
 
   async function confirmUser() {
     await initializeUser(userType.toLowerCase());
-    await context.setUser({...context.user, type: userType})
+    await context.setUser({...context.user, type: userType.toLowerCase()})
   }
 
   async function updateUserLanguages(e) {
     var checked = [...document.querySelectorAll('input[type=checkbox]:checked')];
-
     await setUserLanguages(checked.map(item => item.value));
+    await getUser().then(data => {
+      context.setUser(data)
+    });
   }
 
   const Main = (
-    <div>
-      <Link to="/">
-        <div className="flex flex-row items-center justify-between border-b p-4">
-          <div className="flex flex-row items-center">
-            <Logo />
-            <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
-          </div>
+    <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
+        <div className="ml-10 mt-6 mb-10 pt-3 flex flex-col justify-center items-center">
+            <h4 className="text-4xl text-gray-900 mb-6">Create an account</h4>
+            <GoogleBtn label="Signup with Google" handleClick={() => login()}/>
+            <p className="text-sm text-gray-400 italic mt-6">Create your account to fully experience the app</p>
         </div>
-      </Link>
-      
-      <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
-          <div className="ml-10 mt-6 mb-10 pt-3 flex flex-col justify-center items-center">
-              <h4 className="text-4xl text-gray-900 mb-6">Create an account</h4>
-              <GoogleBtn label="Signup with Google" handleClick={() => login()}/>
-              <p className="text-sm text-gray-400 italic mt-6">Create your account to fully experience the app</p>
-          </div>
-      </div>
-
-      <div className="fixed w-full bottom-0">
-          <Footer />
-      </div>
     </div>
   );
 
@@ -75,9 +62,20 @@ export const Signup = () => {
 
   return (
     <div>
+      <Link to="/">
+        <div className="flex flex-row items-center justify-between border-b p-4">
+          <div className="flex flex-row items-center">
+            <Logo />
+            <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
+          </div>
+        </div>
+      </Link>
       { !context.loggedIn && Main }
       { (context.loggedIn && !context.user.type) && TypeSelection }
       { (context.loggedIn && context.user.type ) && ( <LanguageForm userType={userType} action={updateUserLanguages} /> ) }
+      <div className="fixed w-full bottom-0">
+          <Footer />
+      </div>
     </div>
   )
 }

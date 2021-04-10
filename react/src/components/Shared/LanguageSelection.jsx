@@ -3,7 +3,7 @@ import { fetchAllLanguages } from '../../api.js';
 import { AuthContext } from '../../auth';
 import { SmallBtn } from '../Buttons/SmallBtn';
 
-export const LanguageSelection = ( { action } ) => {
+export const LanguageSelection = ({ action }) => {
 	const [languages, setLanguages] = useState(null);
 	const [chosen, setChosen] = useState([]);
 	const context = useContext(AuthContext);
