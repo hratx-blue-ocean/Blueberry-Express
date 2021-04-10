@@ -8,6 +8,7 @@ import { SmallBtn } from '../Buttons/SmallBtn';
 import { ReviewsContainer } from '../UserProfile/ReviewsContainer';
 import { LanguageSelection } from '../Shared/LanguageSelection';
 import { AuthContext } from '../../auth';
+import { setUserLanguages } from './../../api.js';
 import './UserProfile.css';
 import axios from 'axios';
 
@@ -21,6 +22,13 @@ export const UserProfile = ( { userType } ) => {
         setPage(e.target.innerHTML);
     }
 
+    function submitChange(e) {
+        e.preventDefault();
+        e.target.style.backgroundColor = 'green';
+        const selected = [...document.querySelectorAll('input[type=checkbox]:checked')];
+        setUserLanguages(selected.map(({value}) => value))
+            .then(() => e.target.style.backgroundColor = null);
+    }
 
 
     //main page
@@ -69,7 +77,7 @@ export const UserProfile = ( { userType } ) => {
                     <div className="flex justify-around mt-5">
                 </div>
                     <div className="container flex justify-around">
-                        <LanguageSelection/>
+                        <LanguageSelection action={submitChange}/>
                     </div>
                 </div>
                 <Footer />
