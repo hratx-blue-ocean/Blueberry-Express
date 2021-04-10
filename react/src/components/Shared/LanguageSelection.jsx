@@ -4,7 +4,8 @@ import { AuthContext } from '../../auth';
 import { MediumBtn } from '../Buttons/MediumBtn';
 import { setUserLanguages } from './../../api.js';
 
-export const LanguageSelection = () => {
+
+export const LanguageSelection = ({ action }) => {
 	const [languages, setLanguages] = useState(null);
 	const [chosen, setChosen] = useState([]);
 	const context = useContext(AuthContext);
@@ -28,6 +29,7 @@ export const LanguageSelection = () => {
 		}
 	}, [chosen])
 
+
 	function submitChange(e) {
 		e.preventDefault();
 		e.target.style.backgroundColor = 'green';
@@ -39,17 +41,19 @@ export const LanguageSelection = () => {
 	if (languages) {
 		return (
 			<div className="profile-language-container">
+				<h1 className="text-center text-2xl pt-5 underline font-bold mb-12">Languages</h1>
 				<div id="language-selection" className="profile-lang-container">
-				<h1 className="text-center text-2xl pt-5 underline font-bold">Languages</h1>
 					{languages.languages.map(language => (
-						<label className="" key={language.id}>
-							<input type="checkbox" className="" id={language.name} value={language.id} />
-							<span className="">{language.name}</span>
-						</label>
+						<div className="language-selection">
+							<label className="" key={language.id}>
+								<input type="checkbox" className="" id={language.name} value={language.id} />
+								<span className="ml-2">{language.name}</span>
+							</label>
+						</div>
 					))}
-					<div className="">
-						<MediumBtn label="Submit" handleClick={submitChange} />
-					</div>
+				</div>
+				<div className="personal-info-button mt-16">
+					<MediumBtn label="Submit" handleClick={submitChange} />
 				</div>
 				<img className="profile-info-img" src="/assets/languagesinfo.png"></img>
 			</div>

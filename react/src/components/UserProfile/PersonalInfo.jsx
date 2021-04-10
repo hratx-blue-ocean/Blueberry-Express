@@ -14,7 +14,7 @@ export const PersonalInfo = () => {
           <img width="200" height="200" className="personal-info-image shadow-xl" src={context.user.profileImg} />
           <div className="personal-info-bio">
               <p className="text-xl pb-5"><span className="profile-info-span mr-1">Name:</span> {context.user.name}</p>
-              <p className="text-xl"><span className="profile-info-span mr-1">Bio:</span> Thinker. Devoted pop culture scholar. Music practitioner. Award-winning alcohol geek. Web fan.</p>
+              <p className="text-xl"><span className="profile-info-span mr-1">Bio:</span> Food aficionado. Avid introvert. Creator. Internet enthusiast. Unapologetic twitter guru. Analyst. Gamer.</p>
           </div>
         </div>
         <div className="personal-info-button mt-16">
