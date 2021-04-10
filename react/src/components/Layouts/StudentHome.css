@@ -33,12 +33,12 @@
 }
 
 .logo-image {
-  margin: 2px;
+  /* margin: 2px; */
   margin-left: 20px;
   background: transparent;
   padding: 1px;
-  width: 55px;
-  height: 55px;
+  width: 80px;
+  height: 65px;
 }
 
 .nav-links {

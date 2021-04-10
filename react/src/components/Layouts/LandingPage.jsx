@@ -12,7 +12,7 @@ export const LandingPage = (props) => {
             <div className="flex flex-row items-center justify-between border-b p-4">
                 <div className="flex flex-row items-center">
                     <Logo />
-                    <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
+                    <h1 className="text-2xl text-gray-800 font-bold italic mt-3 -ml-8">Blueberry Express</h1>
                 </div>
                 { context.loggedIn ? <Link to={`/${context.user.type}home`}><LargeBtn label="Dashboard" /></Link> : (<Link to="/login">
                     <LargeBtn label='Login'/>
