@@ -7,7 +7,7 @@ import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
 import { initializeUser, addUserLanguage } from '../../api.js';
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
-import { AuthContext } from '../../auth';
+import { AuthContext, login } from '../../auth';
 
 export const Signup = () => {
   const context = useContext(AuthContext);
@@ -59,7 +59,7 @@ export const Signup = () => {
       <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
           <div className="ml-10 mt-6 mb-10 pt-3 flex flex-col justify-center items-center">
               <h4 className="text-4xl text-gray-900 mb-6">Create an account</h4>
-              <GoogleBtn label="Signup with Google"/>
+              <GoogleBtn label="Signup with Google" handleClick={() => login()}/>
               <p className="text-sm text-gray-400 italic mt-6">Create your account to fully experience the app</p>
           </div>
       </div>

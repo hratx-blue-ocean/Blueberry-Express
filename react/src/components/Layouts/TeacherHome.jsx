@@ -5,14 +5,20 @@ import { TeacherAppointmentContainer } from '../TeacherOnly/TeacherAppointmentCo
 import { TeacherMessageContainer } from '../Shared/TeacherMessageContainer.jsx';
 import { Footer } from '../Shared/Footer.jsx';
 import './StudentHome.css';
-import { fetchAllMessages } from '../../api.js';
+import { fetchAllMessages, fetchAppointments } from '../../api.js';
 import { AuthContext } from '../../auth';
 
 export const TeacherHome = () => {
   const context = useContext(AuthContext);
   const [teacherMessages, setTeacherMessages] = useState([]);
+  const [teacherAppointments, setTeacherAppointments] = useState(null);
 
   useEffect(() => {
+    fetchAppointments()
+    .then(data => {
+      setTeacherAppointments(data.appointments);
+    })
+
     fetchAllMessages()
       .then(data => {
         setTeacherMessages(data.messages);
@@ -31,7 +37,7 @@ export const TeacherHome = () => {
       </div>
       <h1 className="welcome-teacher">Welcome back, {context.user.name}!</h1>
       <div className="flex justify-around mt-5">
-        <TeacherAppointmentContainer />
+        <TeacherAppointmentContainer teacherAppointments={teacherAppointments}/>
         <TeacherMessageContainer messages={teacherMessages}/>
       </div>
       <Footer />

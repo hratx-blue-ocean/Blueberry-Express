@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import { LargeBtn } from '../Buttons/LargeBtn';
+import { CompleteBtn } from '../Buttons/CompleteBtn';
 import { RescheduleModal } from '../Modals/RescheduleModal.jsx';
 import { updateAppointmentRequest, deleteAppointment } from '../../api';
 import { ReviewModal } from '../Modals/ReviewModal.jsx';
@@ -31,30 +31,20 @@ export const TeacherAppointment = ({ appointment }) => {
   const[checked, setChecked] = useState(false);
   const[clear, setClear] = useState(false);
   const classes = useStyles();
-
-  // {
-  //   "with": {
-  //     "id": 1001,
-  //     "name": "Kate D",
-  //     "email": "katespb98@gmail.com",
-  //     "googleKey": "116841410873596401606",
-  //     "calendarId": "c477flh6pj1qrip7nc1blg0870@group.calendar.google.com",
-  //     "bio": null,
-  //     "profileImg": "https://lh3.googleusercontent.com/a-/AOh14GiEiB0R1Mm3_ecpVu5dIq7h1AbEh9hIIC9jWmIZEg=s96-c",
-  //     "timezone": 0,
-  //     "lastLogin": "2021-04-09",
-  //     "zoomLink": null,
-  //     "student": true,
-  //     "refreshToken": "1//0flMNdne7qhNNCgYIARAAGA8SNwF-L9Ir5O5q3ojAfJIcLIVNagMbwWvpHGpRvFmy3U-cLW7sFTGBf33TijIrLvO75ylUN8VZFJE"
-  //   },
-  //   "pending": true,
-  //   "approved": false,
-  //   "start": "2021-04-10T15:00:00Z",
-  //   "end": "2021-04-11T17:00:00Z"
-  // }
   let appointmentDate = new Date(appointment.start);
   let appointmentStart = new Date(appointment.start);
   let appointmentEnd = new Date(appointment.end);
+
+  const answerAppointment = async (answer) => {
+    await updateAppointmentRequest(appointment.id, answer);
+
+    if (answer) {
+      setChecked(true);
+    } else {
+      setClear(true)
+    }    
+  }
+
   return (
     <div className="individual-appointment">
       {clear ? 
@@ -74,14 +64,14 @@ export const TeacherAppointment = ({ appointment }) => {
               <>
                 <RescheduleModal name={appointment.with.name} reschedule={setClear} id={appointment.with.id}/>
                 {/* <ReviewModal name={appointment.with} reschedule={setClear}/> */}
-                <LargeBtn label="Complete" handleClick={setClear} />
+                <CompleteBtn label="Complete" handleClick={setClear} appointmentId={appointment.with.id}/>
               </>
             :
               <>
-                <IconButton className={classes.check} onClick={() => {setChecked(true)}}>
+                <IconButton className={classes.check} onClick={() => {answerAppointment(true)}}>
                   <CheckIcon />
                 </IconButton>
-                <IconButton className={classes.clear} onClick={() => {setClear(true)}}>
+                <IconButton className={classes.clear} onClick={() => {answerAppointment(false)}}>
                   <ClearIcon />
                 </IconButton>
               </>
