@@ -46,7 +46,7 @@ export const LanguageSelection = ({ action }) => {
 					</label>
 				))}
 				<div className="absolute bottom-0 right-0">
-					<SmallBtn label="submit" handleClick={ action ? action : submitChange}/>
+					<SmallBtn label="submit" handleClick={action}/>
 				</div>
 			</div>
 		);
