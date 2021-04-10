@@ -129,6 +129,10 @@
   margin: 5px;
 }
 
+.individual-teacher-bio {
+  width: 40%;
+}
+
 .welcome-back {
   font-size: 1.3em;
   margin-bottom: 7px;
