@@ -46,27 +46,28 @@ export const Signup = () => {
   }
 
   const Main = (
-      <div>
+    <div>
+      <Link to="/">
         <div className="flex flex-row items-center justify-between border-b p-4">
-          <Link to="/">
-            <div className="nav-logo">
-              <TransparentLogo />
-            </div>
-          </Link>
+          <div className="flex flex-row items-center">
+            <Logo />
+            <h1 className="text-2xl text-gray-800 font-bold italic mt-3 ml-4">Blueberry Express</h1>
+          </div>
         </div>
-
-        <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
-            <div className="ml-10 mt-6 mb-10 pt-3 flex flex-col justify-center items-center">
-                <h4 className="text-4xl text-gray-900 mb-6">Create an account</h4>
-                <GoogleBtn label="Signup with Google"/>
-                <p className="text-sm text-gray-400 italic mt-6">Create your account to fully experience the app</p>
-            </div>
-        </div>
-
-        <div className="fixed w-full bottom-0">
-            <Footer />
-        </div>
+      </Link>
+      
+      <div className="flex max-w-md mx-auto my-16 p-6 bg-white rounded-lg shadow-xl">
+          <div className="ml-10 mt-6 mb-10 pt-3 flex flex-col justify-center items-center">
+              <h4 className="text-4xl text-gray-900 mb-6">Create an account</h4>
+              <GoogleBtn label="Signup with Google"/>
+              <p className="text-sm text-gray-400 italic mt-6">Create your account to fully experience the app</p>
+          </div>
       </div>
+
+      <div className="fixed w-full bottom-0">
+          <Footer />
+      </div>
+    </div>
   );
 
   const TypeSelection = (
@@ -77,7 +78,6 @@ export const Signup = () => {
 
   return (
     <div>
-      <Logo />
       { !context.loggedIn && Main }
       { (context.loggedIn && !context.user.type) && TypeSelection }
       { (context.loggedIn && context.user.type ) && ( <LanguageForm userType={userType} action={updateUserLanguages} /> ) }
