@@ -24,7 +24,6 @@ AuthRouter.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/auth/failed', session: false }),
   function (req, res) {
-    const postBackUri = 'http://localhost:8080';
     const token = req.user;
 
     res.send(`
@@ -48,7 +47,7 @@ AuthRouter.get(
           info: {
             token: "${token}",
           },
-        }, "${postBackUri}");
+        }, "*");
       </script>
     </body>
   </html>
