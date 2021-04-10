@@ -20,10 +20,6 @@ export const CalendarView = () => {
     })
   }, [])
 
-  useEffect(() => {
-    console.log('state:', appts);
-  }, [appts])
-
   function parseData(data) {
     return data.map(apptInfo => {
       let color = apptInfo.pending === false ? 'orange' : 'green';
