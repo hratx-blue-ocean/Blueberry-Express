@@ -147,12 +147,14 @@ export function sendAppointmentRequest(withUser, start, end) {
   const options = {
     method: 'post',
     url: '/appointments',
-    params: {withUser, start, end}
+    data: {
+      with: withUser,
+      start: start,
+      end: end
+    }
   };
 
-  return axios(options).then(res => {
-    return res.json();
-  })
+  return axios(options)
   .catch(err => {
     console.error(err);
   });
