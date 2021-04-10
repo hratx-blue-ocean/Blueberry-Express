@@ -32,7 +32,6 @@ weekDays.forEach(() => {
   dates[day.getDay()] = new Date(day);
   day.setDate(day.getDate() + 1);
 })
-console.log(dates);
 
 export const SetAvailabilityModal = ({ name, id }) => {
   const classes = useStyles();
@@ -94,7 +93,7 @@ export const SetAvailabilityModal = ({ name, id }) => {
             const timeBlocks = [];
             for (let i = 0; i < numBlocks[index]; i++) {
               timeBlocks.push(
-                <div className="flex p-2 mb-2 text-center">
+                <div key={i} className="flex p-2 mb-2 text-center">
                   <div className="mr-10">
                     <p className="text-lg underline mb-1">From:</p>
                     <input className="text-black p-1 rounded-md" type="time" id={day + '-' + i + '-start'} />
@@ -107,7 +106,7 @@ export const SetAvailabilityModal = ({ name, id }) => {
               );
             }
             return (
-              <div>
+              <div key={day}>
                 <div className="flex flex-col items-center border border-gray shadow-xl p-1 rounded-md m-4">
                   <h2>{day}:</h2>
                   {timeBlocks}
