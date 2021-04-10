@@ -5,7 +5,7 @@ import { Logo } from '../Shared/Logo'
 import { Footer } from '../Shared/Footer'
 import { LanguageForm } from '../Forms/LanguageForm';
 import { UserTypeForm } from '../Forms/UserTypeForm';
-import { initializeUser, addUserLanguage } from '../../api.js';
+import { initializeUser, setUserLanguages } from '../../api.js';
 import { TransparentLogo } from '../Shared/TransparentLogo.jsx';
 import { AuthContext, login } from '../../auth';
 
@@ -38,11 +38,8 @@ export const Signup = () => {
 
   async function updateUserLanguages(e) {
     var checked = [...document.querySelectorAll('input[type=checkbox]:checked')];
-    await Promise.all(checked.map(async (language) => {
-      addUserLanguage(language.value)
-    }));
 
-    await context.setUser({...context.user, languages: checked})
+    await setUserLanguages(checked.map(item => item.value));
   }
 
   const Main = (
