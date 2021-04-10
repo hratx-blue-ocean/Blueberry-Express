@@ -22,7 +22,7 @@ export const CalendarView = () => {
 
   function parseData(data) {
     return data.map(apptInfo => {
-      let color = apptInfo.pending === false ? 'orange' : 'green';
+      let color = apptInfo.pending === true ? 'orange' : 'green';
       let appointment = {
         title: apptInfo.with.name,
         date: apptInfo.start,

@@ -42,17 +42,17 @@ export const TeacherAppointment = ({ appointment }) => {
       setChecked(true);
     } else {
       setClear(true)
-    }    
+    }
   }
 
   return (
     <div className="individual-appointment">
-      {clear ? 
+      {clear ?
           <h1 className="text-3xl">Cleared</h1>
         :
         <>
           <div className="appointment-info text-left">
-            <p className="pb-1 text-lg"><span>Teacher:</span> {appointment.with.name}</p>
+            <p className="pb-1 text-lg"><span>Student:</span> {appointment.with.name}</p>
             <p className="pb-1">Date: {appointmentDate.toLocaleDateString()}</p>
             <p className="pb-1">Start: {appointmentStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
             <p className="pb-1 mb-2">End: {appointmentEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
