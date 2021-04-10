@@ -98,27 +98,19 @@ UsersRouter.delete('/languages/:languageId', (req, res) => {
     });
 });
 
-UsersRouter.get('/:userId/availability', (req, res) => {
+UsersRouter.get('/:userId/availability', async (req, res) => {
   // returns an array of busy start/end time objects
-  let selectedUserRefreshTkn = db.user.findOne({ where: { googleKey: req.params.userId } }).then((user) => {
-    return {
-      refreshToken: user.refreshToken,
-      calendarId: user.calendarId,
-    };
-  });
-
-  Promise.resolve(selectedUserRefreshTkn).then((userInfo) => {
-    let newToken = refresh(userInfo.refreshToken);
-    Promise.resolve(newToken).then((accessToken) => {
-      Calendar.freeBusy(accessToken, req.refreshToken, userInfo.calendarId, req.query.start, req.query.end)
-        .then((response) => {
-          res.json(response.data);
-        })
-        .catch((err) => {
-          res.setStatus(400).send(err);
-        });
-    });
-  });
+  const user = await db.user.findOne({ where: { id: req.params.userId } });
+  if (!user) return res.sendStatus(400);
+  try {
+    const accessToken = await refresh(user.refreshToken);
+    const freeBusy = await Calendar.freeBusy(accessToken, user.calendarId);
+    res.json(freeBusy);
+  } catch (e) {
+    console.log(e.message);
+    res.status((e.response && e.response.status) || 400);
+    res.send(e.message);
+  }
 });
 
 UsersRouter.post('/users/availability', (req, res) => {

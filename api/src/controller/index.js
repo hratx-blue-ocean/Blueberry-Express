@@ -228,12 +228,12 @@ Calendar.freeBusy = (accessToken, calendarId, timeStart, timeEnd) => {
     timeStart = new Date().toISOString();
   }
   if (timeEnd === undefined) {
-    var oneWeek = newDate().valueOf() + 86400000 * 7;
-    timeEnd = newDate(oneWeek).toISOString(); // one week later
+    var oneWeek = new Date().valueOf() + 86400000 * 7;
+    timeEnd = new Date(oneWeek).toISOString(); // one week later
   }
   // iso 8601
   let body = {
-    timemin: timeStart,
+    timeMin: timeStart,
     timeMax: timeEnd,
     timeZone: 'US/Central',
     groupExpansionMax: 50,
@@ -242,7 +242,7 @@ Calendar.freeBusy = (accessToken, calendarId, timeStart, timeEnd) => {
   };
 
   return axios
-    .get('https://www.googleapis.com/calendar/v3/freeBusy', body, {
+    .post('https://www.googleapis.com/calendar/v3/freeBusy', body, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
