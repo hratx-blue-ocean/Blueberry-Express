@@ -118,23 +118,23 @@ UsersRouter.post('/availability', async (req, res) => {
    * So, the general workflow here is to setup recurring weekly events, with the summary '{DayOfWeek} Unavailable'.
    * In order to do that, we need to delete all previous events in the calendar with the summary '{DayOfWeek} Unavailable', and then set new ones
    */
-  // Step 0, get accessToken
   try {
+    // Step 0, get accessToken
     const accessToken = await refresh(req.user.refreshToken);
+
     // Step 1 get all events
     const events = (await Calendar.listEvents(accessToken, req.user.calendarId)).items;
+
     // Step 2, filter to the 'recurring events' with the name '{DayOfWeek} Unavailable'
     const recurring = events.filter((e) => e.recurrence && e.summary.includes('Unavailable'));
-    console.log(recurring.length);
-    console.log(req.user.calendarId);
-    console.log(recurring[0].id);
 
     // Step 3, Delete those recurring events.
     const results = await Promise.all(
       recurring.map(({ id }) => Calendar.deleteEvent(accessToken, req.user.calendarId, id))
     );
     console.log(results);
-    // Step 4, create new recurring events for each day.
+
+    // Step 4, create new recurring events for each day that was sent.
     const promises = [];
     Object.keys(req.body).forEach((day) => {
       req.body[day].forEach((busyBlock) => {
