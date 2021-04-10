@@ -34,15 +34,12 @@ export const UserProfile = ( { userType } ) => {
                     <Nav/>
                 </div>
             </div>
-            <div className="flex justify-center">
-                Profile
-            </div>
+
             <div className="flex gap-20">
                 <MenuSettings userType={context.user.type} curPage={page} action={choosePage}/>
                 <div className="flex justify-around mt-5"></div>
                     <PersonalInfo/>
                 <div className="smallbtn2">
-                    <SmallBtn label={'Submit'}/>
                 </div>
             </div>
             <Footer />
@@ -61,14 +58,11 @@ export const UserProfile = ( { userType } ) => {
                         <Nav />
                     </div>
                 </div>
-                <div className="flex justify-center ml-80">
-                    Language Selection
-                </div>
                 <div className="flex gap-20">
                     <MenuSettings userType={context.user.type} curPage={page} action={choosePage}/>
                     <div className="flex justify-around mt-5">
                 </div>
-                    <div className="container flex justify-around">
+                    <div >
                         <LanguageSelection/>
                     </div>
                 </div>

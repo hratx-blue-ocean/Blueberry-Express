@@ -11,7 +11,7 @@ export const Teacher = ({ user }) => {
         <ProfilePic url={user.profileImg} name={user.name}/>
       </div>
       <div>
-        <p className="mb-5"> Hello I am happy to be here and teach.{user.bio}</p>
+        <p className="mb-5">Hello I am happy to be here and teach.{user.bio}</p>
         <p>Languages: {user.languages.map(({name}) => name).join(', ')}</p>
       </div>
       <div>

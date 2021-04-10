@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { MediumBtn } from '../Buttons/MediumBtn';
-import { XLargeBtn } from '../Buttons/XLargeBtn';
+import { MattsBtn } from '../Buttons/MattsBtn';
 import CloseIcon from '@material-ui/icons/Close';
 import { sendAppointmentRequest } from '../../api';
 
@@ -81,7 +81,7 @@ export const AvailabilityModal = ({ name, id }) => {
           <input onChange={(e) => { setEndTime(e.target.value) }} className="text-black p-1 rounded-md" type="time" />
         </div>
       </div>
-      <XLargeBtn className="p-2" label="Submit" handleClick={sendNewAppointment} />
+      <MattsBtn className="p-2" label="Submit" handleClick={sendNewAppointment} />
     </div>
   );
 
