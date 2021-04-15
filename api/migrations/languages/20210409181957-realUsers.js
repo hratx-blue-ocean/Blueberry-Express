@@ -16,7 +16,7 @@ exports.setup = function (options, seedLink) {
 
 exports.up = function (db) {
   return db.runSql(`
-    INSERT INTO 
+    INSERT INTO
       user_languages (user_id, language_id)
     VALUES
       (100, 1),
@@ -74,7 +74,7 @@ exports.up = function (db) {
       (106, 5),
       (106, 6),
       (106, 7),
-      (106, 8),
+      (106, 8)
   `);
 };
 

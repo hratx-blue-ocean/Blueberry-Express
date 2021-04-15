@@ -129,12 +129,15 @@
   margin: 5px;
 }
 
+.individual-teacher-bio {
+  width: 45%;
+}
+
 .welcome-back {
   font-size: 1.3em;
   margin-bottom: 7px;
   text-shadow: 1px 1px 2px #d2e1ffab;
 }
-
 
 /* ------- Shared Messages -------- */
 
