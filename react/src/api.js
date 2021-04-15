@@ -165,7 +165,7 @@ export function updateAppointmentRequest(appointmentId, approve) {
   const options = {
     method: 'put',
     url: `/appointments/${appointmentId}`,
-    params: {approve}
+    data: {approve}
   };
 
   return axios(options)

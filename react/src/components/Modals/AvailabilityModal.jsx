@@ -44,13 +44,13 @@ export const AvailabilityModal = ({ name, id }) => {
 
 
 
-  const sendNewAppointment = () => {
+  const sendNewAppointment = async () => {
     let start = new Date(`${startDate} ${startTime}`);
     let startIso = start.toISOString();
     let end = new Date(`${startDate} ${endTime}`);
     let endIso = end.toISOString();
 
-    sendAppointmentRequest(id, startTime, endTime);
+    await sendAppointmentRequest(id, startIso, endIso);
     handleClose();
   }
 

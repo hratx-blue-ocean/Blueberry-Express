@@ -41,7 +41,7 @@ MessagesRouter.get('/', (req, res) => {
         count: count,
         totalCount: filtered.length,
         page: page,
-        messages: filtered.slice((page - 1) * count, page * count),
+        messages: filtered,
       });
     })
     .catch((err) => {
@@ -84,7 +84,7 @@ MessagesRouter.get('/unread', (req, res) => {
         count: count,
         totalCount: filtered.length,
         page: page,
-        messages: filtered.slice((page - 1) * count, page * count),
+        messages: filtered,
       });
     })
     .catch((err) => {
@@ -127,7 +127,7 @@ MessagesRouter.get('/sent', (req, res) => {
         count: count,
         totalCount: filtered.length,
         page: page,
-        messages: filtered.slice((page - 1) * count, page * count),
+        messages: filtered,
       });
     })
     .catch((err) => {
